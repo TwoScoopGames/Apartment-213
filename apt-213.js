@@ -2,8 +2,9 @@ var canvas = document.getElementById("game");
 
 var manifest = {
 	"images": {
-		"bg": 		"images/bg-cat-1f4544x640.png",
-		"mouse": 	"images/mouse-1f61x28.png"
+		"bg": "images/bg-mouse-1f4544x640.png",
+		"bgCat": "images/bg-cat-1f4544x640.png",
+		"mouse": "images/mouse-1f61x28.png"
 	},
 	"sounds": {
 	},
@@ -20,7 +21,7 @@ var loading = new Splat.Scene(canvas, function(elapsedMillis) {
 	if (apt213.isLoaded()) {
 		assetsLoaded();
 		loading.stop();
-		scene1.start();
+		scene2.start();
 	}
 },
 function(context) {
@@ -46,13 +47,67 @@ function assetsLoaded() {
 	scene1.camera.y = -canvas.height + 100 + player.height;
 	
 	//stage2
-//	scene2.camera = new Splat.EntityBoxCamera(player, 400, canvas.height, canvas.width/2, canvas.eight/2);
-//	scene2.camera.y = -canvas.height + 100 + player.height;
+	scene2.camera = new Splat.EntityBoxCamera(player, 400, canvas.height, canvas.width/2, canvas.eight/2);
+	scene2.camera.y = -canvas.height + 100 + player.height;
 	
+}
+
+function logMouseClick() {
+	if (apt213.mouse.buttons[0]) {
+		var mx = scene1.camera.x + apt213.mouse.x;
+		var my = scene1.camera.y + apt213.mouse.y;
+		console.log("click at " + mx + ", " + my);
+		apt213.mouse.buttons[0] = false;
+	}
 }
 
 //**************** SCENE 1 ***********************
 scene1 = new Splat.Scene(canvas, function(elapsedMillis) {
+	logMouseClick();
+
+	for (var i in furniture) {
+		furniture[i].move(elapsedMillis);
+	}
+	player.move(elapsedMillis);
+
+	for (var i in furniture) {
+		var f = furniture[i];
+		if (player.collides(f)) {
+			player.resolveCollisionWith(f);
+		}
+	}
+
+	player.vx *= 0.5;
+	player.vy *= 0.75;
+	if (apt213.keyboard.isPressed("left")) {
+		player.vx = -0.7;
+	}
+	if (apt213.keyboard.isPressed("right")) {
+		player.vx = 0.7;
+	}
+	if (apt213.keyboard.isPressed("up")) {
+		player.vy = -0.2;
+	}
+	if (apt213.keyboard.isPressed("down")) {
+		player.vy = 0.2;
+	}
+},
+function(context) {
+	scene1.camera.drawAbsolute(context, function() {
+		context.fillStyle = "#cccccc";
+		context.fillRect(0, 0, canvas.width, canvas.height);
+	});
+	context.drawImage(apt213.images.get("bg"), 0, -canvas.height + 100 + player.height);
+
+	for (var i in furniture) {
+		furniture[i].draw(context);
+	}
+
+	player.draw(context);
+});
+
+//**************** SCENE 2 ***********************
+scene2 = new Splat.Scene(canvas, function(elapsedMillis) {
 	for (var i in furniture) {
 		furniture[i].move(elapsedMillis);
 	}
@@ -92,11 +147,11 @@ scene1 = new Splat.Scene(canvas, function(elapsedMillis) {
 	}
 },
 function(context) {
-	scene1.camera.drawAbsolute(context, function() {
+	scene2.camera.drawAbsolute(context, function() {
 		context.fillStyle = "#cccccc";
 		context.fillRect(0, 0, canvas.width, canvas.height);
 	});
-	context.drawImage(apt213.images.get("bg"), 0, -canvas.height + 100 + player.height);
+	context.drawImage(apt213.images.get("bgCat"), 0, -canvas.height + 100 + player.height);
 
 	for (var i in furniture) {
 		furniture[i].draw(context);
@@ -104,57 +159,3 @@ function(context) {
 
 	player.draw(context);
 });
-
-//**************** SCENE 2 ***********************
-//scene2 = new Splat.Scene(canvas, function(elapsedMillis) {
-//	for (var i in furniture) {
-//		furniture[i].move(elapsedMillis);
-//	}
-//	player.move(elapsedMillis);
-//
-//	for (var i in furniture) {
-//		var f = furniture[i];
-//		if (player.collides(f)) {
-//			if (player.didOverlapHoriz(f) && player.wasAbove(f)) {
-//				player.y = f.y - player.height - 0.01;
-//			}
-//			if (player.didOverlapHoriz(f) && player.wasBelow(f)) {
-//				player.y = f.y + f.height + 0.01;
-//			}
-//			if (player.didOverlapVert(f) && player.wasLeft(f)) {
-//				player.x = f.x - player.width - 0.01;
-//			}
-//			if (player.didOverlapVert(f) && player.wasRight(f)) {
-//				player.x = f.x + f.width + 0.01;
-//			}
-//		}
-//	}
-//
-//	player.vx *= 0.5;
-//	player.vy *= 0.75;
-//	if (apt213.keyboard.isPressed("left")) {
-//		player.vx = -0.7;
-//	}
-//	if (apt213.keyboard.isPressed("right")) {
-//		player.vx = 0.7;
-//	}
-//	if (apt213.keyboard.isPressed("up")) {
-//		player.vy = -0.2;
-//	}
-//	if (apt213.keyboard.isPressed("down")) {
-//		player.vy = 0.2;
-//	}
-//},
-//function(context) {
-//	scene2.camera.drawAbsolute(context, function() {
-//		context.fillStyle = "#cccccc";
-//		context.fillRect(0, 0, canvas.width, canvas.height);
-//	});
-//	context.drawImage(apt213.images.get("bg2"), 0, -canvas.height + 100 + player.height);
-//
-//	for (var i in furniture) {
-//		furniture[i].draw(context);
-//	}
-//
-//	player.draw(context);
-//});
