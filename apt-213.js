@@ -101,13 +101,23 @@ function setupScene1() {
 		new Splat.Entity(3466, -59, 151, 59)
 	];
 	scene1.goal = new Splat.Entity(4225, -60, 41, 11);
+	scene1.cheese = new Splat.Entity(2751, 22, 30, 30);
+	scene1.cheese.draw = function(context) {
+		context.fillStyle = "#ffff00";
+		context.fillRect(this.x, this.y, this.width, this.height);
+	}
+	scene1.hasCheese = false;
 }
 
 scene1 = new Splat.Scene(canvas, function(elapsedMillis) {
 	logMouseClick();
 	handleMovement(elapsedMillis);
+	scene1.cheese.move(elapsedMillis);
 
-	if (player.collides(scene1.goal)) {
+	if (player.collides(scene1.cheese)) {
+		scene1.hasCheese = true;
+	}
+	if (player.collides(scene1.goal) && scene1.hasCheese) {
 		scene1.stop();
 		setupScene2();
 		scene2.start();
@@ -138,6 +148,10 @@ function(context) {
 	for (var i in furniture) {
 		furniture[i].draw(context);
 	}
+	if (!scene1.hasCheese) {
+		scene1.cheese.draw(context);
+	}
+	scene1.goal.draw(context);
 
 	player.draw(context);
 });
