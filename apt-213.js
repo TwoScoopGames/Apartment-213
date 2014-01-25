@@ -8,7 +8,8 @@ var manifest = {
 		"tv": "images/tv1f209x268.png",
 		"tv-chair": "images/table-chair-1f288x161.png",
 		"table-legs": "images/table-legs1f553x51.png",
-		"table-top": "images/table-top1f599x183.png"
+		"table-top": "images/table-top1f599x183.png",
+		"cheese": "images/cheese-1f36x29.png"
 	},
 	"sounds": {
 	},
@@ -111,12 +112,11 @@ function setupScene1() {
 		new Splat.Entity(3464, 470, 151, 64), // counter
 		new Splat.Entity(4057, 471, 178, 83), // fridge
 	];
-	scene1.goal = new Splat.Entity(4225, 471, 41, 11);
-	scene1.cheese = new Splat.Entity(2751, 552, 30, 30);
-	scene1.cheese.draw = function(context) {
-		context.fillStyle = "#ffff00";
-		context.fillRect(this.x, this.y, this.width, this.height);
-	}
+	scene1.goal = new Splat.Entity(4269, 472, 31, 9);
+
+	var cheeseImg = apt213.images.get("cheese");
+	scene1.cheese = new Splat.AnimatedEntity(2751, 552, cheeseImg.width, cheeseImg.height, cheeseImg, 0, 0);
+
 	scene1.hasCheese = false;
 	scene1.cat = new Splat.AnimatedEntity(3242, -21, 80, 15, apt213.images.get("cat"), -40, -73);
 }
