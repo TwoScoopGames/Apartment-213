@@ -100,7 +100,6 @@ function constrainPlayerToFloor(entity) {
 function setupScene1() {
 	player = new Splat.AnimatedEntity(673, 540, 40, 8, apt213.images.get("mouse"), -15, -20);
 	scene1.camera = new Splat.EntityBoxCamera(player, 400, canvas.height, canvas.width/2, canvas.height/2);
-	// scene1.camera.y = -canvas.height + 100 + player.height;
 	furniture = [
 		new Splat.Entity(1109, 586, 209, 34), // tv
 		new Splat.Entity(911, 483, 256, 20), // side table
@@ -219,26 +218,26 @@ function(context) {
 
 //**************** SCENE 2 ***********************
 function setupScene2() {
+	player = scene1.cat;
 	scene2.camera = new Splat.EntityBoxCamera(player, 400, canvas.height, canvas.width/2, canvas.height/2);
-	scene2.camera.y = -canvas.height + 100 + player.height;
 }
 
 scene2 = new Splat.Scene(canvas, function(elapsedMillis) {
 	handleMovement(elapsedMillis);
 
-	playerCat.vx *= 0.5;
-	playerCat.vy *= 0.75;
+	player.vx *= 0.5;
+	player.vy *= 0.75;
 	if (apt213.keyboard.isPressed("left")) {
-		playerCat.vx = -0.7;
+		player.vx = -0.7;
 	}
 	if (apt213.keyboard.isPressed("right")) {
-		playerCat.vx = 0.7;
+		player.vx = 0.7;
 	}
 	if (apt213.keyboard.isPressed("up")) {
-		playerCat.vy = -0.2;
+		player.vy = -0.2;
 	}
 	if (apt213.keyboard.isPressed("down")) {
-		playerCat.vy = 0.2;
+		player.vy = 0.2;
 	}
 },
 function(context) {
@@ -246,11 +245,11 @@ function(context) {
 		context.fillStyle = "#cccccc";
 		context.fillRect(0, 0, canvas.width, canvas.height);
 	});
-	context.drawImage(apt213.images.get("bgCat"), 0, -canvas.height + 100 + playerCat.height);
+	context.drawImage(apt213.images.get("bg"), 0, 0);
 
 	for (var i in furniture) {
 		furniture[i].draw(context);
 	}
 
-	playerCat.draw(context);
+	player.draw(context);
 });
