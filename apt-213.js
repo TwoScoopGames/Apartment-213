@@ -47,6 +47,7 @@ function assetsLoaded() {
 	player = new Splat.AnimatedEntity(673, -57, 40, 8, apt213.images.get("mouse"), -15, -20);
 	scene1.camera = new Splat.EntityBoxCamera(player, 400, canvas.height, canvas.width/2, canvas.eight/2);
 	scene1.camera.y = -canvas.height + 100 + player.height;
+	scene1.goal = new Splat.Entity(4225, -60, 41, 11);
 	
 	scene2.camera = new Splat.EntityBoxCamera(player, 400, canvas.height, canvas.width/2, canvas.eight/2);
 	scene2.camera.y = -canvas.height + 100 + player.height;
@@ -100,6 +101,11 @@ scene1 = new Splat.Scene(canvas, function(elapsedMillis) {
 		}
 	}
 	constrainPlayerToFloor();
+
+	if (player.collides(scene1.goal)) {
+		scene1.stop();
+		scene2.start();
+	}
 
 	player.vx *= 0.5;
 	player.vy *= 0.75;
