@@ -111,6 +111,7 @@ function setupScene1() {
 		new Splat.Entity(2860, 472, 198, 36), // hutch 2
 		new Splat.Entity(3464, 470, 151, 64), // counter
 		new Splat.Entity(4057, 471, 178, 83), // fridge
+		new Splat.Entity(4331, 471, 208, 98), // stove
 	];
 	scene1.goal = new Splat.Entity(4269, 472, 31, 9);
 
