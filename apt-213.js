@@ -12,6 +12,18 @@ var manifest = {
 		"cheese": "images/cheese-1f36x29.png"
 	},
 	"sounds": {
+		"cat-walk1": 		"audio/cat_walk1.wav",
+		"cat-walk2": 		"audio/cat_walk2.wav",
+		"title-screen": 	"audio/Devin_Magruder_music.mp3",
+		"explosion1": 		"audio/explosion1.wav",
+		"fade1": 			"audio/fade1.wav",
+		"landlord-knock": 	"audio/landlord_knock.wav",
+		"level-end-win1": 	"audio/level_end_win1.wav",
+		"mouse-baby-sound1":"audio/mouse_baby_sound1.wav",
+		"mouse-damage1": 	"audio/mouse_damage1.wav",
+		"mouse-damage2": 	"audio/mouse_damage2.wav",
+		"mouse-squeak": 	"audio/mouse_squeak1.wav",
+		"owl-bk-music": 	"audio/owl_bk_music.wav"
 	},
 	"fonts": [
 	]
@@ -162,6 +174,7 @@ scene1 = new Splat.Scene(canvas, function(elapsedMillis) {
 		scene1.hasCheese = true;
 	}
 	if (player.collides(scene1.cat)) {
+		apt213.sounds.play("mouse-damage2");
 		player.vx = -20.0;
 		if (scene1.hasCheese) {
 			scene1.hasCheese = false;
