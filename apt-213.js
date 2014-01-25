@@ -2,7 +2,7 @@ var canvas = document.getElementById("game");
 
 var manifest = {
 	"images": {
-		"bg": "images/bg-test1f2298x640.jpg",
+		"bg": "images/bg-mouse-1f4544x640.png",
 		"mouse": "images/mouse-1f61x28.png"
 	},
 	"sounds": {
