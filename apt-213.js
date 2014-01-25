@@ -43,8 +43,18 @@ function assetsLoaded() {
 	scene1.camera.y = -canvas.height + 100 + player.height;
 }
 
+function logMouseClick() {
+	if (apt213.mouse.buttons[0]) {
+		var mx = scene1.camera.x + apt213.mouse.x;
+		var my = scene1.camera.y + apt213.mouse.y;
+		console.log("click at " + mx + ", " + my);
+		apt213.mouse.buttons[0] = false;
+	}
+}
 
 scene1 = new Splat.Scene(canvas, function(elapsedMillis) {
+	logMouseClick();
+
 	for (var i in furniture) {
 		furniture[i].move(elapsedMillis);
 	}
