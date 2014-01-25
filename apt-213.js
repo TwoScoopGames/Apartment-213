@@ -51,10 +51,10 @@ function assetsLoaded() {
 
 var lmx = 0;
 var lmy = 0;
-function logMouseClick() {
+function logMouseClick(scene) {
 	if (apt213.mouse.buttons[0]) {
-		var mx = scene1.camera.x + apt213.mouse.x;
-		var my = scene1.camera.y + apt213.mouse.y;
+		var mx = scene.camera.x + apt213.mouse.x;
+		var my = scene.camera.y + apt213.mouse.y;
 		var w = mx - lmx;
 		var h = my - lmy;
 		lmx = mx;
@@ -140,7 +140,7 @@ function distanceFromCenters(entity1, entity2) {
 }
 
 scene1 = new Splat.Scene(canvas, function(elapsedMillis) {
-	logMouseClick();
+	logMouseClick(scene1);
 	handleMovement(elapsedMillis);
 	scene1.cheese.move(elapsedMillis);
 	cat.move(elapsedMillis);
@@ -225,10 +225,18 @@ function(context) {
 function setupScene2() {
 	player = cat;
 	scene2.camera = new Splat.EntityBoxCamera(player, 400, canvas.height, canvas.width/2, canvas.height/2);
+	scene2.goal = new Splat.Entity(3356, 473, 40, 20);
 }
 
 scene2 = new Splat.Scene(canvas, function(elapsedMillis) {
+	logMouseClick(scene2);
 	handleMovement(elapsedMillis);
+
+	if (player.collides(scene2.goal)) {
+		scene2.stop();
+		setupScene3();
+		scene3.start();
+	}
 
 	player.vx *= 0.5;
 	player.vy *= 0.75;
@@ -255,9 +263,63 @@ function(context) {
 	for (var i in furniture) {
 		furniture[i].draw(context);
 	}
+	scene2.goal.draw(context);
 
 	owl.draw(context);
 	player.draw(context);
+
+	context.drawImage(apt213.images.get("tv-chair"), 883, 360);
+	context.drawImage(apt213.images.get("tv"), 1108, 345);
+	context.drawImage(apt213.images.get("table-legs"), 2313, 472);
+	context.drawImage(apt213.images.get("table-top"), 2290, 410);
+});
+
+//**************** SCENE 3 ***********************
+function setupScene3() {
+	player = owl;
+	scene3.camera = new Splat.EntityBoxCamera(player, 400, canvas.height, canvas.width/2, canvas.height/2);
+	scene3.goal = new Splat.Entity(569, 493, 20, 70);
+}
+
+scene3 = new Splat.Scene(canvas, function(elapsedMillis) {
+	logMouseClick(scene3);
+	handleMovement(elapsedMillis);
+
+	if (player.collides(scene3.goal)) {
+		scene3.stop();
+		setupScene4();
+		scene4.start();
+	}
+
+	player.vx *= 0.5;
+	player.vy *= 0.75;
+	if (apt213.keyboard.isPressed("left")) {
+		player.vx = -0.7;
+	}
+	if (apt213.keyboard.isPressed("right")) {
+		player.vx = 0.7;
+	}
+	if (apt213.keyboard.isPressed("up")) {
+		player.vy = -0.2;
+	}
+	if (apt213.keyboard.isPressed("down")) {
+		player.vy = 0.2;
+	}
+},
+function(context) {
+	scene3.camera.drawAbsolute(context, function() {
+		context.fillStyle = "#cccccc";
+		context.fillRect(0, 0, canvas.width, canvas.height);
+	});
+	context.drawImage(apt213.images.get("bg"), 0, 0);
+
+	for (var i in furniture) {
+		furniture[i].draw(context);
+	}
+	scene3.goal.draw(context);
+
+	cat.draw(context);
+	owl.draw(context);
 
 	context.drawImage(apt213.images.get("tv-chair"), 883, 360);
 	context.drawImage(apt213.images.get("tv"), 1108, 345);
