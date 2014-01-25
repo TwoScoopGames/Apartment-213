@@ -53,18 +53,7 @@ scene1 = new Splat.Scene(canvas, function(elapsedMillis) {
 	for (var i in furniture) {
 		var f = furniture[i];
 		if (player.collides(f)) {
-			if (player.didOverlapHoriz(f) && player.wasAbove(f)) {
-				player.y = f.y - player.height - 0.01;
-			}
-			if (player.didOverlapHoriz(f) && player.wasBelow(f)) {
-				player.y = f.y + f.height + 0.01;
-			}
-			if (player.didOverlapVert(f) && player.wasLeft(f)) {
-				player.x = f.x - player.width - 0.01;
-			}
-			if (player.didOverlapVert(f) && player.wasRight(f)) {
-				player.x = f.x + f.width + 0.01;
-			}
+			player.resolveCollisionWith(f);
 		}
 	}
 
