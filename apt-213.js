@@ -36,7 +36,11 @@ loading.start();
 
 var player;
 var furniture = [
-	new Splat.Entity(100, -200, 100, 100)
+	new Splat.Entity(1102, 48, 202, 36),
+	new Splat.Entity(887, -25, 78, 13),
+	new Splat.Entity(1003, -61, 168, 50),
+	new Splat.Entity(100, -200, 100, 100),
+	new Splat.Entity(3466, -59, 151, 59)
 ];
 
 function assetsLoaded() {
@@ -49,10 +53,17 @@ function assetsLoaded() {
 	
 }
 
+var lmx = 0;
+var lmy = 0;
 function logMouseClick() {
 	if (apt213.mouse.buttons[0]) {
 		var mx = scene1.camera.x + apt213.mouse.x;
 		var my = scene1.camera.y + apt213.mouse.y;
+		var w = mx - lmx;
+		var h = my - lmy;
+		lmx = mx;
+		lmy = my;
+		console.log("box w="+w+", h="+h);
 		console.log("click at " + mx + ", " + my);
 		apt213.mouse.buttons[0] = false;
 	}
