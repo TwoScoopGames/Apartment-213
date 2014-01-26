@@ -17,7 +17,11 @@ var manifest = {
 		"bowl-empty": "images/cat-bowl-empty.png",
 		"bowl-full": "images/cat-bowl-full.png",
 		"can": "images/cat-food-can.png",
-		"knock": "images/knock-2f.png"
+		"knock": "images/knock-2f.png",
+		"door-frame-back": "images/doorframe-back.png",
+		"door-frame-front": "images/doorframe-front.png",
+		"door-open": "images/door-open.png",
+		"door-closed": "images/door-closed.png"
 	},
 	"sounds": {
 		"cat-walk1": 		"audio/cat_walk1.wav",
@@ -121,8 +125,8 @@ function collideWithFurniture(entity) {
 }
 
 function constrainPlayerToFloor(entity) {
-	if (entity.x < 568) {
-		entity.x = 568;
+	if (entity.x < 668) {
+		entity.x = 668;
 	}
 	if (entity.x + entity.width > 4543) {
 		entity.x = 4543 - entity.width;
@@ -316,6 +320,9 @@ function(context) {
 	context.drawImage(apt213.images.get("tv"), 1108, 345);
 	context.drawImage(apt213.images.get("table-legs"), 2163, 472);
 	context.drawImage(apt213.images.get("table-top"), 2140, 410);
+	context.drawImage(apt213.images.get("door-frame-back"), 642, 20);
+	context.drawImage(apt213.images.get("door-frame-front"), 536, 20);
+	context.drawImage(apt213.images.get("door-closed"), 596, 228);
 });
 
 //**************** SCENE 2 *****************************************
@@ -433,6 +440,9 @@ function(context) {
 	context.drawImage(apt213.images.get("tv"), 1108, 345);
 	context.drawImage(apt213.images.get("table-legs"), 2163, 472);
 	context.drawImage(apt213.images.get("table-top"), 2140, 410);
+	context.drawImage(apt213.images.get("door-frame-back"), 642, 20);
+	context.drawImage(apt213.images.get("door-frame-front"), 536, 20);
+	context.drawImage(apt213.images.get("door-closed"), 596, 228);
 });
 
 //**************** SCENE 3 *****************************************
@@ -442,7 +452,7 @@ function(context) {
 function setupScene3() {
 	player = owl;
 	scene3.camera = new Splat.EntityBoxCamera(player, 400, canvas.height, canvas.width/2, canvas.height/2);
-	scene3.goal = new Splat.Entity(569, 493, 20, 70);
+	scene3.goal = new Splat.Entity(669, 493, 20, 70);
 	scene3.knock = Splat.makeAnimation(apt213.images.get("knock"), 2, 100);
 	scene3.startTimer("knock");
 	scene3.knockCount = 0;
@@ -495,6 +505,9 @@ function(context) {
 
 	context.drawImage(apt213.images.get("table-legs"), 2163, 472);
 	context.drawImage(apt213.images.get("table-top"), 2140, 410);
+	context.drawImage(apt213.images.get("door-frame-back"), 642, 20);
+	context.drawImage(apt213.images.get("door-frame-front"), 536, 20);
+	context.drawImage(apt213.images.get("door-closed"), 596, 228);
 
 	var knockGap = 100;
 	if (scene3.knockCount === 0) {
@@ -576,6 +589,9 @@ function(context) {
 	context.drawImage(apt213.images.get("tv"), 1108, 345);
 	context.drawImage(apt213.images.get("table-legs"), 2163, 472);
 	context.drawImage(apt213.images.get("table-top"), 2140, 410);
+	context.drawImage(apt213.images.get("door-frame-back"), 642, 20);
+	context.drawImage(apt213.images.get("door-frame-front"), 536, 20);
+	context.drawImage(apt213.images.get("door-open"), 650, 230);
 });
 
 //**************** CREDITS ***********************
