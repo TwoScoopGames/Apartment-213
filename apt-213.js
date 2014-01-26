@@ -141,6 +141,15 @@ function constrainPlayerToFloor(entity) {
 	}
 }
 
+function drawEntities(context, entities) {
+	entities.sort(function(a, b) {
+		return a.y - b.y;
+	});
+	for (var i in entities) {
+		entities[i].draw(context);
+	}
+}
+
 //**************** SCENE 1 *****************************************
 //**************** SCENE 1 *****************************************
 //**************** SCENE 1 *****************************************
@@ -319,17 +328,15 @@ function(context) {
 	});
 	context.drawImage(apt213.images.get("bg"), 0, 0);
 
-	for (var i in furniture) {
-		furniture[i].draw(context);
-	}
+	var toDraw = furniture.slice();
 	if (!scene1.hasCheese) {
-		scene1.cheese.draw(context);
+		toDraw.push(scene1.cheese);
 	}
-	scene1.goal.draw(context);
-
-	cat.draw(context);
-	owl.draw(context);
-	player.draw(context);
+	toDraw.push(cat);
+	toDraw.push(owl);
+	toDraw.push(player);
+	toDraw.push(scene1.goal);
+	drawEntities(context, toDraw);
 
 	context.drawImage(apt213.images.get("door-frame-back"), 642, 20);
 	context.drawImage(apt213.images.get("door-frame-front"), 536, 20);
@@ -399,12 +406,10 @@ function(context) {
 	});
 	context.drawImage(apt213.images.get("bg"), 0, 0);
 
-	for (var i in furniture) {
-		furniture[i].draw(context);
-	}
-
-	owl.draw(context);
-	player.draw(context);
+	var toDraw = furniture.slice();
+	toDraw.push(owl);
+	toDraw.push(player);
+	drawEntities(context, toDraw);
 
 	context.drawImage(apt213.images.get("door-frame-back"), 642, 20);
 	context.drawImage(apt213.images.get("door-frame-front"), 536, 20);
@@ -449,13 +454,11 @@ function(context) {
 	});
 	context.drawImage(apt213.images.get("bg"), 0, 0);
 
-	for (var i in furniture) {
-		furniture[i].draw(context);
-	}
-	scene3.goal.draw(context);
-
-	cat.draw(context);
-	owl.draw(context);
+	var toDraw = furniture.slice();
+	toDraw.push(owl);
+	toDraw.push(cat);
+	toDraw.push(scene3.goal);
+	drawEntities(context, toDraw);
 
 	context.drawImage(apt213.images.get("door-frame-back"), 642, 20);
 	context.drawImage(apt213.images.get("door-frame-front"), 536, 20);
@@ -517,14 +520,12 @@ function(context) {
 	});
 	context.drawImage(apt213.images.get("bg"), 0, 0);
 
-	for (var i in furniture) {
-		furniture[i].draw(context);
-	}
-	scene4.goal.draw(context);
-
-	cat.draw(context);
-	owl.draw(context);
-	player.draw(context);
+	var toDraw = furniture.slice();
+	toDraw.push(owl);
+	toDraw.push(cat);
+	toDraw.push(player);
+	toDraw.push(scene4.goal);
+	drawEntities(context, toDraw);
 
 	context.drawImage(apt213.images.get("door-frame-back"), 642, 20);
 	context.drawImage(apt213.images.get("door-frame-front"), 536, 20);
