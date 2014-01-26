@@ -119,7 +119,7 @@ function assetsLoaded() {
 	catWalkFlipped = new Splat.makeAnimation(apt213.images.get("cat-walk-flipped"), 5, 100);
 	owlWalk = new Splat.makeAnimation(apt213.images.get("owl-walk"), 24, 100);
 	owlWalkFlipped = new Splat.makeAnimation(apt213.images.get("owl-walk-flipped"), 24, 100);
-	landlordWalk = new Splat.makeAnimation(apt213.images.get("landlord-walk"), 25, 100);
+	landlordWalk = new Splat.makeAnimation(apt213.images.get("landlord-walk"), 25, 25);
 }
 
 var player;
@@ -689,6 +689,9 @@ function setupScene4() {
 scene4 = new Splat.Scene(canvas, function(elapsedMillis) {
 	logMouseClick(scene4);
 	handleMovement(elapsedMillis);
+	if (!player.moved()) {
+		landlordWalk.reset();
+	}
 
 	if (player.collides(scene4.goal)) {
 		scene4.stop();
