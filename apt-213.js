@@ -10,7 +10,8 @@ var manifest = {
 		"table-legs": "images/table-legs1f553x51.png",
 		"table-top": "images/table-top1f599x183.png",
 		"cheese": "images/cheese-1f36x29.png",
-		"owl": "images/owl-1f132x240.png"
+		"owl": "images/owl-1f132x240.png",
+		"landlord": "images/landlord-1f-159x304.png"
 	},
 	"sounds": {
 		"cat-walk1": 		"audio/cat_walk1.wav",
@@ -34,11 +35,14 @@ var apt213 = new Splat.Game(canvas, manifest);
 
 var scene1;
 var scene2;
+var scene3;
+var scene4;
+var credits;
 
 var loading = new Splat.Scene(canvas, function(elapsedMillis) {
 	if (apt213.isLoaded()) {
-		assetsLoaded();
 		loading.stop();
+		setupScene1();
 		scene1.start();
 	}
 },
@@ -52,14 +56,10 @@ function(context) {
 });
 loading.start();
 
+var player;
 var owl;
 var cat;
-var player;
 var furniture = [];
-
-function assetsLoaded() {
-	setupScene1();
-}
 
 var lmx = 0;
 var lmy = 0;
@@ -191,6 +191,7 @@ scene1 = new Splat.Scene(canvas, function(elapsedMillis) {
 		scene1.stop();
 		setupScene2();
 		scene2.start();
+		return;
 	}
 
 	player.vx *= 0.5;
@@ -249,6 +250,7 @@ scene2 = new Splat.Scene(canvas, function(elapsedMillis) {
 		scene2.stop();
 		setupScene3();
 		scene3.start();
+		return;
 	}
 
 	player.vx *= 0.5;
@@ -301,6 +303,7 @@ scene3 = new Splat.Scene(canvas, function(elapsedMillis) {
 		scene3.stop();
 		setupScene4();
 		scene4.start();
+		return;
 	}
 
 	player.vx *= 0.5;
@@ -337,4 +340,71 @@ function(context) {
 	context.drawImage(apt213.images.get("tv"), 1108, 345);
 	context.drawImage(apt213.images.get("table-legs"), 2313, 472);
 	context.drawImage(apt213.images.get("table-top"), 2290, 410);
+});
+
+//**************** SCENE 4 ***********************
+function setupScene4() {
+	player = new Splat.AnimatedEntity(300, 300, 80, 30, apt213.images.get("landlord"), -40, -280);
+	scene4.camera = new Splat.EntityBoxCamera(player, 400, canvas.height, canvas.width/2, canvas.height/2);
+	scene4.goal = new Splat.Entity(1569, 493, 80, 30);
+}
+
+scene4 = new Splat.Scene(canvas, function(elapsedMillis) {
+	logMouseClick(scene4);
+	handleMovement(elapsedMillis);
+
+	if (player.collides(scene4.goal)) {
+		scene4.stop();
+		credits.start();
+		return;
+	}
+
+	player.vx *= 0.5;
+	player.vy *= 0.75;
+	if (apt213.keyboard.isPressed("left")) {
+		player.vx = -0.7;
+	}
+	if (apt213.keyboard.isPressed("right")) {
+		player.vx = 0.7;
+	}
+	if (apt213.keyboard.isPressed("up")) {
+		player.vy = -0.2;
+	}
+	if (apt213.keyboard.isPressed("down")) {
+		player.vy = 0.2;
+	}
+},
+function(context) {
+	scene4.camera.drawAbsolute(context, function() {
+		context.fillStyle = "#cccccc";
+		context.fillRect(0, 0, canvas.width, canvas.height);
+	});
+	context.drawImage(apt213.images.get("bg"), 0, 0);
+
+	for (var i in furniture) {
+		furniture[i].draw(context);
+	}
+	scene4.goal.draw(context);
+
+	cat.draw(context);
+	owl.draw(context);
+	player.draw(context);
+
+	context.drawImage(apt213.images.get("tv-chair"), 883, 360);
+	context.drawImage(apt213.images.get("tv"), 1108, 345);
+	context.drawImage(apt213.images.get("table-legs"), 2313, 472);
+	context.drawImage(apt213.images.get("table-top"), 2290, 410);
+});
+
+//**************** CREDITS ***********************
+credits = new Splat.Scene(canvas, function(elapsedMillis) {
+},
+function(context) {
+	credits.camera.drawAbsolute(context, function() {
+		context.fillStyle = "#000000";
+		context.fillRect(0, 0, canvas.width, canvas.height);
+		context.fillStyle = "#ffffff";
+		context.font = "46px mono";
+		context.fillText("credits", canvas.width / 2, canvas.height / 2);
+	});
 });
