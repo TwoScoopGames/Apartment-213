@@ -17,11 +17,15 @@ var manifest = {
 		"bowl-empty": "images/cat-bowl-empty.png",
 		"bowl-full": "images/cat-bowl-full.png",
 		"can": "images/cat-food-can.png",
+		"sink": "images/brokensink-2f.png",
 		"knock": "images/knock-2f.png",
 		"door-frame-back": "images/doorframe-back.png",
 		"door-frame-front": "images/doorframe-front.png",
 		"door-open": "images/door-open.png",
 		"door-closed": "images/door-closed.png",
+		"cat-attack1": "images/cat-lv1-attack-2f.png",
+		"cat-collapse": "images/catlv4-10f.png",
+		"cat-attack1-flipped": "images/flipped/cat-lv1-attack-2f.png",
 		"bg-flipped": "images/flipped/bg-1f5115x640.png",
 		"mouse-walk-flipped": "images/flipped/mouse-anim-2f.png",
 		"mouse-cheese-flipped": "images/flipped/mousecheese-2f.png",
@@ -112,6 +116,9 @@ var owlWalkFlipped;
 var landlordKnock;
 var landlordWalk;
 var landlordWalkFlipped;
+var catAttack;
+var catAttackFlipped;
+var catCollapse;
 
 function assetsLoaded() {
 	mouseWalk = new Splat.makeAnimation(apt213.images.get("mouse-walk"), 2, 100);
@@ -122,9 +129,12 @@ function assetsLoaded() {
 	catWalkFlipped = new Splat.makeAnimation(apt213.images.get("cat-walk-flipped"), 5, 100);
 	owlWalk = new Splat.makeAnimation(apt213.images.get("owl-walk"), 24, 100);
 	owlWalkFlipped = new Splat.makeAnimation(apt213.images.get("owl-walk-flipped"), 24, 100);
-	landlordKnock = new Splat.makeAnimation(apt213.images.get("landlord-walk"), 19, 25);
+	landlordKnock = new Splat.makeAnimation(apt213.images.get("landlord-knock"), 19, 25);
 	landlordWalk = new Splat.makeAnimation(apt213.images.get("landlord-walk"), 25, 25);
 	landlordWalkFlipped = new Splat.makeAnimation(apt213.images.get("landlord-walk-flipped"), 25, 25);
+	catAttack = new Splat.makeAnimation(apt213.images.get("cat-attack1"), 2, 500);
+	catAttackFlipped = new Splat.makeAnimation(apt213.images.get("cat-attack1-flipped"), 2, 500);
+	catCollapse = new Splat.makeAnimation(apt213.images.get("cat-collapse"), 10, 200);
 }
 
 // characters
@@ -137,6 +147,7 @@ var landlord;
 var bowl;
 var can;
 var door;
+var sink;
 
 // environment
 var furniture = [];
@@ -220,6 +231,10 @@ function addCommonFurniture() {
 	furniture.push(new Splat.AnimatedEntity(552, 559, 56, 65, apt213.images.get("door-frame-front"), -16, -539));
 	door = new Splat.AnimatedEntity(604, 500, 56, 65, apt213.images.get("door-closed"), -8, -272);
 	furniture.push(door);
+	var sinkAnim = new Splat.makeAnimation(apt213.images.get("sink"), 2, 300);
+	sink = new Splat.AnimatedEntity(3739, 187, 50, 50, sinkAnim, 0, 0);
+	furniture.push(sink);
+	furniture
 }
 function setupScene1() {
 	mouse = new Splat.AnimatedEntity(673, 476, 40, 8, mouseWalk, -15, -20);
@@ -396,7 +411,13 @@ scene1 = new Splat.Scene(canvas, function(elapsedMillis) {
 			}
 		}
 		
+		if(catFlipped)
+			cat.sprite = catAttackFlipped;
+		else
+			cat.sprite = catAttack;
+		
 		mouse.vx = -10.0;
+		
 		if (scene1.hasCheese) {
 			scene1.hasCheese = false;
 			scene1.cheese.x = mouse.x;
@@ -553,6 +574,9 @@ function(context) {
 //**************** SCENE 3 *****************************************
 //**************** SCENE 3 *****************************************
 function setupScene3() {
+	landlord = new Splat.AnimatedEntity(446, 528, 80, 20, landlordKnock, -40, -283);
+	landlord.frictionX = 0.5;
+	landlord.frictionY = 0.75;
 	scene3.camera = new Splat.EntityBoxCamera(owl, 400, canvas.height, canvas.width/2, canvas.height/2);
 	scene3.goal = new Splat.Entity(669, 493, 20, 70);
 	scene3.knock = Splat.makeAnimation(apt213.images.get("knock"), 2, 100);
@@ -603,6 +627,7 @@ scene3 = new Splat.Scene(canvas, function(elapsedMillis) {
 		owlWalkFlipped.reset();
 	}
 
+	landlord.move(elapsedMillis);
 	scene3.knock.move(elapsedMillis);
 },
 function(context) {
@@ -615,6 +640,7 @@ function(context) {
 	var toDraw = furniture.slice();
 	toDraw.push(owl);
 	toDraw.push(cat);
+	toDraw.push(landlord);
 	toDraw.push(scene3.goal);
 	drawEntities(context, toDraw);
 
@@ -651,9 +677,7 @@ function(context) {
 //**************** SCENE 4 *****************************************
 //**************** SCENE 4 *****************************************
 function setupScene4() {
-	landlord = new Splat.AnimatedEntity(446, 528, 80, 20, landlordWalk, -40, -283);
-	landlord.frictionX = 0.5;
-	landlord.frictionY = 0.75;
+	landlord.sprite = landlordWalk;
 	scene4.camera = new Splat.EntityBoxCamera(landlord, 400, canvas.height, canvas.width/2, canvas.height/2);
 	scene4.goal = new Splat.Entity(3750, 476, 160, 30);
 	furniture.splice(furniture.indexOf(door), 1);
