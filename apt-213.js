@@ -445,6 +445,7 @@ function setupScene3() {
 	scene3.goal = new Splat.Entity(569, 493, 20, 70);
 	scene3.knock = Splat.makeAnimation(apt213.images.get("knock"), 2, 100);
 	scene3.startTimer("knock");
+	scene3.knockCount = 0;
 }
 
 scene3 = new Splat.Scene(canvas, function(elapsedMillis) {
@@ -495,10 +496,18 @@ function(context) {
 	context.drawImage(apt213.images.get("table-legs"), 2163, 472);
 	context.drawImage(apt213.images.get("table-top"), 2140, 410);
 
-	if (scene3.timer("knock") > 1000) {
+	var knockGap = 100;
+	if (scene3.knockCount === 0) {
+		knockGap = 3000;
+	}
+	if (scene3.timer("knock") > knockGap) {
 		scene3.stopTimer("knock");
 		scene3.startTimer("knock-duration");
 		apt213.sounds.play("landlord-knock");
+		scene3.knockCount++;
+		if (scene3.knockCount === 3) {
+			scene3.knockCount = 0;
+		}
 	}
 	if (scene3.timer("knock-duration") >= 0) {
 		if (scene3.camera.x < 581) {
@@ -513,7 +522,6 @@ function(context) {
 			scene3.startTimer("knock");
 		}
 	}
-
 });
 
 //**************** SCENE 4 ***********************
