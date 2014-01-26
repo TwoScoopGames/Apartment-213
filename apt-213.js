@@ -5,8 +5,10 @@ var manifest = {
 		"bg": "images/bg-1f5115x640.png",
 		"mouse-walk": "images/mouse-anim-2f.png",
 		"mouse-cheese": "images/mousecheese-2f.png",
-		"cat": "images/cat-1f143x86.png",
-		"cat-walk": "images/cat-lv1-walk-5f.png",
+		"cat-walk-lv1": "images/cat-lv1-walk-5f.png",
+		"cat-walk-flipped-lv1": "images/flipped/cat-lv1-walk-5f.png",
+		"cat-walk-lv2": "images/cat-lv2-walk-5f.png",
+		"cat-walk-flipped-lv2": "images/flipped/cat-lv2-walk-5f.png",
 		"tv": "images/tv1f209x268.png",
 		"tv-chair": "images/table-chair-1f288x161.png",
 		"table-legs": "images/table-legs1f553x51.png",
@@ -76,28 +78,12 @@ var manifest = {
 		"owl-sleep-19": "images/owl-sleep/owl-sleep0019.png",
 		"owl-sleep-20": "images/owl-sleep/owl-sleep0020.png",
 		"cat-attack1-flipped": "images/flipped/cat-lv1-attack-2f.png",
-		"bg-flipped": "images/flipped/bg-1f5115x640.png",
 		"mouse-walk-flipped": "images/flipped/mouse-anim-2f.png",
 		"mouse-cheese-flipped": "images/flipped/mousecheese-2f.png",
-		"cat-flipped": "images/flipped/cat-1f143x86.png",
-		"cat-walk-flipped": "images/flipped/cat-lv1-walk-5f.png",
-		"tv-flipped": "images/flipped/tv1f209x268.png",
-		"tv-chair-flipped": "images/flipped/table-chair-1f288x161.png",
-		"table-legs-flipped": "images/flipped/table-legs1f553x51.png",
-		"table-top-flipped": "images/flipped/table-top1f599x183.png",
-		"cheese-flipped": "images/flipped/cheese-1f36x29.png",
 		"owl-walk-flipped": "images/flipped/owl-walk-24f.png",
 		"landlord-knock": "images/landlord-lv3.png",
 		"landlord-walk-flipped": "images/flipped/landlord-lv4-anim.png",
 		"landlord-flipped": "images/flipped/landlord-1f-159x304.png",
-		"bowl-empty-flipped": "images/flipped/cat-bowl-empty.png",
-		"bowl-full-flipped": "images/flipped/cat-bowl-full.png",
-		"can-flipped": "images/flipped/cat-food-can.png",
-		"knock-flipped": "images/flipped/knock-2f.png",
-		"door-frame-back-flipped": "images/flipped/doorframe-back.png",
-		"door-frame-front-flipped": "images/flipped/doorframe-front.png",
-		"door-open-flipped": "images/flipped/door-open.png",
-		"door-closed-flipped": "images/flipped/door-closed.png",
 		"sky": "images/parallax-sky.png",
 		"bathroom": "images/bathroom.png"
 	},
@@ -180,8 +166,8 @@ function assetsLoaded() {
 	mouseWalkFlipped = new Splat.makeAnimation(apt213.images.get("mouse-walk-flipped"), 2, 100);
 	mouseWalkCheese = new Splat.makeAnimation(apt213.images.get("mouse-cheese"), 2, 100);
 	mouseWalkCheeseFlipped = new Splat.makeAnimation(apt213.images.get("mouse-cheese-flipped"), 2, 100);
-	catWalk = new Splat.makeAnimation(apt213.images.get("cat-walk"), 5, 100);
-	catWalkFlipped = new Splat.makeAnimation(apt213.images.get("cat-walk-flipped"), 5, 100);
+	catWalk = new Splat.makeAnimation(apt213.images.get("cat-walk-lv1"), 5, 100);
+	catWalkFlipped = new Splat.makeAnimation(apt213.images.get("cat-walk-flipped-lv1"), 5, 100);
 
 	owlSleep = new Splat.Animation();
 	owlSleep.add(apt213.images.get("owl-sleep-01"), 50);
@@ -569,6 +555,10 @@ function(context) {
 //**************** SCENE 2 *****************************************
 
 function setupScene2() {
+	catWalk = new Splat.makeAnimation(apt213.images.get("cat-walk-lv2"), 5, 100);
+	catWalkFlipped = new Splat.makeAnimation(apt213.images.get("cat-walk-flipped-lv2"), 5, 100);
+	cat.sprite = catWalk;
+
 	scene2.camera = new Splat.EntityBoxCamera(cat, 400, canvas.height, canvas.width/2, canvas.height/2);
 	scene2.owlhasFood = false;
 	scene2.bowlhasFood = false;
