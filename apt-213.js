@@ -456,6 +456,7 @@ function setupScene3() {
 	scene3.knock = Splat.makeAnimation(apt213.images.get("knock"), 2, 100);
 	scene3.startTimer("knock");
 	scene3.knockCount = 0;
+	furniture.push(new Splat.Entity(2140, 514, 599, 78));
 }
 
 scene3 = new Splat.Scene(canvas, function(elapsedMillis) {
