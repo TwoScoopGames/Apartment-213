@@ -492,12 +492,9 @@ function(context) {
 	owl.draw(context);
 
 	context.drawImage(apt213.images.get("tv"), 1108, 345);
-<<<<<<< HEAD
+
 	context.drawImage(apt213.images.get("table-legs"), 2163, 472);
 	context.drawImage(apt213.images.get("table-top"), 2140, 410);
-=======
-	context.drawImage(apt213.images.get("table-legs"), 2313, 472);
-	context.drawImage(apt213.images.get("table-top"), 2290, 410);
 
 	if (scene3.camera.x < 581) {
 		scene3.knock.draw(context, 581, canvas.height/2 - scene3.knock.height/2);
@@ -506,7 +503,7 @@ function(context) {
 			scene3.knock.draw(context, 50, canvas.height/2 - scene3.knock.height/2);
 		});
 	}
->>>>>>> e0c4503e8e8c1c349d167cb8c2b5dfb025fd2faf
+
 });
 
 //**************** SCENE 4 ***********************
