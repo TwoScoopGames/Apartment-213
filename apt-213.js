@@ -13,7 +13,7 @@ var manifest = {
 		"table-top": "images/table-top1f599x183.png",
 		"cheese": "images/cheese-1f36x29.png",
 		"owl-walk": "images/owl-walk-24f.png",
-		"landlord": "images/landlord-1f-159x304.png",
+		"landlord-walk": "images/landlord-lv4-anim.png",
 		"bowl-empty": "images/cat-bowl-empty.png",
 		"bowl-full": "images/cat-bowl-full.png",
 		"can": "images/cat-food-can.png",
@@ -107,6 +107,8 @@ var catWalk;
 var catWalkFlipped;
 var owlWalk;
 var owlWalkFlipped;
+var landlordWalk;
+var landlordWalkFlipped;
 
 function assetsLoaded() {
 	mouseWalk = new Splat.makeAnimation(apt213.images.get("mouse-walk"), 2, 100);
@@ -117,6 +119,7 @@ function assetsLoaded() {
 	catWalkFlipped = new Splat.makeAnimation(apt213.images.get("cat-walk-flipped"), 5, 100);
 	owlWalk = new Splat.makeAnimation(apt213.images.get("owl-walk"), 24, 100);
 	owlWalkFlipped = new Splat.makeAnimation(apt213.images.get("owl-walk-flipped"), 24, 100);
+	landlordWalk = new Splat.makeAnimation(apt213.images.get("landlord-walk"), 25, 100);
 }
 
 var player;
@@ -675,7 +678,7 @@ function(context) {
 //**************** SCENE 4 *****************************************
 //**************** SCENE 4 *****************************************
 function setupScene4() {
-	player = new Splat.AnimatedEntity(446, 528, 80, 20, apt213.images.get("landlord"), -40, -283);
+	player = new Splat.AnimatedEntity(446, 528, 80, 20, landlordWalk, -40, -283);
 	scene4.camera = new Splat.EntityBoxCamera(player, 400, canvas.height, canvas.width/2, canvas.height/2);
 	scene4.goal = new Splat.Entity(3750, 476, 160, 30);
 	furniture.splice(furniture.indexOf(door), 1);
