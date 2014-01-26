@@ -276,7 +276,7 @@ function setupScene1() {
 	mouse.frictionY = 0.75;
 
 	addCommonFurniture();
-
+	
 	bowl = new Splat.AnimatedEntity(3385, 444, 78, 53, apt213.images.get("bowl-empty"), 0, 0);
 	furniture.push(bowl);
 
@@ -286,6 +286,7 @@ function setupScene1() {
 	cat = new Splat.AnimatedEntity(3242, -21, 80, 15, catWalk, -40, -73);
 	cat.frictionX = 0.5;
 	cat.frictionY = 0.75;
+	chaseSpeedY = .9;
 	// furniture.push(cat);
 
 	owl = new Splat.AnimatedEntity(1046, 523, 100, 20, owlWalk, -60, -230);
@@ -319,35 +320,40 @@ function distanceFromCenters(entity1, entity2) {
 	return distanceSquared(x1, y1, x2, y2);
 }
 
-function moveEntityViaKeyboard(entity,speed) {
+var moveSpeedX = 1;
+var moveSpeedY = 1;
+function moveEntityViaKeyboard(entity) {
 	if (apt213.keyboard.isPressed("left")) {
-		entity.vx = -0.7;
+		entity.vx = -0.7*moveSpeedX;
 	}
 	if (apt213.keyboard.isPressed("right")) {
-		entity.vx = 0.7;
+		entity.vx = 0.7*moveSpeedX;
 	}
 	if (apt213.keyboard.isPressed("up")) {
-		entity.vy = -0.2;
+		entity.vy = -0.2*moveSpeedY;
 	}
 	if (apt213.keyboard.isPressed("down")) {
-		entity.vy = 0.2;
+		entity.vy = 0.2*moveSpeedY;
 	}
 }
 
+
+var chaseSpeedX = 1;
+var chaseSpeedY = 1;
 function chase(entity, target, range) {
 	var r2 = range * range;
 	if (distanceFromCenters(entity, target) < r2) {
 		if (target.x < entity.x) {
-			entity.vx = -0.7;
+			entity.vx = -0.7*chaseSpeedX;
 		}
 		if (target.x > entity.x) {
-			entity.vx = 0.7;
+			entity.vx = 0.7*chaseSpeedX;
 		}
 		if (target.y < entity.y) {
-			entity.vy = -0.2;
+			entity.vy = -0.2*chaseSpeedY;
 		}
 		if (target.y > entity.y) {
-			entity.vy = 0.2;
+			entity.vy = 0.2*chaseSpeedY;
 		}
 		entity.vx *= entity.frictionX;
 		entity.vy *= entity.frictionY;
@@ -459,6 +465,11 @@ scene1 = new Splat.Scene(canvas, function(elapsedMillis) {
 		});
 	}
 
+	if(scene1.hasCheese) {
+		moveSpeedX = .8;
+		moveSpeedY = .8;
+	}
+	
 	if (mouse.collides(cat)) {
 		if (cat.moved()){
 			var t1 = scene1.timer("mouse-damage-timer");
@@ -479,11 +490,14 @@ scene1 = new Splat.Scene(canvas, function(elapsedMillis) {
 			scene1.hasCheese = false;
 			scene1.cheese.x = mouse.x;
 			scene1.cheese.y = mouse.y;
+			moveSpeedX = 1;
+			moveSpeedY = 1;
 		}
 	}
 	if (mouse.collides(scene1.goal) && scene1.hasCheese) {
 		scene1.stop();
 		apt213.sounds.play("level-end-win1");
+		speed = 1;
 		setupScene2();
 		scene2.start();
 		return;
