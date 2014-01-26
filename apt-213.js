@@ -18,6 +18,7 @@ var manifest = {
 		"bowl-full": "images/cat-bowl-full.png",
 		"can": "images/cat-food-can.png",
 		"sink": "images/brokensink-2f.png",
+		"sink-dirty": "images/dirtyasssink-2f.png",
 		"knock": "images/knock-2f.png",
 		"door-frame-back": "images/doorframe-back.png",
 		"door-frame-front": "images/doorframe-front.png",
@@ -148,6 +149,8 @@ var landlordWalkFlipped;
 var catAttack;
 var catAttackFlipped;
 var catCollapse;
+var sinkAnimation;
+var sinkDirtyAnimation;
 
 function assetsLoaded() {
 	mouseWalk = new Splat.makeAnimation(apt213.images.get("mouse-walk"), 2, 100);
@@ -164,6 +167,8 @@ function assetsLoaded() {
 	catAttack = new Splat.makeAnimation(apt213.images.get("cat-attack1"), 2, 500);
 	catAttackFlipped = new Splat.makeAnimation(apt213.images.get("cat-attack1-flipped"), 2, 500);
 	catCollapse = new Splat.makeAnimation(apt213.images.get("cat-collapse"), 10, 200);
+	sinkAnimation = new Splat.makeAnimation(apt213.images.get("sink"), 2, 200);
+	sinkDirtyAnimation = new Splat.makeAnimation(apt213.images.get("sink-dirty"), 2, 200);
 }
 
 // characters
@@ -263,7 +268,6 @@ function addCommonFurniture() {
 	var sinkAnim = new Splat.makeAnimation(apt213.images.get("sink"), 2, 300);
 	sink = new Splat.AnimatedEntity(3739, 187, 50, 50, sinkAnim, 0, 0);
 	furniture.push(sink);
-	furniture
 }
 function setupScene1() {
 	mouse = new Splat.AnimatedEntity(673, 476, 40, 8, mouseWalk, -15, -20);
@@ -715,6 +719,9 @@ function setupScene4() {
 	door = new Splat.AnimatedEntity(650, 473, 130, 27, apt213.images.get("door-open"), 0, -243);
 	furniture.push(door);
 	scene4.catIsCollapsed = false;
+	sink.sprite = sinkDirtyAnimation;
+	sink.x = 3737;
+	sink.y = 228;
 }
 
 scene4 = new Splat.Scene(canvas, function(elapsedMillis) {
