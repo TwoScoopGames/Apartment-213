@@ -592,7 +592,6 @@ scene3 = new Splat.Scene(canvas, function(elapsedMillis) {
 	if (player.collides(scene3.goal)) {
 		scene3.stop();
 		setupScene4();
-		//apt213.sounds.play("level-end-win1");
 		apt213.sounds.play("door-open1");
 		scene4.start();
 		return;
@@ -626,6 +625,9 @@ scene3 = new Splat.Scene(canvas, function(elapsedMillis) {
 			else if(owlWalkSoundRandom == 1)
 				apt213.sounds.play("owl-walk3");
 		});
+	} else {
+		owlWalk.reset();
+		owlWalkFlipped.reset();
 	}
 	
 	moveEntityViaKeyboard(player);
