@@ -485,6 +485,10 @@ scene2 = new Splat.Scene(canvas, function(elapsedMillis) {
 		scene3.start();
 		return;
 	}
+	if(owl.collides(cat)) {
+		owl.vx = 0;
+		owl.vy = 0;
+	}
 	
 	var catFlipped = false;
 	
