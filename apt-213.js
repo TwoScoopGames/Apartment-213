@@ -670,13 +670,16 @@ function(context) {
 //**************** SCENE 4 *****************************************
 //**************** SCENE 4 *****************************************
 //**************** SCENE 4 *****************************************
+
 function setupScene4() {
 	landlord.sprite = landlordWalk;
 	scene4.camera = new Splat.EntityBoxCamera(landlord, 400, canvas.height, canvas.width/2, canvas.height/2);
 	scene4.goal = new Splat.Entity(3750, 476, 160, 30);
+	cat.sprite = catCollapse;
 	furniture.splice(furniture.indexOf(door), 1);
 	door = new Splat.AnimatedEntity(650, 473, 130, 27, apt213.images.get("door-open"), 0, -243);
 	furniture.push(door);
+	scene4.catIsCollapsed = false;
 }
 
 scene4 = new Splat.Scene(canvas, function(elapsedMillis) {
@@ -687,6 +690,9 @@ scene4 = new Splat.Scene(canvas, function(elapsedMillis) {
 		landlordWalk.reset();
 		landlordWalkFlipped.reset();
 	}
+	
+	if(scene4.catIsCollapsed == false)
+		catCollapse.reset();
 	
 	var landlordFlipped = false;
 	
@@ -702,6 +708,12 @@ scene4 = new Splat.Scene(canvas, function(elapsedMillis) {
 	}
 	else{
 		landlord.sprite = landlordWalk;
+	}
+	
+	var r2 = 250*250;
+	
+	if (distanceFromCenters(landlord, cat) < r2) {
+		scene4.catIsCollapsed = true;
 	}
 
 	if (landlord.collides(scene4.goal)) {
