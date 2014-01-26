@@ -53,7 +53,11 @@ var Splat = (function(splat, window) {
 	SoundLoader.prototype.allLoaded = function() {
 		return this.totalSounds == this.loadedSounds;
 	};
-	SoundLoader.prototype.play = function(name) {
+	SoundLoader.prototype.play = function(name, loop) {
+		if(arguments.length < 2){
+			loop = false;
+		}
+		
 		if (!this.firstPlay) {
 			// let the iOS user input workaround handle it
 			this.firstPlay = name;
@@ -62,8 +66,11 @@ var Splat = (function(splat, window) {
 		if (this.muted) {
 			return;
 		}
+		
 		var source = this.context.createBufferSource();
+		source.volume = 0;
 		source.buffer = this.sounds[name];
+		source.loop = loop;
 		source.connect(this.context.destination);
 		source.start(0);
 	};
