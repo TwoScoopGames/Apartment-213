@@ -239,7 +239,7 @@ function setupScene1() {
 	cat.frictionY = 0.75;
 	// furniture.push(cat);
 
-	owl = new Splat.AnimatedEntity(1046, 523, 100, 20, owlWalk, -20, -220);
+	owl = new Splat.AnimatedEntity(1046, 523, 100, 20, owlWalk, -60, -230);
 	owl.frictionX = 0.5;
 	owl.frictionY = 0.75;
 	// furniture.push(owl);
@@ -270,7 +270,7 @@ function distanceFromCenters(entity1, entity2) {
 	return distanceSquared(x1, y1, x2, y2);
 }
 
-function moveEntityViaKeyboard(entity) {
+function moveEntityViaKeyboard(entity,speed) {
 	if (apt213.keyboard.isPressed("left")) {
 		entity.vx = -0.7;
 	}
