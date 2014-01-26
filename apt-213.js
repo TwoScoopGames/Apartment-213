@@ -328,6 +328,9 @@ scene2 = new Splat.Scene(canvas, function(elapsedMillis) {
 		furniture[i].move(elapsedMillis);
 	}
 	player.move(elapsedMillis);
+	if (!cat.moved()) {
+		catWalk.reset();
+	}
 	if (scene2.bowlHasFood && player.collides(bowl)) {
 		scene2.stop();
 		setupScene3();
