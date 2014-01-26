@@ -14,6 +14,10 @@ var Splat = (function(splat, window) {
 			that.loadedImages++;
 			that.images[name] = img;
 		});
+		img.addEventListener("error", function(){
+			console.log("failed to load image: "+path);
+		});
+		
 		img.src = path;
 	};
 	ImageLoader.prototype.allLoaded = function() {

@@ -32,6 +32,7 @@ var Splat = (function(splat, window) {
 				}
 
 			};
+			
 			window.addEventListener("click", firstTouchHandler);
 			window.addEventListener("keydown", firstTouchHandler);
 			window.addEventListener("touchstart", firstTouchHandler);
@@ -48,6 +49,9 @@ var Splat = (function(splat, window) {
 				that.loadedSounds++;
 			});
 		};
+		request.addEventListener("error", function(){
+			console.log("failed to load sound: "+path);
+		});
 		request.send();
 	};
 	SoundLoader.prototype.allLoaded = function() {

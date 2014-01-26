@@ -32,7 +32,7 @@ var manifest = {
 		"table-legs-flipped": "images/flipped/table-legs1f553x51.png",
 		"table-top-flipped": "images/flipped/table-top1f599x183.png",
 		"cheese-flipped": "images/flipped/cheese-1f36x29.png",
-		"owl-flipped": "images/flipped/owl-1f132x240.png",
+		"owl-walk-flipped": "images/flipped/owl-walk-24f.png",
 		"landlord-flipped": "images/flipped/landlord-1f-159x304.png",
 		"bowl-empty-flipped": "images/flipped/cat-bowl-empty.png",
 		"bowl-full-flipped": "images/flipped/cat-bowl-full.png",
@@ -106,6 +106,7 @@ var mouseWalkCheeseFlipped;
 var catWalk;
 var catWalkFlipped;
 var owlWalk;
+var owlWalkFlipped;
 
 function assetsLoaded() {
 	mouseWalk = new Splat.makeAnimation(apt213.images.get("mouse-walk"), 2, 100);
@@ -115,6 +116,7 @@ function assetsLoaded() {
 	catWalk = new Splat.makeAnimation(apt213.images.get("cat-walk"), 5, 100);
 	catWalkFlipped = new Splat.makeAnimation(apt213.images.get("cat-walk-flipped"), 5, 100);
 	owlWalk = new Splat.makeAnimation(apt213.images.get("owl-walk"), 24, 100);
+	owlWalkFlipped = new Splat.makeAnimation(apt213.images.get("owl-walk-flipped"), 24, 100);
 }
 
 var player;
@@ -369,6 +371,22 @@ scene1 = new Splat.Scene(canvas, function(elapsedMillis) {
 		else
 			player.sprite = mouseWalk;
 	}
+	
+	var catFlipped = false;
+	
+	if(cat.vx < 0){
+		catFlipped = true;
+	}
+	else if(cat.vx > 0){
+		catFlipped = false;
+	}
+	
+	if(catFlipped){
+		cat.sprite = catWalkFlipped;
+	}
+	else{
+		cat.sprite = catWalk;
+	}
 
 	if (player.collides(scene1.cheese)) {
 		scene1.hasCheese = true;
@@ -480,6 +498,22 @@ scene2 = new Splat.Scene(canvas, function(elapsedMillis) {
 	}
 	else{
 		player.sprite = catWalk;
+	}
+	
+	var owlFlipped = false;
+	
+	if(owl.vx < 0){
+		owlFlipped = true;
+	}
+	else if(owl.vx > 0){
+		owlFlipped = false;
+	}
+	
+	if(owlFlipped){
+		owl.sprite = owlWalkFlipped;
+	}
+	else{
+		owl.sprite = owlWalk;
 	}
 	
 	collideWithFurniture(player);
@@ -606,6 +640,22 @@ scene3 = new Splat.Scene(canvas, function(elapsedMillis) {
 		apt213.sounds.play("door-open1");
 		scene4.start();
 		return;
+	}
+	
+	var playerFlipped = false;
+	
+	if(player.vx < 0){
+		playerFlipped = true;
+	}
+	else if(player.vx > 0){
+		playerFlipped = false;
+	}
+	
+	if(playerFlipped){
+		player.sprite = owlWalkFlipped;
+	}
+	else{
+		player.sprite = owlWalk;
 	}
 
 	
