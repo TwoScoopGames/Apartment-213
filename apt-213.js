@@ -76,7 +76,8 @@ var manifest = {
 		"door-frame-back-flipped": "images/flipped/doorframe-back.png",
 		"door-frame-front-flipped": "images/flipped/doorframe-front.png",
 		"door-open-flipped": "images/flipped/door-open.png",
-		"door-closed-flipped": "images/flipped/door-closed.png"
+		"door-closed-flipped": "images/flipped/door-closed.png",
+		"sky": "images/parallax-sky.png"
 	},
 	"sounds": {
 		"cat-walk1":		"audio/cat_walk1.wav",
@@ -357,6 +358,29 @@ function onlyRepeatEvery(scene, name, minIntervalMillis, fun) {
 	}
 }
 
+function drawBackground(scene, context) {
+	scene.camera.drawAbsolute(context, function() {
+		context.fillStyle = "#74c5cd";
+		context.fillRect(0, 0, canvas.width, canvas.height);
+	});
+
+	drawParallaxImage(scene, context, apt213.images.get("sky"), 203, 0, 465);
+	drawParallaxImage(scene, context, apt213.images.get("sky"), 4372, 0, 341);
+	context.drawImage(apt213.images.get("bg"), 0, 0);
+}
+
+function drawParallaxImage(scene, context, image, x, y, width) {
+
+	var compensated = x - scene.camera.x + width;
+	var windowPercent = compensated / (canvas.width + width);
+	if (windowPercent < 0 || windowPercent > 1.0) {
+		return;
+	}
+
+	var bx = x - ((image.width - width) * windowPercent);
+	context.drawImage(image, bx, y);
+}
+
 scene1 = new Splat.Scene(canvas, function(elapsedMillis) {
 	logMouseClick(scene1);
 
@@ -463,11 +487,7 @@ scene1 = new Splat.Scene(canvas, function(elapsedMillis) {
 
 },
 function(context) {
-	scene1.camera.drawAbsolute(context, function() {
-		context.fillStyle = "#f06d06";
-		context.fillRect(0, 0, canvas.width, canvas.height);
-	});
-	context.drawImage(apt213.images.get("bg"), 0, 0);
+	drawBackground(scene1, context);
 
 	var toDraw = furniture.slice();
 	if (!scene1.hasCheese) {
@@ -590,11 +610,7 @@ scene2 = new Splat.Scene(canvas, function(elapsedMillis) {
 	}
 },
 function(context) {
-	scene2.camera.drawAbsolute(context, function() {
-		context.fillStyle = "#f06d06";
-		context.fillRect(0, 0, canvas.width, canvas.height);
-	});
-	context.drawImage(apt213.images.get("bg"), 0, 0);
+	drawBackground(scene2, context);
 
 	var toDraw = furniture.slice();
 	toDraw.push(owl);
@@ -664,11 +680,7 @@ scene3 = new Splat.Scene(canvas, function(elapsedMillis) {
 	scene3.knock.move(elapsedMillis);
 },
 function(context) {
-	scene3.camera.drawAbsolute(context, function() {
-		context.fillStyle = "#f06d06";
-		context.fillRect(0, 0, canvas.width, canvas.height);
-	});
-	context.drawImage(apt213.images.get("bg"), 0, 0);
+	drawBackground(scene3, context);
 
 	var toDraw = furniture.slice();
 	toDraw.push(owl);
@@ -763,11 +775,7 @@ scene4 = new Splat.Scene(canvas, function(elapsedMillis) {
 	}
 },
 function(context) {
-	scene4.camera.drawAbsolute(context, function() {
-		context.fillStyle = "#f06d06";
-		context.fillRect(0, 0, canvas.width, canvas.height);
-	});
-	context.drawImage(apt213.images.get("bg"), 0, 0);
+	drawBackground(scene4, context);
 
 	var toDraw = furniture.slice();
 	toDraw.push(owl);
