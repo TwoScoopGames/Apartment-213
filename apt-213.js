@@ -24,22 +24,22 @@ var manifest = {
 		"door-closed": "images/door-closed.png"
 	},
 	"sounds": {
-		"cat-walk1": 		"audio/cat_walk1.wav",
-		"cat-walk2": 		"audio/cat_walk2.wav",
+		"cat-walk1":		"audio/cat_walk1.wav",
+		"cat-walk2":		"audio/cat_walk2.wav",
 		"angry-cat":		"audio/angry_cat_sound1.wav",
 		"cat-meow1":		"audio/cat_meow1.wav",
 		"cat-meow2":		"audio/cat_meow2.wav",
-		"title-screen": 	"audio/Devin_Magruder_music.mp3",
-		"explosion1": 		"audio/explosion1.wav",
-		"fade1": 			"audio/fade1.wav",
-		"landlord-knock": 	"audio/landlord_knock.wav",
-		"level-end-win1": 	"audio/level_end_win1.wav",
+		"title-screen":		"audio/Devin_Magruder_music.mp3",
+		"explosion1":		"audio/explosion1.wav",
+		"fade1":			"audio/fade1.wav",
+		"landlord-knock":	"audio/landlord_knock.wav",
+		"level-end-win1":	"audio/level_end_win1.wav",
 		"mouse-baby-sound1":"audio/mouse_baby_sound1.wav",
-		"mouse-damage1": 	"audio/mouse_damage1.wav",
-		"mouse-damage2": 	"audio/mouse_damage2.wav",
-		"mouse-squeak1": 	"audio/mouse_squeak1.wav",
+		"mouse-damage1":	"audio/mouse_damage1.wav",
+		"mouse-damage2":	"audio/mouse_damage2.wav",
+		"mouse-squeak1":	"audio/mouse_squeak1.wav",
 		"mouse-squeak2":	"audio/mouse_squeak2.wav",
-		"owl-bk-music": 	"audio/owl_bk_music.wav"
+		"owl-bk-music":		"audio/owl_bk_music.wav"
 	},
 	"fonts": [
 	]
