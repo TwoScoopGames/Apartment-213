@@ -17,6 +17,7 @@ var manifest = {
 		"bowl-empty": "images/cat-bowl-empty.png",
 		"bowl-full": "images/cat-bowl-full.png",
 		"can": "images/cat-food-can.png",
+		"sink": "images/brokensink-2f.png",
 		"knock": "images/knock-2f.png",
 		"door-frame-back": "images/doorframe-back.png",
 		"door-frame-front": "images/doorframe-front.png",
@@ -146,6 +147,7 @@ var landlord;
 var bowl;
 var can;
 var door;
+var sink;
 
 // environment
 var furniture = [];
@@ -229,6 +231,10 @@ function addCommonFurniture() {
 	furniture.push(new Splat.AnimatedEntity(552, 559, 56, 65, apt213.images.get("door-frame-front"), -16, -539));
 	door = new Splat.AnimatedEntity(604, 500, 56, 65, apt213.images.get("door-closed"), -8, -272);
 	furniture.push(door);
+	var sinkAnim = new Splat.makeAnimation(apt213.images.get("sink"), 2, 300);
+	sink = new Splat.AnimatedEntity(3739, 187, 50, 50, sinkAnim, 0, 0);
+	furniture.push(sink);
+	furniture
 }
 function setupScene1() {
 	mouse = new Splat.AnimatedEntity(673, 476, 40, 8, mouseWalk, -15, -20);
@@ -248,7 +254,7 @@ function setupScene1() {
 	cat.frictionY = 0.75;
 	// furniture.push(cat);
 
-	owl = new Splat.AnimatedEntity(1046, 523, 100, 20, owlWalk, -20, -220);
+	owl = new Splat.AnimatedEntity(1046, 523, 100, 20, owlWalk, -60, -230);
 	owl.frictionX = 0.5;
 	owl.frictionY = 0.75;
 	// furniture.push(owl);
@@ -279,7 +285,7 @@ function distanceFromCenters(entity1, entity2) {
 	return distanceSquared(x1, y1, x2, y2);
 }
 
-function moveEntityViaKeyboard(entity) {
+function moveEntityViaKeyboard(entity,speed) {
 	if (apt213.keyboard.isPressed("left")) {
 		entity.vx = -0.7;
 	}
