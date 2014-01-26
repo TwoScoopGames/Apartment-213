@@ -19,6 +19,8 @@ var manifest = {
 		"cat-walk1": 		"audio/cat_walk1.wav",
 		"cat-walk2": 		"audio/cat_walk2.wav",
 		"angry-cat":		"audio/angry_cat_sound1.wav",
+		"cat-meow1":		"audio/cat_meow1.wav",
+		"cat-meow2":		"audio/cat_meow2.wav",
 		"title-screen": 	"audio/Devin_Magruder_music.mp3",
 		"explosion1": 		"audio/explosion1.wav",
 		"fade1": 			"audio/fade1.wav",
@@ -127,7 +129,10 @@ function constrainPlayerToFloor(entity) {
 	}
 }
 
-//**************** SCENE 1 ***********************
+//**************** SCENE 1 *****************************************
+//**************** SCENE 1 *****************************************
+//**************** SCENE 1 *****************************************
+//**************** SCENE 1 *****************************************
 function setupScene1() {
 	player = new Splat.AnimatedEntity(673, 476, 40, 8, mouseWalk, -15, -20);
 	scene1.camera = new Splat.EntityBoxCamera(player, 400, canvas.height, canvas.width/2, canvas.height/2);
@@ -173,18 +178,6 @@ scene1 = new Splat.Scene(canvas, function(elapsedMillis) {
 	scene1.cheese.move(elapsedMillis);
 	cat.move(elapsedMillis);
 	collideWithFurniture(cat);
-	
-	var squeakTimer = scene1.timer("mouse-squeak-timer");
-	var squeakSoundRandom = Math.floor(Math.random()*2);
-	
-	if(squeakTimer === undefined || squeakTimer > 2000 + Math.random()*10){
-		if(squeakSoundRandom == 0)
-			apt213.sounds.play("mouse-squeak1");
-		else if(squeakSoundRandom == 1)
-			apt213.sounds.play("mouse-squeak2");
-		
-		scene1.startTimer("mouse-squeak-timer");
-	}
 
 	// only the animation attached to player gets run automatically,
 	// run the other one manually
@@ -235,6 +228,18 @@ scene1 = new Splat.Scene(canvas, function(elapsedMillis) {
 	if (player.collides(scene1.cheese)) {
 		scene1.hasCheese = true;
 		player.sprite = mouseWalkCheese;
+	
+		var squeakTimer = scene1.timer("mouse-squeak-timer");
+		var squeakSoundRandom = Math.floor(Math.random()*2);
+		
+		if(squeakTimer === undefined || squeakTimer > 2000 + Math.random()*10){
+			if(squeakSoundRandom == 0)
+				apt213.sounds.play("mouse-squeak1");
+			else if(squeakSoundRandom == 1)
+				apt213.sounds.play("mouse-squeak2");
+			
+			scene1.startTimer("mouse-squeak-timer");
+		}
 	}
 
 	if (player.collides(cat)) {
@@ -303,7 +308,11 @@ function(context) {
 	context.drawImage(apt213.images.get("table-top"), 2290, 410);
 });
 
-//**************** SCENE 2 ***********************
+//**************** SCENE 2 *****************************************
+//**************** SCENE 2 *****************************************
+//**************** SCENE 2 *****************************************
+//**************** SCENE 2 *****************************************
+
 function setupScene2() {
 	player = cat;
 	scene2.camera = new Splat.EntityBoxCamera(player, 400, canvas.height, canvas.width/2, canvas.height/2);
@@ -319,17 +328,40 @@ scene2 = new Splat.Scene(canvas, function(elapsedMillis) {
 	var chaseRange = 300;
 	if (distanceFromCenters(player, owl) < chaseRange * chaseRange) {
 		console.log("in range");
+		
+		var isMoving = false;
+		
 		if (player.x < owl.x) {
 			owl.vx = -0.7;
+			isMoving = true;
 		}
 		if (player.x > owl.x) {
 			owl.vx = 0.7;
+			isMoving = true;
 		}
 		if (player.y < owl.y) {
 			owl.vy = -0.2;
+			isMoving = true;
 		}
 		if (player.y > owl.y) {
 			owl.vy = 0.2;
+			isMoving = true;
+		}
+		
+		var purTimer = scene2.timer("cat-pur-timer");
+		var purSoundRandom = Math.floor(Math.random()*2);
+		
+		if(isMoving){
+			var purTimer = scene2.timer("cat-pur-timer");
+			
+			if(purTimer === undefined || purTimer > 2000 + Math.random()*10){
+				if(purSoundRandom == 0)
+					apt213.sounds.play("cat-meow1");
+				else if(purSoundRandom == 1)
+					apt213.sounds.play("cat-meow2");
+				
+				scene2.startTimer("cat-pur-timer");
+			}
 		}
 	}
 
@@ -344,6 +376,7 @@ scene2 = new Splat.Scene(canvas, function(elapsedMillis) {
 	player.vy *= 0.75;
 	owl.vx *= 0.5;
 	owl.vy *= 0.75;
+	
 	if (apt213.keyboard.isPressed("left")) {
 		player.vx = -0.7;
 	}
@@ -377,7 +410,10 @@ function(context) {
 	context.drawImage(apt213.images.get("table-top"), 2290, 410);
 });
 
-//**************** SCENE 3 ***********************
+//**************** SCENE 3 *****************************************
+//**************** SCENE 3 *****************************************
+//**************** SCENE 3 *****************************************
+//**************** SCENE 3 *****************************************
 function setupScene3() {
 	player = owl;
 	scene3.camera = new Splat.EntityBoxCamera(player, 400, canvas.height, canvas.width/2, canvas.height/2);
