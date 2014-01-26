@@ -22,6 +22,9 @@ var manifest = {
 		"door-frame-front": "images/doorframe-front.png",
 		"door-open": "images/door-open.png",
 		"door-closed": "images/door-closed.png",
+		"cat-attack1": "images/cat-lv1-attack-2f.png",
+		"cat-collapse": "images/catlv4-10f.png",
+		"cat-attack1-flipped": "images/flipped/cat-lv1-attack-2f.png",
 		"bg-flipped": "images/flipped/bg-1f5115x640.png",
 		"mouse-walk-flipped": "images/flipped/mouse-anim-2f.png",
 		"mouse-cheese-flipped": "images/flipped/mousecheese-2f.png",
@@ -110,6 +113,9 @@ var owlWalk;
 var owlWalkFlipped;
 var landlordWalk;
 var landlordWalkFlipped;
+var catAttack;
+var catAttackFlipped;
+var catCollapse;
 
 function assetsLoaded() {
 	mouseWalk = new Splat.makeAnimation(apt213.images.get("mouse-walk"), 2, 100);
@@ -122,6 +128,9 @@ function assetsLoaded() {
 	owlWalkFlipped = new Splat.makeAnimation(apt213.images.get("owl-walk-flipped"), 24, 100);
 	landlordWalk = new Splat.makeAnimation(apt213.images.get("landlord-walk"), 25, 25);
 	landlordWalkFlipped = new Splat.makeAnimation(apt213.images.get("landlord-walk-flipped"), 25, 25);
+	catAttack = new Splat.makeAnimation(apt213.images.get("cat-attack1"), 2, 500);
+	catAttackFlipped = new Splat.makeAnimation(apt213.images.get("cat-attack1-flipped"), 2, 500);
+	catCollapse = new Splat.makeAnimation(apt213.images.get("cat-collapse"), 10, 200);
 }
 
 var player;
@@ -420,6 +429,11 @@ scene1 = new Splat.Scene(canvas, function(elapsedMillis) {
 				scene1.startTimer("mouse-damage-timer");
 			}
 		}
+		
+		if(catFlipped)
+			cat.sprite = catAttackFlipped;
+		else
+			cat.sprite = catAttack;
 		
 		player.vx = -10.0;
 		if (scene1.hasCheese) {
