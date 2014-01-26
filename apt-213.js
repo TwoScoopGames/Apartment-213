@@ -55,6 +55,26 @@ var manifest = {
 		"landlord-door-17": "images/landlord-lv3/landlord0017.png",
 		"landlord-door-18": "images/landlord-lv3/landlord0018.png",
 		"landlord-door-19": "images/landlord-lv3/landlord0019.png",
+		"owl-sleep-01": "images/owl-sleep/owl-sleep0001.png",
+		"owl-sleep-02": "images/owl-sleep/owl-sleep0002.png",
+		"owl-sleep-03": "images/owl-sleep/owl-sleep0003.png",
+		"owl-sleep-04": "images/owl-sleep/owl-sleep0004.png",
+		"owl-sleep-05": "images/owl-sleep/owl-sleep0005.png",
+		"owl-sleep-06": "images/owl-sleep/owl-sleep0006.png",
+		"owl-sleep-07": "images/owl-sleep/owl-sleep0007.png",
+		"owl-sleep-08": "images/owl-sleep/owl-sleep0008.png",
+		"owl-sleep-09": "images/owl-sleep/owl-sleep0009.png",
+		"owl-sleep-10": "images/owl-sleep/owl-sleep0010.png",
+		"owl-sleep-11": "images/owl-sleep/owl-sleep0011.png",
+		"owl-sleep-12": "images/owl-sleep/owl-sleep0012.png",
+		"owl-sleep-13": "images/owl-sleep/owl-sleep0013.png",
+		"owl-sleep-14": "images/owl-sleep/owl-sleep0014.png",
+		"owl-sleep-15": "images/owl-sleep/owl-sleep0015.png",
+		"owl-sleep-16": "images/owl-sleep/owl-sleep0016.png",
+		"owl-sleep-17": "images/owl-sleep/owl-sleep0017.png",
+		"owl-sleep-18": "images/owl-sleep/owl-sleep0018.png",
+		"owl-sleep-19": "images/owl-sleep/owl-sleep0019.png",
+		"owl-sleep-20": "images/owl-sleep/owl-sleep0020.png",
 		"cat-attack1-flipped": "images/flipped/cat-lv1-attack-2f.png",
 		"bg-flipped": "images/flipped/bg-1f5115x640.png",
 		"mouse-walk-flipped": "images/flipped/mouse-anim-2f.png",
@@ -78,7 +98,8 @@ var manifest = {
 		"door-frame-front-flipped": "images/flipped/doorframe-front.png",
 		"door-open-flipped": "images/flipped/door-open.png",
 		"door-closed-flipped": "images/flipped/door-closed.png",
-		"sky": "images/parallax-sky.png"
+		"sky": "images/parallax-sky.png",
+		"bathroom": "images/bathroom.png"
 	},
 	"sounds": {
 		"cat-walk1":		"audio/cat_walk1.wav",
@@ -142,6 +163,7 @@ var mouseWalkCheese;
 var mouseWalkCheeseFlipped;
 var catWalk;
 var catWalkFlipped;
+var owlSleep;
 var owlWalk;
 var owlWalkFlipped;
 var landlordKnock;
@@ -160,6 +182,29 @@ function assetsLoaded() {
 	mouseWalkCheeseFlipped = new Splat.makeAnimation(apt213.images.get("mouse-cheese-flipped"), 2, 100);
 	catWalk = new Splat.makeAnimation(apt213.images.get("cat-walk"), 5, 100);
 	catWalkFlipped = new Splat.makeAnimation(apt213.images.get("cat-walk-flipped"), 5, 100);
+
+	owlSleep = new Splat.Animation();
+	owlSleep.add(apt213.images.get("owl-sleep-01"), 50);
+	owlSleep.add(apt213.images.get("owl-sleep-02"), 50);
+	owlSleep.add(apt213.images.get("owl-sleep-03"), 50);
+	owlSleep.add(apt213.images.get("owl-sleep-04"), 50);
+	owlSleep.add(apt213.images.get("owl-sleep-05"), 50);
+	owlSleep.add(apt213.images.get("owl-sleep-06"), 50);
+	owlSleep.add(apt213.images.get("owl-sleep-07"), 50);
+	owlSleep.add(apt213.images.get("owl-sleep-08"), 50);
+	owlSleep.add(apt213.images.get("owl-sleep-09"), 50);
+	owlSleep.add(apt213.images.get("owl-sleep-10"), 50);
+	owlSleep.add(apt213.images.get("owl-sleep-11"), 50);
+	owlSleep.add(apt213.images.get("owl-sleep-12"), 50);
+	owlSleep.add(apt213.images.get("owl-sleep-13"), 50);
+	owlSleep.add(apt213.images.get("owl-sleep-14"), 50);
+	owlSleep.add(apt213.images.get("owl-sleep-15"), 50);
+	owlSleep.add(apt213.images.get("owl-sleep-16"), 50);
+	owlSleep.add(apt213.images.get("owl-sleep-17"), 50);
+	owlSleep.add(apt213.images.get("owl-sleep-18"), 50);
+	owlSleep.add(apt213.images.get("owl-sleep-19"), 50);
+	owlSleep.add(apt213.images.get("owl-sleep-20"), 50);
+
 	owlWalk = new Splat.makeAnimation(apt213.images.get("owl-walk"), 24, 100);
 	owlWalkFlipped = new Splat.makeAnimation(apt213.images.get("owl-walk-flipped"), 24, 100);
 	landlordKnock = new Splat.makeAnimation(apt213.images.get("landlord-knock"), 19, 25);
@@ -287,12 +332,10 @@ function setupScene1() {
 	cat.frictionX = 0.5;
 	cat.frictionY = 0.75;
 	chaseSpeedY = .9;
-	// furniture.push(cat);
 
-	owl = new Splat.AnimatedEntity(1046, 523, 100, 20, owlWalk, -60, -230);
+	owl = new Splat.AnimatedEntity(1056, 503, 100, 20, owlSleep, -60, -335);
 	owl.frictionX = 0.5;
 	owl.frictionY = 0.75;
-	// furniture.push(owl);
 
 	scene1.goal = new Splat.Entity(4269, 472, 31, 9);
 	scene1.camera = new Splat.EntityBoxCamera(mouse, 400, canvas.height, canvas.width/2, canvas.height/2);
@@ -376,6 +419,7 @@ function drawBackground(scene, context) {
 
 	drawParallaxImage(scene, context, apt213.images.get("sky"), 203, 0, 465);
 	drawParallaxImage(scene, context, apt213.images.get("sky"), 4372, 0, 341);
+	drawParallaxImage(scene, context, apt213.images.get("bathroom"), 3196, 138, 181);
 	context.drawImage(apt213.images.get("bg"), 0, 0);
 }
 
@@ -503,6 +547,7 @@ scene1 = new Splat.Scene(canvas, function(elapsedMillis) {
 		return;
 	}
 
+	owl.move(elapsedMillis);
 },
 function(context) {
 	drawBackground(scene1, context);
@@ -528,6 +573,7 @@ function setupScene2() {
 	scene2.owlhasFood = false;
 	scene2.bowlhasFood = false;
 	scene2.canPickup = new Splat.Entity(3625, 476, 103, 17);
+	owl.spriteOffsetY = -230;
 }
 
 scene2 = new Splat.Scene(canvas, function(elapsedMillis) {
