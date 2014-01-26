@@ -631,7 +631,7 @@ function setupScene2() {
 
 	scene2.camera = new Splat.EntityBoxCamera(cat, 400, canvas.height, canvas.width/2, canvas.height/2);
 	scene2.owlhasFood = false;
-	scene2.bowlhasFood = false;
+	scene2.bowlHasFood = false;
 	scene2.canPickup = new Splat.Entity(3625, 476, 103, 17);
 }
 
@@ -645,7 +645,7 @@ scene2 = new Splat.Scene(canvas, function(elapsedMillis) {
 	var owlIsAwake = owlWakeUpTimer > 2000;
 	if (owlWakeUpTimer === undefined && withinChaseDistance) {
 		scene2.startTimer("owl-wake-up");
-	} else if (owlIsAwake) {
+	} else if (owlIsAwake && !scene2.bowlHasFood) {
 		chase(owl, cat, chaseDist);
 		owl.spriteOffsetY = -230;
 	}
@@ -665,9 +665,6 @@ scene2 = new Splat.Scene(canvas, function(elapsedMillis) {
 		apt213.sounds.play("level-end-win1");
 		scene3.start();
 		return;
-	}
-	if (scene2.owlHasFood && owl.x < 3363) {
-		chase(owl,bowl,1000);
 	}
 	if(owl.collides(cat)) {
 		owl.vx = 0;
@@ -709,15 +706,13 @@ scene2 = new Splat.Scene(canvas, function(elapsedMillis) {
 	}
 	
 	collideWithFurniture(cat);
-
+	
 	owl.move(elapsedMillis);
 	if (!scene2.owlHasFood && owl.collides(scene2.canPickup)) {
 		scene2.owlHasFood = true;
-		furniture.splice(furniture.indexOf(can), 1);
-	}
-	if (scene2.owlHasFood && owl.collides(bowl)) {
 		scene2.bowlHasFood = true;
 		bowl.sprite = apt213.images.get("bowl-full");
+		furniture.splice(furniture.indexOf(can), 1);
 	}
 	collideWithFurniture(owl);
 
@@ -971,12 +966,13 @@ function(context) {
 		context.fillText("Apartment 213 created by Team Heat,", 0, 100);
 		context.fillText("Alex Bezuska", 0, 200);
 		context.fillText("@alexbezuska", 500, 200);
-		context.fillText("Mike Revel", 0, 250);
-		context.fillText("@mjrevel", 500, 250);
-		context.fillText("Eric Lathrop", 0, 300);
-		context.fillText("@ericlathrop", 500, 300);
+		context.fillText("Eric Lathrop", 0, 250);
+		context.fillText("@ericlathrop", 500, 250);
+		context.fillText("Mike Revel", 0, 300);
+		context.fillText("@mjrevel", 500, 300);
 		context.fillText("Mattie Richards", 0, 350);
 		context.fillText("@mintchipleaf", 500, 350);
+		context.fillText("Music- Devin Magruder", 0, 400);
 		context.fillText("Thank You For Playing!", 0, 500);		
 		context.fillText("Be sure to let us know what you thought!", 0, 550);	
 	});
