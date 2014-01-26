@@ -312,7 +312,7 @@ scene1 = new Splat.Scene(canvas, function(elapsedMillis) {
 },
 function(context) {
 	scene1.camera.drawAbsolute(context, function() {
-		context.fillStyle = "#cccccc";
+		context.fillStyle = "#f06d06";
 		context.fillRect(0, 0, canvas.width, canvas.height);
 	});
 	context.drawImage(apt213.images.get("bg"), 0, 0);
@@ -395,7 +395,7 @@ scene2 = new Splat.Scene(canvas, function(elapsedMillis) {
 },
 function(context) {
 	scene2.camera.drawAbsolute(context, function() {
-		context.fillStyle = "#cccccc";
+		context.fillStyle = "#f06d06";
 		context.fillRect(0, 0, canvas.width, canvas.height);
 	});
 	context.drawImage(apt213.images.get("bg"), 0, 0);
@@ -448,7 +448,7 @@ scene3 = new Splat.Scene(canvas, function(elapsedMillis) {
 },
 function(context) {
 	scene3.camera.drawAbsolute(context, function() {
-		context.fillStyle = "#cccccc";
+		context.fillStyle = "#f06d06";
 		context.fillRect(0, 0, canvas.width, canvas.height);
 	});
 	context.drawImage(apt213.images.get("bg"), 0, 0);
@@ -520,7 +520,7 @@ scene4 = new Splat.Scene(canvas, function(elapsedMillis) {
 },
 function(context) {
 	scene4.camera.drawAbsolute(context, function() {
-		context.fillStyle = "#cccccc";
+		context.fillStyle = "#f06d06";
 		context.fillRect(0, 0, canvas.width, canvas.height);
 	});
 	context.drawImage(apt213.images.get("bg"), 0, 0);
