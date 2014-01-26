@@ -98,7 +98,8 @@ var manifest = {
 		"door-frame-front-flipped": "images/flipped/doorframe-front.png",
 		"door-open-flipped": "images/flipped/door-open.png",
 		"door-closed-flipped": "images/flipped/door-closed.png",
-		"sky": "images/parallax-sky.png"
+		"sky": "images/parallax-sky.png",
+		"bathroom": "images/bathroom.png"
 	},
 	"sounds": {
 		"cat-walk1":		"audio/cat_walk1.wav",
@@ -412,6 +413,7 @@ function drawBackground(scene, context) {
 
 	drawParallaxImage(scene, context, apt213.images.get("sky"), 203, 0, 465);
 	drawParallaxImage(scene, context, apt213.images.get("sky"), 4372, 0, 341);
+	drawParallaxImage(scene, context, apt213.images.get("bathroom"), 3196, 138, 181);
 	context.drawImage(apt213.images.get("bg"), 0, 0);
 }
 
