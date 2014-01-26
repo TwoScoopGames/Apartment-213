@@ -22,10 +22,16 @@ var manifest = {
 	"sounds": {
 		"cat-walk1": 		"audio/cat_walk1.wav",
 		"cat-walk2": 		"audio/cat_walk2.wav",
+		"cat-walk3":		"audio/cat_walk3.wav",
 		"angry-cat":		"audio/angry_cat_sound1.wav",
 		"cat-meow1":		"audio/cat_meow1.wav",
 		"cat-meow2":		"audio/cat_meow2.wav",
-		"title-screen": 	"audio/Devin_Magruder_music.mp3",
+		"door-open1":		"audio/door_open1.wav",
+		"opossum-walk1":	"audio/opossum_walk1.wav",
+		"owl-walk1":		"audio/owl_walk1.wav",
+		"owl-walk2":		"audio/owl_walk2.wav",
+		"owl-walk3":		"audio/owl_walk3.wav",
+		"screen-music": 	"audio/Devin_Magruder_music.mp3",
 		"explosion1": 		"audio/explosion1.wav",
 		"fade1": 			"audio/fade1.wav",
 		"landlord-knock": 	"audio/landlord_knock.wav",
@@ -35,7 +41,8 @@ var manifest = {
 		"mouse-damage2": 	"audio/mouse_damage2.wav",
 		"mouse-squeak1": 	"audio/mouse_squeak1.wav",
 		"mouse-squeak2":	"audio/mouse_squeak2.wav",
-		"owl-bk-music": 	"audio/owl_bk_music.wav"
+		"owl-bk-music": 	"audio/owl_bk_music.wav",
+		"credits-clap1":	"audio/credits_clap1.wav"
 	},
 	"fonts": [
 	]
@@ -272,6 +279,7 @@ scene1 = new Splat.Scene(canvas, function(elapsedMillis) {
 	}
 	if (player.collides(scene1.goal) && scene1.hasCheese) {
 		scene1.stop();
+		apt213.sounds.play("level-end-win1");
 		setupScene2();
 		scene2.start();
 		return;
@@ -344,6 +352,7 @@ scene2 = new Splat.Scene(canvas, function(elapsedMillis) {
 	if (scene2.bowlHasFood && player.collides(bowl)) {
 		scene2.stop();
 		setupScene3();
+		apt213.sounds.play("level-end-win1");
 		scene3.start();
 		return;
 	}
@@ -383,11 +392,9 @@ scene2 = new Splat.Scene(canvas, function(elapsedMillis) {
 			isMoving = true;
 		}
 		
-		var purTimer = scene2.timer("cat-pur-timer");
-		var purSoundRandom = Math.floor(Math.random()*2);
-		
 		if(isMoving){
 			var purTimer = scene2.timer("cat-pur-timer");
+			var purSoundRandom = Math.floor(Math.random()*2);
 			
 			if(purTimer === undefined || purTimer > 2000 + Math.random()*10){
 				if(purSoundRandom == 0)
@@ -396,6 +403,20 @@ scene2 = new Splat.Scene(canvas, function(elapsedMillis) {
 					apt213.sounds.play("cat-meow2");
 				
 				scene2.startTimer("cat-pur-timer");
+			}
+		}
+		
+		if(isMoving){
+			var t1 = scene2.timer("owl-walk-timer");
+			var owlWalkSoundRandom = Math.floor(Math.random()*2);
+			
+			if(t1 === undefined || t1 > 500){
+				if(owlWalkSoundRandom == 0)
+					apt213.sounds.play("owl-walk2");
+				else if(owlWalkSoundRandom == 1)
+					apt213.sounds.play("owl-walk3");
+				
+				scene2.startTimer("owl-walk-timer");
 			}
 		}
 	}
@@ -455,23 +476,44 @@ scene3 = new Splat.Scene(canvas, function(elapsedMillis) {
 	if (player.collides(scene3.goal)) {
 		scene3.stop();
 		setupScene4();
+		apt213.sounds.play("level-end-win1");
 		scene4.start();
 		return;
 	}
 
+	var isMoving = false;
+	
 	player.vx *= 0.5;
 	player.vy *= 0.75;
 	if (apt213.keyboard.isPressed("left")) {
 		player.vx = -0.7;
+		isMoving = true;
 	}
 	if (apt213.keyboard.isPressed("right")) {
 		player.vx = 0.7;
+		isMoving = true;
 	}
 	if (apt213.keyboard.isPressed("up")) {
 		player.vy = -0.2;
+		isMoving = true;
 	}
 	if (apt213.keyboard.isPressed("down")) {
 		player.vy = 0.2;
+		isMoving = true;
+	}
+	
+	if(isMoving){
+		var t1 = scene3.timer("owl-walk-timer");
+		var owlWalkSoundRandom = Math.floor(Math.random()*2);
+		
+		if(t1 === undefined || t1 > 500){
+			if(owlWalkSoundRandom == 0)
+				apt213.sounds.play("owl-walk2");
+			else if(owlWalkSoundRandom == 1)
+				apt213.sounds.play("owl-walk3");
+			
+			scene3.startTimer("owl-walk-timer");
+		}
 	}
 
 	scene3.knock.move(elapsedMillis);
@@ -517,6 +559,8 @@ scene4 = new Splat.Scene(canvas, function(elapsedMillis) {
 
 	if (player.collides(scene4.goal)) {
 		scene4.stop();
+		apt213.sounds.play("credits-clap1");
+		setupCredits();
 		credits.start();
 		return;
 	}
@@ -559,6 +603,10 @@ function(context) {
 });
 
 //**************** CREDITS ***********************
+function setupCredits() {
+	apt213.sounds.play("screen-music", true);
+}
+
 credits = new Splat.Scene(canvas, function(elapsedMillis) {
 },
 function(context) {

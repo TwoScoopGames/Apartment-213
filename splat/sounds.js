@@ -68,7 +68,6 @@ var Splat = (function(splat, window) {
 		}
 		
 		var source = this.context.createBufferSource();
-		source.volume = 0;
 		source.buffer = this.sounds[name];
 		source.loop = loop;
 		source.connect(this.context.destination);
