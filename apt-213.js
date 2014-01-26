@@ -530,55 +530,6 @@ scene2 = new Splat.Scene(canvas, function(elapsedMillis) {
 	}
 	collideWithFurniture(owl);
 
-	var chaseRange = 300;
-	if (distanceFromCenters(player, owl) < chaseRange * chaseRange) {		
-		if (player.x < owl.x) {
-			owl.vx = -0.7;
-		}
-		if (player.x > owl.x) {
-			owl.vx = 0.7;
-		}
-		if (player.y < owl.y) {
-			owl.vy = -0.2;
-		}
-		if (player.y > owl.y) {
-			owl.vy = 0.2;
-		}
-		
-//		if(isMoving){
-//			var purTimer = scene2.timer("cat-pur-timer");
-//			var purSoundRandom = Math.floor(Math.random()*2);
-//			
-//			if(purTimer === undefined || purTimer > 2000 + Math.random()*10){
-//				if(purSoundRandom == 0)
-//					apt213.sounds.play("cat-meow1");
-//				else if(purSoundRandom == 1)
-//					apt213.sounds.play("cat-meow2");
-//				
-//				scene2.startTimer("cat-pur-timer");
-//			}
-//		}
-		
-//		if(isMoving){
-//			var t1 = scene2.timer("owl-walk-timer");
-//			var owlWalkSoundRandom = Math.floor(Math.random()*2);
-//			
-//			if(t1 === undefined || t1 > 500){
-//				if(owlWalkSoundRandom == 0)
-//					apt213.sounds.play("owl-walk2");
-//				else if(owlWalkSoundRandom == 1)
-//					apt213.sounds.play("owl-walk3");
-//				
-//				scene2.startTimer("owl-walk-timer");
-//			}
-//		}
-	}
-
-	player.vx *= 0.5;
-	player.vy *= 0.75;
-	owl.vx *= 0.5;
-	owl.vy *= 0.75;
-	
 	if (owl.moved()) {
 		onlyRepeatEvery(scene2, "cat-pur-timer", 2000, function() {
 			var purSoundRandom = Math.floor(Math.random()*2);
@@ -587,9 +538,6 @@ scene2 = new Splat.Scene(canvas, function(elapsedMillis) {
 			else if(purSoundRandom == 1)
 				apt213.sounds.play("cat-meow2");
 		});
-	}
-	
-	if (owl.moved()) {
 		onlyRepeatEvery(scene2, "owl-walk-timer", 500, function() {
 			var owlWalkSoundRandom = Math.floor(Math.random()*2);
 			if(owlWalkSoundRandom == 0)
