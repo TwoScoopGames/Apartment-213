@@ -362,8 +362,6 @@ scene2 = new Splat.Scene(canvas, function(elapsedMillis) {
 
 	var chaseRange = 300;
 	if (distanceFromCenters(player, owl) < chaseRange * chaseRange) {
-		console.log("in range");
-		
 		var isMoving = false;
 		
 		if (player.x < owl.x) {
@@ -445,7 +443,8 @@ function setupScene3() {
 	player = owl;
 	scene3.camera = new Splat.EntityBoxCamera(player, 400, canvas.height, canvas.width/2, canvas.height/2);
 	scene3.goal = new Splat.Entity(569, 493, 20, 70);
-	scene3.knock = Splat.makeAnimation(apt213.images.get("knock"), 2, 300);
+	scene3.knock = Splat.makeAnimation(apt213.images.get("knock"), 2, 100);
+	scene3.startTimer("knock");
 }
 
 scene3 = new Splat.Scene(canvas, function(elapsedMillis) {
@@ -496,12 +495,23 @@ function(context) {
 	context.drawImage(apt213.images.get("table-legs"), 2163, 472);
 	context.drawImage(apt213.images.get("table-top"), 2140, 410);
 
-	if (scene3.camera.x < 581) {
-		scene3.knock.draw(context, 581, canvas.height/2 - scene3.knock.height/2);
-	} else {
-		scene3.camera.drawAbsolute(context, function() {
-			scene3.knock.draw(context, 50, canvas.height/2 - scene3.knock.height/2);
-		});
+	if (scene3.timer("knock") > 1000) {
+		scene3.stopTimer("knock");
+		scene3.startTimer("knock-duration");
+		apt213.sounds.play("landlord-knock");
+	}
+	if (scene3.timer("knock-duration") >= 0) {
+		if (scene3.camera.x < 581) {
+			scene3.knock.draw(context, 581, canvas.height/2 - scene3.knock.height/2);
+		} else {
+			scene3.camera.drawAbsolute(context, function() {
+				scene3.knock.draw(context, 50, canvas.height/2 - scene3.knock.height/2);
+			});
+		}
+		if (scene3.timer("knock-duration") > 200) {
+			scene3.stopTimer("knock-duration");
+			scene3.startTimer("knock");
+		}
 	}
 
 });
