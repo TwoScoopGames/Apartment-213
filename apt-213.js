@@ -573,14 +573,22 @@ function setupScene2() {
 	scene2.owlhasFood = false;
 	scene2.bowlhasFood = false;
 	scene2.canPickup = new Splat.Entity(3625, 476, 103, 17);
-	owl.spriteOffsetY = -230;
 }
 
 scene2 = new Splat.Scene(canvas, function(elapsedMillis) {
 	logMouseClick(scene2);
 
 	moveEntityViaKeyboard(cat);
-	chase(owl, cat, 300);
+	var chaseDist = 300;
+	var withinChaseDistance = distanceFromCenters(owl, cat) < chaseDist * chaseDist;
+	var owlWakeUpTimer = scene2.timer("owl-wake-up");
+	var owlIsAwake = owlWakeUpTimer > 2000;
+	if (owlWakeUpTimer === undefined && withinChaseDistance) {
+		scene2.startTimer("owl-wake-up");
+	} else if (owlIsAwake) {
+		chase(owl, cat, chaseDist);
+		owl.spriteOffsetY = -230;
+	}
 
 	for (var i in furniture) {
 		furniture[i].move(elapsedMillis);
@@ -628,11 +636,13 @@ scene2 = new Splat.Scene(canvas, function(elapsedMillis) {
 		owlFlipped = false;
 	}
 	
-	if(owlFlipped){
-		owl.sprite = owlWalkFlipped;
-	}
-	else{
-		owl.sprite = owlWalk;
+	if (owlIsAwake) {
+		if(owlFlipped){
+			owl.sprite = owlWalkFlipped;
+		}
+		else{
+			owl.sprite = owlWalk;
+		}
 	}
 	
 	collideWithFurniture(cat);
@@ -654,7 +664,7 @@ scene2 = new Splat.Scene(canvas, function(elapsedMillis) {
 		owl.resolveCollisionWith(owlTableCollision);
 	}
 
-	if (owl.moved()) {
+	if (withinChaseDistance) {
 		onlyRepeatEvery(scene2, "cat-pur-timer", 2000, function() {
 			var purSoundRandom = Math.floor(Math.random()*2);
 			if(purSoundRandom == 0)
