@@ -128,7 +128,7 @@ function assetsLoaded() {
 	catWalkFlipped = new Splat.makeAnimation(apt213.images.get("cat-walk-flipped"), 5, 100);
 	owlWalk = new Splat.makeAnimation(apt213.images.get("owl-walk"), 24, 100);
 	owlWalkFlipped = new Splat.makeAnimation(apt213.images.get("owl-walk-flipped"), 24, 100);
-	landlordKnock = new Splat.makeAnimation(apt213.images.get("landlord-walk"), 19, 25);
+	landlordKnock = new Splat.makeAnimation(apt213.images.get("landlord-knock"), 19, 25);
 	landlordWalk = new Splat.makeAnimation(apt213.images.get("landlord-walk"), 25, 25);
 	landlordWalkFlipped = new Splat.makeAnimation(apt213.images.get("landlord-walk-flipped"), 25, 25);
 	catAttack = new Splat.makeAnimation(apt213.images.get("cat-attack1"), 2, 500);
@@ -568,6 +568,9 @@ function(context) {
 //**************** SCENE 3 *****************************************
 //**************** SCENE 3 *****************************************
 function setupScene3() {
+	landlord = new Splat.AnimatedEntity(446, 528, 80, 20, landlordKnock, -40, -283);
+	landlord.frictionX = 0.5;
+	landlord.frictionY = 0.75;
 	scene3.camera = new Splat.EntityBoxCamera(owl, 400, canvas.height, canvas.width/2, canvas.height/2);
 	scene3.goal = new Splat.Entity(669, 493, 20, 70);
 	scene3.knock = Splat.makeAnimation(apt213.images.get("knock"), 2, 100);
@@ -618,6 +621,7 @@ scene3 = new Splat.Scene(canvas, function(elapsedMillis) {
 		owlWalkFlipped.reset();
 	}
 
+	landlord.move(elapsedMillis);
 	scene3.knock.move(elapsedMillis);
 },
 function(context) {
@@ -630,6 +634,7 @@ function(context) {
 	var toDraw = furniture.slice();
 	toDraw.push(owl);
 	toDraw.push(cat);
+	toDraw.push(landlord);
 	toDraw.push(scene3.goal);
 	drawEntities(context, toDraw);
 
@@ -666,9 +671,7 @@ function(context) {
 //**************** SCENE 4 *****************************************
 //**************** SCENE 4 *****************************************
 function setupScene4() {
-	landlord = new Splat.AnimatedEntity(446, 528, 80, 20, landlordWalk, -40, -283);
-	landlord.frictionX = 0.5;
-	landlord.frictionY = 0.75;
+	landlord.sprite = landlordWalk;
 	scene4.camera = new Splat.EntityBoxCamera(landlord, 400, canvas.height, canvas.width/2, canvas.height/2);
 	scene4.goal = new Splat.Entity(3750, 476, 160, 30);
 	furniture.splice(furniture.indexOf(door), 1);
