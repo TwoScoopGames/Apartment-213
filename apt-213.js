@@ -12,7 +12,7 @@ var manifest = {
 		"table-legs": "images/table-legs1f553x51.png",
 		"table-top": "images/table-top1f599x183.png",
 		"cheese": "images/cheese-1f36x29.png",
-		"owl": "images/owl-1f132x240.png",
+		"owl-walk": "images/owl-walk-24f.png",
 		"landlord": "images/landlord-1f-159x304.png",
 		"bowl-empty": "images/cat-bowl-empty.png",
 		"bowl-full": "images/cat-bowl-full.png",
@@ -75,11 +75,13 @@ loading.start();
 var mouseWalk;
 var mouseWalkCheese;
 var catWalk;
+var owlWalk;
 
 function assetsLoaded() {
 	mouseWalk = new Splat.makeAnimation(apt213.images.get("mouse-walk"), 2, 100);
 	mouseWalkCheese = new Splat.makeAnimation(apt213.images.get("mouse-cheese"), 2, 100);
 	catWalk = new Splat.makeAnimation(apt213.images.get("cat-walk"), 5, 100);
+	owlWalk = new Splat.makeAnimation(apt213.images.get("owl-walk"), 24, 100);
 }
 
 var player;
@@ -174,7 +176,7 @@ function setupScene1() {
 	cat.frictionY = 0.75;
 	// furniture.push(cat);
 
-	owl = new Splat.AnimatedEntity(1046, 523, 100, 20, apt213.images.get("owl"), -20, -220);
+	owl = new Splat.AnimatedEntity(1046, 523, 100, 20, owlWalk, -20, -220);
 	owl.frictionX = 0.5;
 	owl.frictionY = 0.75;
 	// furniture.push(owl);
