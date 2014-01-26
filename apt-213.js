@@ -143,34 +143,56 @@ function constrainPlayerToFloor(entity) {
 //**************** SCENE 1 *****************************************
 //**************** SCENE 1 *****************************************
 //**************** SCENE 1 *****************************************
+function addCommonFurniture() {
+	furniture.push(new Splat.Entity(1109, 586, 209, 34)); // tv
+	furniture.push(new Splat.AnimatedEntity(911, 488, 256, 25, apt213.images.get("tv-chair"), -28, -128)); // side table
+	furniture.push(new Splat.Entity(1786, 473, 198, 32)); // hutch 1
+	furniture.push(new Splat.Entity(2140, 581, 23, 13)); // table leg front left
+	furniture.push(new Splat.Entity(2164, 512, 18, 11)); // table leg back left
+	furniture.push(new Splat.Entity(2718, 579, 21, 9)); // table leg front right
+	furniture.push(new Splat.Entity(2698, 515, 18, 9)); //table left back right
+	furniture.push(new Splat.Entity(2884, 472, 198, 38)); // hutch 2
+	furniture.push(new Splat.Entity(3464, 473, 151, 64)); // counter
+	furniture.push(new Splat.Entity(4057, 474, 178, 83)); // fridge
+	furniture.push(new Splat.Entity(4331, 471, 208, 98)); // stove
+}
 function setupScene1() {
 	player = new Splat.AnimatedEntity(673, 476, 40, 8, mouseWalk, -15, -20);
-	scene1.camera = new Splat.EntityBoxCamera(player, 400, canvas.height, canvas.width/2, canvas.height/2);
+	player.frictionX = 0.5;
+	player.frictionY = 0.75;
+
+	addCommonFurniture();
+
 	bowl = new Splat.AnimatedEntity(3385, 444, 78, 53, apt213.images.get("bowl-empty"), 0, 0);
+	furniture.push(bowl);
+
 	can = new Splat.AnimatedEntity(3659, 260, 43, 42, apt213.images.get("can"), 0, 0);
-	furniture = [
-		new Splat.Entity(1109, 586, 209, 34), // tv
-		new Splat.AnimatedEntity(911, 488, 256, 25, apt213.images.get("tv-chair"), -28, -128), // side table
-		new Splat.Entity(1786, 473, 198, 32), // hutch 1
-		new Splat.Entity(2140, 581, 23, 13), // table leg front left
-		new Splat.Entity(2164, 512, 18, 11), // table leg back left
-		new Splat.Entity(2718, 579, 21, 9), // table leg front right
-		new Splat.Entity(2698, 515, 18, 9), //table left back right
-		new Splat.Entity(2884, 472, 198, 38), // hutch 2
-		new Splat.Entity(3464, 473, 151, 64), // counter
-		new Splat.Entity(4057, 474, 178, 83), // fridge
-		new Splat.Entity(4331, 471, 208, 98), // stove
-		bowl,
-		can,
-	];
+	furniture.push(can);
+
+	cat = new Splat.AnimatedEntity(3242, -21, 80, 15, catWalk, -40, -73);
+	cat.frictionX = 0.5;
+	cat.frictionY = 0.75;
+	// furniture.push(cat);
+
+	owl = new Splat.AnimatedEntity(1046, 523, 100, 20, apt213.images.get("owl"), -20, -220);
+	owl.frictionX = 0.5;
+	owl.frictionY = 0.75;
+	// furniture.push(owl);
+
 	scene1.goal = new Splat.Entity(4269, 472, 31, 9);
+	scene1.camera = new Splat.EntityBoxCamera(player, 400, canvas.height, canvas.width/2, canvas.height/2);
 
 	var cheeseImg = apt213.images.get("cheese");
 	scene1.cheese = new Splat.AnimatedEntity(2751, 552, cheeseImg.width, cheeseImg.height, cheeseImg, 0, 0);
 
 	scene1.hasCheese = false;
-	cat = new Splat.AnimatedEntity(3242, -21, 80, 15, catWalk, -40, -73);
-	owl = new Splat.AnimatedEntity(1046, 523, 100, 20, apt213.images.get("owl"), -20, -220);
+}
+
+function distanceSquared(x1, y1, x2, y2) {
+	var dx = x2 - x1;
+	var dy = y2 - y1;
+	dy /= 2;
+	return (dx * dx) + (dy * dy);
 }
 
 function distanceFromCenters(entity1, entity2) {
@@ -180,93 +202,99 @@ function distanceFromCenters(entity1, entity2) {
 	var x2 = entity2.x + (entity2.width / 2);
 	var y2 = entity2.y + (entity2.height / 2);
 
-	var dx = x2 - x1;
-	var dy = y2 - y1;
-	dy /= 2;
-	return (dx * dx) + (dy * dy);
+	return distanceSquared(x1, y1, x2, y2);
+}
+
+function moveEntityViaKeyboard(entity) {
+	if (apt213.keyboard.isPressed("left")) {
+		entity.vx = -0.7;
+	}
+	if (apt213.keyboard.isPressed("right")) {
+		entity.vx = 0.7;
+	}
+	if (apt213.keyboard.isPressed("up")) {
+		entity.vy = -0.2;
+	}
+	if (apt213.keyboard.isPressed("down")) {
+		entity.vy = 0.2;
+	}
+}
+
+function chase(entity, target, range) {
+	var r2 = range * range;
+	if (distanceFromCenters(entity, target) < r2) {
+		if (target.x < entity.x) {
+			entity.vx = -0.7;
+		}
+		if (target.x > entity.x) {
+			entity.vx = 0.7;
+		}
+		if (target.y < entity.y) {
+			entity.vy = -0.2;
+		}
+		if (target.y > entity.y) {
+			entity.vy = 0.2;
+		}
+		entity.vx *= entity.frictionX;
+		entity.vy *= entity.frictionY;
+	}
+}
+
+function onlyRepeatEvery(scene, name, minIntervalMillis, fun) {
+	var t = scene.timer(name);
+	if (t === undefined || t > minIntervalMillis){
+		fun();
+		scene.startTimer(name);
+	}
 }
 
 scene1 = new Splat.Scene(canvas, function(elapsedMillis) {
 	logMouseClick(scene1);
-	handleMovement(elapsedMillis);
-	scene1.cheese.move(elapsedMillis);
-	cat.move(elapsedMillis);
-	collideWithFurniture(cat);
 
-	// only the animation attached to player gets run automatically,
-	// run the other one manually
-	if (scene1.hasCheese) {
-		mouseWalk.move(elapsedMillis);
-	} else {
-		mouseWalkCheese.move(elapsedMillis);
-	}
+	moveEntityViaKeyboard(player);
+	chase(cat, player, 300);
+
+	handleMovement(elapsedMillis);
+
 	if (!player.moved()) {
 		mouseWalk.reset();
 		mouseWalkCheese.reset();
 	}
-	if (!cat.moved()) {
+
+	cat.move(elapsedMillis);
+	if (cat.moved()) {
+		onlyRepeatEvery(scene1, "cat-walk-timer", 400, function() {
+			apt213.sounds.play("cat-walk1");
+		});
+	} else {
 		catWalk.reset();
 	}
+	collideWithFurniture(cat);
 
-	var chaseRange = 300;
-	if (distanceFromCenters(player, cat) < chaseRange * chaseRange) {
-		var isMoving = false;
-		
-		if (player.x < cat.x) {
-			cat.vx = -0.7;
-			isMoving = true;
-		}
-		if (player.x > cat.x) {
-			cat.vx = 0.7;
-			isMoving = true;
-		}
-		if (player.y < cat.y) {
-			cat.vy = -0.2;
-			isMoving = true;
-		}
-		if (player.y > cat.y) {
-			cat.vy = 0.2;
-			isMoving = true;
-		}
-		
-		if(isMoving){
-			var t1 = scene1.timer("cat-walk-timer");
-			
-			if(t1 === undefined || t1 > 400){
-				apt213.sounds.play("cat-walk1");
-				scene1.startTimer("cat-walk-timer");
-			}
-		}
-	}
 
 	if (player.collides(scene1.cheese)) {
 		scene1.hasCheese = true;
 		player.sprite = mouseWalkCheese;
 	
-		var squeakTimer = scene1.timer("mouse-squeak-timer");
-		var squeakSoundRandom = Math.floor(Math.random()*2);
-		
-		if(squeakTimer === undefined || squeakTimer > 2000 + Math.random()*10){
-			if(squeakSoundRandom == 0)
+		onlyRepeatEvery(scene1, "mouse-squeak-timer", 2000, function() {
+			var squeakSoundRandom = Math.random()*2|0;
+			if (squeakSoundRandom == 0)
 				apt213.sounds.play("mouse-squeak1");
 			else if(squeakSoundRandom == 1)
 				apt213.sounds.play("mouse-squeak2");
-			
-			scene1.startTimer("mouse-squeak-timer");
-		}
+		});
 	}
 
 	if (player.collides(cat)) {
-		if(isMoving){
+		if (cat.moved()){
 			var t1 = scene1.timer("mouse-damage-timer");
-			
 			if(t1 === undefined || t1 > 400){
 				apt213.sounds.play("mouse-damage2");
 				scene1.startTimer("mouse-damage-timer");
 			}
 		}
 		
-		player.vx = -20.0;
+		player.vx = -10.0;
 		if (scene1.hasCheese) {
 			scene1.hasCheese = false;
 			player.sprite = mouseWalk;
@@ -281,22 +309,6 @@ scene1 = new Splat.Scene(canvas, function(elapsedMillis) {
 		return;
 	}
 
-	player.vx *= 0.5;
-	player.vy *= 0.75;
-	cat.vx *= 0.5;
-	cat.vy *= 0.75;
-	if (apt213.keyboard.isPressed("left")) {
-		player.vx = -0.7;
-	}
-	if (apt213.keyboard.isPressed("right")) {
-		player.vx = 0.7;
-	}
-	if (apt213.keyboard.isPressed("up")) {
-		player.vy = -0.2;
-	}
-	if (apt213.keyboard.isPressed("down")) {
-		player.vy = 0.2;
-	}
 },
 function(context) {
 	scene1.camera.drawAbsolute(context, function() {
@@ -341,11 +353,15 @@ function setupScene2() {
 scene2 = new Splat.Scene(canvas, function(elapsedMillis) {
 	logMouseClick(scene2);
 
+	moveEntityViaKeyboard(player);
+	chase(owl, player, 300);
+
 	for (var i in furniture) {
 		furniture[i].move(elapsedMillis);
 	}
+
 	player.move(elapsedMillis);
-	if (!cat.moved()) {
+	if (!player.moved()) {
 		catWalk.reset();
 	}
 	if (scene2.bowlHasFood && player.collides(bowl)) {
@@ -367,60 +383,14 @@ scene2 = new Splat.Scene(canvas, function(elapsedMillis) {
 	}
 	collideWithFurniture(owl);
 
-	var chaseRange = 300;
-	if (distanceFromCenters(player, owl) < chaseRange * chaseRange) {
-		var isMoving = false;
-		
-		if (player.x < owl.x) {
-			owl.vx = -0.7;
-			isMoving = true;
-		}
-		if (player.x > owl.x) {
-			owl.vx = 0.7;
-			isMoving = true;
-		}
-		if (player.y < owl.y) {
-			owl.vy = -0.2;
-			isMoving = true;
-		}
-		if (player.y > owl.y) {
-			owl.vy = 0.2;
-			isMoving = true;
-		}
-		
-		var purTimer = scene2.timer("cat-pur-timer");
-		var purSoundRandom = Math.floor(Math.random()*2);
-		
-		if(isMoving){
-			var purTimer = scene2.timer("cat-pur-timer");
-			
-			if(purTimer === undefined || purTimer > 2000 + Math.random()*10){
-				if(purSoundRandom == 0)
-					apt213.sounds.play("cat-meow1");
-				else if(purSoundRandom == 1)
-					apt213.sounds.play("cat-meow2");
-				
-				scene2.startTimer("cat-pur-timer");
-			}
-		}
-	}
-
-	player.vx *= 0.5;
-	player.vy *= 0.75;
-	owl.vx *= 0.5;
-	owl.vy *= 0.75;
-	
-	if (apt213.keyboard.isPressed("left")) {
-		player.vx = -0.7;
-	}
-	if (apt213.keyboard.isPressed("right")) {
-		player.vx = 0.7;
-	}
-	if (apt213.keyboard.isPressed("up")) {
-		player.vy = -0.2;
-	}
-	if (apt213.keyboard.isPressed("down")) {
-		player.vy = 0.2;
+	if (owl.moved()) {
+		onlyRepeatEvery(scene2, "cat-pur-timer", 2000, function() {
+			var purSoundRandom = Math.floor(Math.random()*2);
+			if(purSoundRandom == 0)
+				apt213.sounds.play("cat-meow1");
+			else if(purSoundRandom == 1)
+				apt213.sounds.play("cat-meow2");
+		});
 	}
 },
 function(context) {
@@ -472,18 +442,7 @@ scene3 = new Splat.Scene(canvas, function(elapsedMillis) {
 
 	player.vx *= 0.5;
 	player.vy *= 0.75;
-	if (apt213.keyboard.isPressed("left")) {
-		player.vx = -0.7;
-	}
-	if (apt213.keyboard.isPressed("right")) {
-		player.vx = 0.7;
-	}
-	if (apt213.keyboard.isPressed("up")) {
-		player.vy = -0.2;
-	}
-	if (apt213.keyboard.isPressed("down")) {
-		player.vy = 0.2;
-	}
+	moveEntityViaKeyboard(player);
 
 	scene3.knock.move(elapsedMillis);
 },
@@ -557,18 +516,7 @@ scene4 = new Splat.Scene(canvas, function(elapsedMillis) {
 
 	player.vx *= 0.5;
 	player.vy *= 0.75;
-	if (apt213.keyboard.isPressed("left")) {
-		player.vx = -0.7;
-	}
-	if (apt213.keyboard.isPressed("right")) {
-		player.vx = 0.7;
-	}
-	if (apt213.keyboard.isPressed("up")) {
-		player.vy = -0.2;
-	}
-	if (apt213.keyboard.isPressed("down")) {
-		player.vy = 0.2;
-	}
+	moveEntityViaKeyboard(player);
 },
 function(context) {
 	scene4.camera.drawAbsolute(context, function() {
