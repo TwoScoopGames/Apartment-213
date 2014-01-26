@@ -126,6 +126,7 @@ var owl;
 var cat;
 var bowl;
 var can;
+var door;
 var furniture = [];
 
 var lmx = 0;
@@ -164,8 +165,8 @@ function collideWithFurniture(entity) {
 }
 
 function constrainPlayerToFloor(entity) {
-	if (entity.x < 668) {
-		entity.x = 668;
+	if (entity.x < 368) {
+		entity.x = 368;
 	}
 	if (entity.x + entity.width > 4543) {
 		entity.x = 4543 - entity.width;
@@ -203,6 +204,10 @@ function addCommonFurniture() {
 	furniture.push(new Splat.Entity(3464, 473, 151, 64)); // counter
 	furniture.push(new Splat.Entity(4057, 474, 178, 83)); // fridge
 	furniture.push(new Splat.Entity(4331, 471, 208, 98)); // stove
+	furniture.push(new Splat.AnimatedEntity(642, 469, 27, 31, apt213.images.get("door-frame-back"), 0, -449));
+	furniture.push(new Splat.AnimatedEntity(552, 559, 56, 65, apt213.images.get("door-frame-front"), -16, -539));
+	door = new Splat.AnimatedEntity(604, 500, 56, 65, apt213.images.get("door-closed"), -8, -272);
+	furniture.push(door);
 }
 function setupScene1() {
 	player = new Splat.AnimatedEntity(673, 476, 40, 8, mouseWalk, -15, -20);
@@ -442,10 +447,6 @@ function(context) {
 	toDraw.push(player);
 	toDraw.push(scene1.goal);
 	drawEntities(context, toDraw);
-
-	context.drawImage(apt213.images.get("door-frame-back"), 642, 20);
-	context.drawImage(apt213.images.get("door-frame-front"), 536, 20);
-	context.drawImage(apt213.images.get("door-closed"), 596, 228);
 });
 
 //**************** SCENE 2 *****************************************
@@ -609,10 +610,6 @@ function(context) {
 	toDraw.push(owl);
 	toDraw.push(player);
 	drawEntities(context, toDraw);
-
-	context.drawImage(apt213.images.get("door-frame-back"), 642, 20);
-	context.drawImage(apt213.images.get("door-frame-front"), 536, 20);
-	context.drawImage(apt213.images.get("door-closed"), 596, 228);
 });
 
 //**************** SCENE 3 *****************************************
@@ -689,10 +686,6 @@ function(context) {
 	toDraw.push(scene3.goal);
 	drawEntities(context, toDraw);
 
-	context.drawImage(apt213.images.get("door-frame-back"), 642, 20);
-	context.drawImage(apt213.images.get("door-frame-front"), 536, 20);
-	context.drawImage(apt213.images.get("door-closed"), 596, 228);
-
 	var knockGap = 100;
 	if (scene3.knockCount === 0) {
 		knockGap = 3000;
@@ -726,9 +719,12 @@ function(context) {
 //**************** SCENE 4 *****************************************
 //**************** SCENE 4 *****************************************
 function setupScene4() {
-	player = new Splat.AnimatedEntity(290, 300, 80, 20, apt213.images.get("landlord"), -40, -283);
+	player = new Splat.AnimatedEntity(446, 528, 80, 20, apt213.images.get("landlord"), -40, -283);
 	scene4.camera = new Splat.EntityBoxCamera(player, 400, canvas.height, canvas.width/2, canvas.height/2);
 	scene4.goal = new Splat.Entity(3750, 476, 160, 30);
+	furniture.splice(furniture.indexOf(door), 1);
+	door = new Splat.AnimatedEntity(650, 473, 130, 27, apt213.images.get("door-open"), 0, -243);
+	furniture.push(door);
 }
 
 scene4 = new Splat.Scene(canvas, function(elapsedMillis) {
@@ -759,10 +755,6 @@ function(context) {
 	toDraw.push(player);
 	toDraw.push(scene4.goal);
 	drawEntities(context, toDraw);
-
-	context.drawImage(apt213.images.get("door-frame-back"), 642, 20);
-	context.drawImage(apt213.images.get("door-frame-front"), 536, 20);
-	context.drawImage(apt213.images.get("door-open"), 650, 230);
 });
 
 //**************** CREDITS *****************************************
