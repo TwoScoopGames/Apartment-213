@@ -530,6 +530,12 @@ scene2 = new Splat.Scene(canvas, function(elapsedMillis) {
 	}
 	collideWithFurniture(owl);
 
+	// only let owl collide with table
+	var owlTableCollision = new Splat.Entity(2140, 514, 599, 78);
+	if (owl.collides(owlTableCollision)) {
+		owl.resolveCollisionWith(owlTableCollision);
+	}
+
 	if (owl.moved()) {
 		onlyRepeatEvery(scene2, "cat-pur-timer", 2000, function() {
 			var purSoundRandom = Math.floor(Math.random()*2);
