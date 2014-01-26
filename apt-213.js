@@ -103,6 +103,7 @@ var manifest = {
 		"landlord-flipped": "images/flipped/landlord-1f-159x304.png",
 		"sky": "images/parallax-sky.png",
 		"bathroom": "images/bathroom.png",
+		"bedroom": "images/bedroom.png",
 		"title-1": "images/title-1.png",
 		"title-2": "images/title-2.png",
 	},
@@ -469,6 +470,7 @@ function drawBackground(scene, context) {
 
 	drawParallaxImage(scene, context, apt213.images.get("sky"), 203, 0, 465);
 	drawParallaxImage(scene, context, apt213.images.get("sky"), 4372, 0, 341);
+	drawParallaxImage(scene, context, apt213.images.get("bedroom"), 1388, 139, 180);
 	drawParallaxImage(scene, context, apt213.images.get("bathroom"), 3196, 138, 181);
 	if (scene === scene4) {
 		context.drawImage(apt213.images.get("bg-lv4"), 0, 0);
