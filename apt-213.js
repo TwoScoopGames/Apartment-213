@@ -21,7 +21,27 @@ var manifest = {
 		"door-frame-back": "images/doorframe-back.png",
 		"door-frame-front": "images/doorframe-front.png",
 		"door-open": "images/door-open.png",
-		"door-closed": "images/door-closed.png"
+		"door-closed": "images/door-closed.png",
+		"bg-flipped": "images/flipped/bg-1f5115x640.png",
+		"mouse-walk-flipped": "images/flipped/mouse-anim-2f.png",
+		"mouse-cheese-flipped": "images/flipped/mousecheese-2f.png",
+		"cat-flipped": "images/flipped/cat-1f143x86.png",
+		"cat-walk-flipped": "images/flipped/cat-lv1-walk-5f.png",
+		"tv-flipped": "images/flipped/tv1f209x268.png",
+		"tv-chair-flipped": "images/flipped/table-chair-1f288x161.png",
+		"table-legs-flipped": "images/flipped/table-legs1f553x51.png",
+		"table-top-flipped": "images/flipped/table-top1f599x183.png",
+		"cheese-flipped": "images/flipped/cheese-1f36x29.png",
+		"owl-flipped": "images/flipped/owl-1f132x240.png",
+		"landlord-flipped": "images/flipped/landlord-1f-159x304.png",
+		"bowl-empty-flipped": "images/flipped/cat-bowl-empty.png",
+		"bowl-full-flipped": "images/flipped/cat-bowl-full.png",
+		"can-flipped": "images/flipped/cat-food-can.png",
+		"knock-flipped": "images/flipped/knock-2f.png",
+		"door-frame-back-flipped": "images/flipped/doorframe-back.png",
+		"door-frame-front-flipped": "images/flipped/doorframe-front.png",
+		"door-open-flipped": "images/flipped/door-open.png",
+		"door-closed-flipped": "images/flipped/door-closed.png"
 	},
 	"sounds": {
 		"cat-walk1": 		"audio/cat_walk1.wav",
@@ -80,16 +100,24 @@ function(context) {
 loading.start();
 
 var mouseWalk;
+var mouseWalkFlipped;
 var mouseWalkCheese;
+var mouseWalkCheeseFlipped;
 var catWalk;
+var catWalkFlipped;
 
 function assetsLoaded() {
 	mouseWalk = new Splat.makeAnimation(apt213.images.get("mouse-walk"), 2, 100);
+	mouseWalkFlipped = new Splat.makeAnimation(apt213.images.get("mouse-walk-flipped"), 2, 100);
 	mouseWalkCheese = new Splat.makeAnimation(apt213.images.get("mouse-cheese"), 2, 100);
+	mouseWalkCheeseFlipped = new Splat.makeAnimation(apt213.images.get("mouse-cheese-flipped"), 2, 100);
 	catWalk = new Splat.makeAnimation(apt213.images.get("cat-walk"), 5, 100);
+	catWalkFlipped = new Splat.makeAnimation(apt213.images.get("cat-walk-flipped"), 5, 100);
 }
 
 var player;
+var playerAnimation;
+var playerAnimationFlipped;
 var owl;
 var cat;
 var bowl;
@@ -151,7 +179,7 @@ function constrainPlayerToFloor(entity) {
 //**************** SCENE 1 *****************************************
 //**************** SCENE 1 *****************************************
 function setupScene1() {
-	player = new Splat.AnimatedEntity(673, 476, 40, 8, mouseWalk, -15, -20);
+	player =  new Splat.AnimatedEntity(673, 476, 40, 8, mouseWalk, -15, -20);
 	scene1.camera = new Splat.EntityBoxCamera(player, 400, canvas.height, canvas.width/2, canvas.height/2);
 	bowl = new Splat.AnimatedEntity(3385, 444, 78, 53, apt213.images.get("bowl-empty"), 0, 0);
 	can = new Splat.AnimatedEntity(3659, 260, 43, 42, apt213.images.get("can"), 0, 0);
@@ -245,10 +273,31 @@ scene1 = new Splat.Scene(canvas, function(elapsedMillis) {
 			}
 		}
 	}
+	
+	var playerFlipped = false;
+	
+	if(player.vx < 0){
+		playerFlipped = true;
+	}
+	else if(player.vx > 0){
+		playerFlipped = false;
+	}
+	
+	if(playerFlipped){
+		if(scene1.hasCheese)
+			player.sprite = mouseWalkCheeseFlipped;
+		else
+			player.sprite = mouseWalkFlipped;
+	}
+	else{
+		if(scene1.hasCheese)
+			player.sprite = mouseWalkCheese;
+		else
+			player.sprite = mouseWalk;
+	}
 
 	if (player.collides(scene1.cheese)) {
 		scene1.hasCheese = true;
-		player.sprite = mouseWalkCheese;
 	
 		var squeakTimer = scene1.timer("mouse-squeak-timer");
 		var squeakSoundRandom = Math.floor(Math.random()*2);
@@ -276,7 +325,7 @@ scene1 = new Splat.Scene(canvas, function(elapsedMillis) {
 		player.vx = -20.0;
 		if (scene1.hasCheese) {
 			scene1.hasCheese = false;
-			player.sprite = mouseWalk;
+			//player.sprite = mouseWalk;
 			scene1.cheese.x = player.x;
 			scene1.cheese.y = player.y;
 		}
@@ -355,6 +404,7 @@ scene2 = new Splat.Scene(canvas, function(elapsedMillis) {
 	player.move(elapsedMillis);
 	if (!cat.moved()) {
 		catWalk.reset();
+		catWalkFlipped.reset();
 	}
 	if (scene2.bowlHasFood && player.collides(bowl)) {
 		scene2.stop();
@@ -363,6 +413,23 @@ scene2 = new Splat.Scene(canvas, function(elapsedMillis) {
 		scene3.start();
 		return;
 	}
+	
+	var playerFlipped = false;
+	
+	if(player.vx < 0){
+		playerFlipped = true;
+	}
+	else if(player.vx > 0){
+		playerFlipped = false;
+	}
+	
+	if(playerFlipped){
+		player.sprite = catWalkFlipped;
+	}
+	else{
+		player.sprite = catWalk;
+	}
+	
 	collideWithFurniture(player);
 
 	owl.move(elapsedMillis);
@@ -486,7 +553,8 @@ scene3 = new Splat.Scene(canvas, function(elapsedMillis) {
 	if (player.collides(scene3.goal)) {
 		scene3.stop();
 		setupScene4();
-		apt213.sounds.play("level-end-win1");
+		//apt213.sounds.play("level-end-win1");
+		apt213.sounds.play("door-open1");
 		scene4.start();
 		return;
 	}
@@ -579,7 +647,10 @@ function(context) {
 	}
 });
 
-//**************** SCENE 4 ***********************
+//**************** SCENE 4 *****************************************
+//**************** SCENE 4 *****************************************
+//**************** SCENE 4 *****************************************
+//**************** SCENE 4 *****************************************
 function setupScene4() {
 	player = new Splat.AnimatedEntity(290, 300, 80, 20, apt213.images.get("landlord"), -40, -283);
 	scene4.camera = new Splat.EntityBoxCamera(player, 400, canvas.height, canvas.width/2, canvas.height/2);
@@ -592,7 +663,6 @@ scene4 = new Splat.Scene(canvas, function(elapsedMillis) {
 
 	if (player.collides(scene4.goal)) {
 		scene4.stop();
-		apt213.sounds.play("credits-clap1");
 		setupCredits();
 		credits.start();
 		return;
@@ -638,7 +708,10 @@ function(context) {
 	context.drawImage(apt213.images.get("door-open"), 650, 230);
 });
 
-//**************** CREDITS ***********************
+//**************** CREDITS *****************************************
+//**************** CREDITS *****************************************
+//**************** CREDITS *****************************************
+//**************** CREDITS *****************************************
 function setupCredits() {
 	apt213.sounds.play("screen-music", true);
 }
