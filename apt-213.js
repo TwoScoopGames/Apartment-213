@@ -17,7 +17,11 @@ var manifest = {
 		"bowl-empty": "images/cat-bowl-empty.png",
 		"bowl-full": "images/cat-bowl-full.png",
 		"can": "images/cat-food-can.png",
-		"knock": "images/knock-2f.png"
+		"knock": "images/knock-2f.png",
+		"door-frame-back": "images/doorframe-back.png",
+		"door-frame-front": "images/doorframe-front.png",
+		"door-open": "images/door-open.png",
+		"door-closed": "images/door-closed.png"
 	},
 	"sounds": {
 		"cat-walk1": 		"audio/cat_walk1.wav",
@@ -128,8 +132,8 @@ function collideWithFurniture(entity) {
 }
 
 function constrainPlayerToFloor(entity) {
-	if (entity.x < 568) {
-		entity.x = 568;
+	if (entity.x < 668) {
+		entity.x = 668;
 	}
 	if (entity.x + entity.width > 4543) {
 		entity.x = 4543 - entity.width;
@@ -154,12 +158,12 @@ function setupScene1() {
 	furniture = [
 		new Splat.Entity(1109, 586, 209, 34), // tv
 		new Splat.AnimatedEntity(911, 488, 256, 25, apt213.images.get("tv-chair"), -28, -128), // side table
-		new Splat.Entity(2113, 473, 198, 32), // hutch 1
-		new Splat.Entity(2290, 581, 23, 13), // table leg front left
-		new Splat.Entity(2314, 512, 18, 11), // table leg back left
-		new Splat.Entity(2868, 579, 21, 9), // table leg front right
-		new Splat.Entity(2848, 515, 18, 9), //table left back right
-		new Splat.Entity(2860, 472, 198, 38), // hutch 2
+		new Splat.Entity(1786, 473, 198, 32), // hutch 1
+		new Splat.Entity(2140, 581, 23, 13), // table leg front left
+		new Splat.Entity(2164, 512, 18, 11), // table leg back left
+		new Splat.Entity(2718, 579, 21, 9), // table leg front right
+		new Splat.Entity(2698, 515, 18, 9), //table left back right
+		new Splat.Entity(2884, 472, 198, 38), // hutch 2
 		new Splat.Entity(3464, 473, 151, 64), // counter
 		new Splat.Entity(4057, 474, 178, 83), // fridge
 		new Splat.Entity(4331, 471, 208, 98), // stove
@@ -322,8 +326,11 @@ function(context) {
 	player.draw(context);
 
 	context.drawImage(apt213.images.get("tv"), 1108, 345);
-	context.drawImage(apt213.images.get("table-legs"), 2313, 472);
-	context.drawImage(apt213.images.get("table-top"), 2290, 410);
+	context.drawImage(apt213.images.get("table-legs"), 2163, 472);
+	context.drawImage(apt213.images.get("table-top"), 2140, 410);
+	context.drawImage(apt213.images.get("door-frame-back"), 642, 20);
+	context.drawImage(apt213.images.get("door-frame-front"), 536, 20);
+	context.drawImage(apt213.images.get("door-closed"), 596, 228);
 });
 
 //**************** SCENE 2 *****************************************
@@ -371,8 +378,6 @@ scene2 = new Splat.Scene(canvas, function(elapsedMillis) {
 
 	var chaseRange = 300;
 	if (distanceFromCenters(player, owl) < chaseRange * chaseRange) {
-		console.log("in range");
-		
 		var isMoving = false;
 		
 		if (player.x < owl.x) {
@@ -454,8 +459,11 @@ function(context) {
 	player.draw(context);
 
 	context.drawImage(apt213.images.get("tv"), 1108, 345);
-	context.drawImage(apt213.images.get("table-legs"), 2313, 472);
-	context.drawImage(apt213.images.get("table-top"), 2290, 410);
+	context.drawImage(apt213.images.get("table-legs"), 2163, 472);
+	context.drawImage(apt213.images.get("table-top"), 2140, 410);
+	context.drawImage(apt213.images.get("door-frame-back"), 642, 20);
+	context.drawImage(apt213.images.get("door-frame-front"), 536, 20);
+	context.drawImage(apt213.images.get("door-closed"), 596, 228);
 });
 
 //**************** SCENE 3 *****************************************
@@ -465,8 +473,10 @@ function(context) {
 function setupScene3() {
 	player = owl;
 	scene3.camera = new Splat.EntityBoxCamera(player, 400, canvas.height, canvas.width/2, canvas.height/2);
-	scene3.goal = new Splat.Entity(569, 493, 20, 70);
-	scene3.knock = Splat.makeAnimation(apt213.images.get("knock"), 2, 300);
+	scene3.goal = new Splat.Entity(669, 493, 20, 70);
+	scene3.knock = Splat.makeAnimation(apt213.images.get("knock"), 2, 100);
+	scene3.startTimer("knock");
+	scene3.knockCount = 0;
 }
 
 scene3 = new Splat.Scene(canvas, function(elapsedMillis) {
@@ -534,21 +544,44 @@ function(context) {
 	owl.draw(context);
 
 	context.drawImage(apt213.images.get("tv"), 1108, 345);
-	context.drawImage(apt213.images.get("table-legs"), 2313, 472);
-	context.drawImage(apt213.images.get("table-top"), 2290, 410);
 
-	if (scene3.camera.x < 581) {
-		scene3.knock.draw(context, 581, canvas.height/2 - scene3.knock.height/2);
-	} else {
-		scene3.camera.drawAbsolute(context, function() {
-			scene3.knock.draw(context, 50, canvas.height/2 - scene3.knock.height/2);
-		});
+	context.drawImage(apt213.images.get("table-legs"), 2163, 472);
+	context.drawImage(apt213.images.get("table-top"), 2140, 410);
+	context.drawImage(apt213.images.get("door-frame-back"), 642, 20);
+	context.drawImage(apt213.images.get("door-frame-front"), 536, 20);
+	context.drawImage(apt213.images.get("door-closed"), 596, 228);
+
+	var knockGap = 100;
+	if (scene3.knockCount === 0) {
+		knockGap = 3000;
+	}
+	if (scene3.timer("knock") > knockGap) {
+		scene3.stopTimer("knock");
+		scene3.startTimer("knock-duration");
+		apt213.sounds.play("landlord-knock");
+		scene3.knockCount++;
+		if (scene3.knockCount === 3) {
+			scene3.knockCount = 0;
+		}
+	}
+	if (scene3.timer("knock-duration") >= 0) {
+		if (scene3.camera.x < 581) {
+			scene3.knock.draw(context, 581, canvas.height/2 - scene3.knock.height/2);
+		} else {
+			scene3.camera.drawAbsolute(context, function() {
+				scene3.knock.draw(context, 50, canvas.height/2 - scene3.knock.height/2);
+			});
+		}
+		if (scene3.timer("knock-duration") > 200) {
+			scene3.stopTimer("knock-duration");
+			scene3.startTimer("knock");
+		}
 	}
 });
 
 //**************** SCENE 4 ***********************
 function setupScene4() {
-	player = new Splat.AnimatedEntity(300, 300, 80, 30, apt213.images.get("landlord"), -40, -280);
+	player = new Splat.AnimatedEntity(290, 300, 80, 20, apt213.images.get("landlord"), -40, -283);
 	scene4.camera = new Splat.EntityBoxCamera(player, 400, canvas.height, canvas.width/2, canvas.height/2);
 	scene4.goal = new Splat.Entity(3750, 476, 160, 30);
 }
@@ -596,10 +629,13 @@ function(context) {
 	owl.draw(context);
 	player.draw(context);
 
-	context.drawImage(apt213.images.get("tv-chair"), 883, 360);
+	//context.drawImage(apt213.images.get("tv-chair"), 883, 360);
 	context.drawImage(apt213.images.get("tv"), 1108, 345);
-	context.drawImage(apt213.images.get("table-legs"), 2313, 472);
-	context.drawImage(apt213.images.get("table-top"), 2290, 410);
+	context.drawImage(apt213.images.get("table-legs"), 2163, 472);
+	context.drawImage(apt213.images.get("table-top"), 2140, 410);
+	context.drawImage(apt213.images.get("door-frame-back"), 642, 20);
+	context.drawImage(apt213.images.get("door-frame-front"), 536, 20);
+	context.drawImage(apt213.images.get("door-open"), 650, 230);
 });
 
 //**************** CREDITS ***********************
