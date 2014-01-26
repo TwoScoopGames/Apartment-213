@@ -331,6 +331,7 @@ function addCommonFurniture() {
 }
 function setupScene1() {
 	mouse = new Splat.AnimatedEntity(673, 476, 40, 8, mouseWalk, -15, -20);
+	mouse.vy = 1;
 	mouse.frictionX = 0.5;
 	mouse.frictionY = 0.75;
 
