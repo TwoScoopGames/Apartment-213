@@ -245,6 +245,25 @@ function setupScene2() {
 scene2 = new Splat.Scene(canvas, function(elapsedMillis) {
 	logMouseClick(scene2);
 	handleMovement(elapsedMillis);
+	owl.move(elapsedMillis);
+	collideWithFurniture(owl);
+
+	var chaseRange = 300;
+	if (distanceFromCenters(player, owl) < chaseRange * chaseRange) {
+		console.log("in range");
+		if (player.x < owl.x) {
+			owl.vx = -0.7;
+		}
+		if (player.x > owl.x) {
+			owl.vx = 0.7;
+		}
+		if (player.y < owl.y) {
+			owl.vy = -0.2;
+		}
+		if (player.y > owl.y) {
+			owl.vy = 0.2;
+		}
+	}
 
 	if (player.collides(scene2.goal)) {
 		scene2.stop();
@@ -255,6 +274,8 @@ scene2 = new Splat.Scene(canvas, function(elapsedMillis) {
 
 	player.vx *= 0.5;
 	player.vy *= 0.75;
+	owl.vx *= 0.5;
+	owl.vy *= 0.75;
 	if (apt213.keyboard.isPressed("left")) {
 		player.vx = -0.7;
 	}
@@ -346,7 +367,7 @@ function(context) {
 function setupScene4() {
 	player = new Splat.AnimatedEntity(300, 300, 80, 30, apt213.images.get("landlord"), -40, -280);
 	scene4.camera = new Splat.EntityBoxCamera(player, 400, canvas.height, canvas.width/2, canvas.height/2);
-	scene4.goal = new Splat.Entity(1569, 493, 80, 30);
+	scene4.goal = new Splat.Entity(3750, 476, 160, 30);
 }
 
 scene4 = new Splat.Scene(canvas, function(elapsedMillis) {
