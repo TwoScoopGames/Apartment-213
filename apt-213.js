@@ -15,6 +15,7 @@ var manifest = {
 	"sounds": {
 		"cat-walk1": 		"audio/cat_walk1.wav",
 		"cat-walk2": 		"audio/cat_walk2.wav",
+		"angry-cat":		"audio/angry_cat_sound1.wav",
 		"title-screen": 	"audio/Devin_Magruder_music.mp3",
 		"explosion1": 		"audio/explosion1.wav",
 		"fade1": 			"audio/fade1.wav",
@@ -23,7 +24,8 @@ var manifest = {
 		"mouse-baby-sound1":"audio/mouse_baby_sound1.wav",
 		"mouse-damage1": 	"audio/mouse_damage1.wav",
 		"mouse-damage2": 	"audio/mouse_damage2.wav",
-		"mouse-squeak": 	"audio/mouse_squeak1.wav",
+		"mouse-squeak1": 	"audio/mouse_squeak1.wav",
+		"mouse-squeak2":	"audio/mouse_squeak2.wav",
 		"owl-bk-music": 	"audio/owl_bk_music.wav"
 	},
 	"fonts": [
@@ -157,20 +159,47 @@ scene1 = new Splat.Scene(canvas, function(elapsedMillis) {
 	scene1.cheese.move(elapsedMillis);
 	cat.move(elapsedMillis);
 	collideWithFurniture(cat);
+	
+	var squeakTimer = scene1.timer("mouse-squeak-timer");
+	var squeakSoundRandom = Math.floor(Math.random()*2);
+	
+	if(squeakTimer === undefined || squeakTimer > 2000 + Math.random()*10){
+		if(squeakSoundRandom == 0)
+			apt213.sounds.play("mouse-squeak1");
+		else if(squeakSoundRandom == 1)
+			apt213.sounds.play("mouse-squeak2");
+		
+		scene1.startTimer("mouse-squeak-timer");
+	}
 
 	var chaseRange = 300;
 	if (distanceFromCenters(player, cat) < chaseRange * chaseRange) {
+		var isMoving = false;
+		
 		if (player.x < cat.x) {
 			cat.vx = -0.7;
+			isMoving = true;
 		}
 		if (player.x > cat.x) {
 			cat.vx = 0.7;
+			isMoving = true;
 		}
 		if (player.y < cat.y) {
 			cat.vy = -0.2;
+			isMoving = true;
 		}
 		if (player.y > cat.y) {
 			cat.vy = 0.2;
+			isMoving = true;
+		}
+		
+		if(isMoving){
+			var t1 = scene1.timer("cat-walk-timer");
+			
+			if(t1 === undefined || t1 > 400){
+				apt213.sounds.play("cat-walk1");
+				scene1.startTimer("cat-walk-timer");
+			}
 		}
 	}
 
@@ -179,7 +208,15 @@ scene1 = new Splat.Scene(canvas, function(elapsedMillis) {
 	}
 
 	if (player.collides(cat)) {
-		apt213.sounds.play("mouse-damage2");
+		if(isMoving){
+			var t1 = scene1.timer("mouse-damage-timer");
+			
+			if(t1 === undefined || t1 > 400){
+				apt213.sounds.play("mouse-damage2");
+				scene1.startTimer("mouse-damage-timer");
+			}
+		}
+		
 		player.vx = -20.0;
 		if (scene1.hasCheese) {
 			scene1.hasCheese = false;
