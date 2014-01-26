@@ -146,14 +146,14 @@ function constrainPlayerToFloor(entity) {
 //**************** SCENE 1 *****************************************
 //**************** SCENE 1 *****************************************
 function addCommonFurniture() {
-	furniture.push(new Splat.Entity(1109, 586, 209, 34)); // tv
+	furniture.push(new Splat.AnimatedEntity(1109, 586, 209, 34, apt213.images.get("tv"), -1, -241)); // tv
 	furniture.push(new Splat.AnimatedEntity(911, 488, 256, 25, apt213.images.get("tv-chair"), -28, -128)); // side table
 	furniture.push(new Splat.Entity(1786, 473, 198, 32)); // hutch 1
-	furniture.push(new Splat.Entity(2140, 581, 23, 13)); // table leg front left
-	furniture.push(new Splat.Entity(2164, 512, 18, 11)); // table leg back left
+	furniture.push(new Splat.AnimatedEntity(2140, 581, 23, 13, apt213.images.get("table-top"), 0, -171)); // table leg front left
+	furniture.push(new Splat.AnimatedEntity(2164, 512, 18, 11, apt213.images.get("table-legs"), -1, -40)); // table leg back left
 	furniture.push(new Splat.Entity(2718, 579, 21, 9)); // table leg front right
 	furniture.push(new Splat.Entity(2698, 515, 18, 9)); //table left back right
-	furniture.push(new Splat.Entity(2884, 472, 198, 38)); // hutch 2
+	furniture.push(new Splat.Entity(2877, 472, 198, 30)); // hutch 2
 	furniture.push(new Splat.Entity(3464, 473, 151, 64)); // counter
 	furniture.push(new Splat.Entity(4057, 474, 178, 83)); // fridge
 	furniture.push(new Splat.Entity(4331, 471, 208, 98)); // stove
@@ -331,9 +331,6 @@ function(context) {
 	owl.draw(context);
 	player.draw(context);
 
-	context.drawImage(apt213.images.get("tv"), 1108, 345);
-	context.drawImage(apt213.images.get("table-legs"), 2163, 472);
-	context.drawImage(apt213.images.get("table-top"), 2140, 410);
 	context.drawImage(apt213.images.get("door-frame-back"), 642, 20);
 	context.drawImage(apt213.images.get("door-frame-front"), 536, 20);
 	context.drawImage(apt213.images.get("door-closed"), 596, 228);
@@ -409,9 +406,6 @@ function(context) {
 	owl.draw(context);
 	player.draw(context);
 
-	context.drawImage(apt213.images.get("tv"), 1108, 345);
-	context.drawImage(apt213.images.get("table-legs"), 2163, 472);
-	context.drawImage(apt213.images.get("table-top"), 2140, 410);
 	context.drawImage(apt213.images.get("door-frame-back"), 642, 20);
 	context.drawImage(apt213.images.get("door-frame-front"), 536, 20);
 	context.drawImage(apt213.images.get("door-closed"), 596, 228);
@@ -463,10 +457,6 @@ function(context) {
 	cat.draw(context);
 	owl.draw(context);
 
-	context.drawImage(apt213.images.get("tv"), 1108, 345);
-
-	context.drawImage(apt213.images.get("table-legs"), 2163, 472);
-	context.drawImage(apt213.images.get("table-top"), 2140, 410);
 	context.drawImage(apt213.images.get("door-frame-back"), 642, 20);
 	context.drawImage(apt213.images.get("door-frame-front"), 536, 20);
 	context.drawImage(apt213.images.get("door-closed"), 596, 228);
@@ -536,10 +526,6 @@ function(context) {
 	owl.draw(context);
 	player.draw(context);
 
-	//context.drawImage(apt213.images.get("tv-chair"), 883, 360);
-	context.drawImage(apt213.images.get("tv"), 1108, 345);
-	context.drawImage(apt213.images.get("table-legs"), 2163, 472);
-	context.drawImage(apt213.images.get("table-top"), 2140, 410);
 	context.drawImage(apt213.images.get("door-frame-back"), 642, 20);
 	context.drawImage(apt213.images.get("door-frame-front"), 536, 20);
 	context.drawImage(apt213.images.get("door-open"), 650, 230);
