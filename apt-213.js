@@ -22,6 +22,7 @@ var manifest = {
 		"can": "images/cat-food-can.png",
 		"sink": "images/brokensink-2f.png",
 		"sink-dirty": "images/dirtyasssink-2f.png",
+		"sink-clean": "images/sink-clean.png",
 		"knock": "images/knock-2f.png",
 		"door-frame-back": "images/doorframe-back.png",
 		"door-frame-front": "images/doorframe-front.png",
@@ -926,6 +927,8 @@ scene4 = new Splat.Scene(canvas, function(elapsedMillis) {
 		landlordFlipped = true;
 		scene4.plunged = true;
 		scene4.stopTimer("plunging");
+		sink.sprite = apt213.images.get("sink-clean");
+		sink.y -= 36;
 	}
 
 	if (landlord.collides(scene4.goal) && scene4.plunged) {
