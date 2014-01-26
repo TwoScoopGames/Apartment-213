@@ -3,6 +3,7 @@ var canvas = document.getElementById("game");
 var manifest = {
 	"images": {
 		"bg": "images/bg-1f5115x640.png",
+		"bg-lv4": "images/background-landlord.png",
 		"mouse-walk": "images/mouse-anim-2f.png",
 		"mouse-cheese": "images/mousecheese-2f.png",
 		"cat-walk-lv1": "images/cat-lv1-walk-5f.png",
@@ -435,7 +436,11 @@ function drawBackground(scene, context) {
 	drawParallaxImage(scene, context, apt213.images.get("sky"), 203, 0, 465);
 	drawParallaxImage(scene, context, apt213.images.get("sky"), 4372, 0, 341);
 	drawParallaxImage(scene, context, apt213.images.get("bathroom"), 3196, 138, 181);
-	context.drawImage(apt213.images.get("bg"), 0, 0);
+	if (scene === scene4) {
+		context.drawImage(apt213.images.get("bg-lv4"), 0, 0);
+	} else {
+		context.drawImage(apt213.images.get("bg"), 0, 0);
+	}
 }
 
 function drawParallaxImage(scene, context, image, x, y, width) {
