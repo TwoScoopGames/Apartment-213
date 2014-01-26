@@ -85,7 +85,9 @@ var manifest = {
 		"landlord-walk-flipped": "images/flipped/landlord-lv4-anim.png",
 		"landlord-flipped": "images/flipped/landlord-1f-159x304.png",
 		"sky": "images/parallax-sky.png",
-		"bathroom": "images/bathroom.png"
+		"bathroom": "images/bathroom.png",
+		"title-1": "images/title-1.png",
+		"title-2": "images/title-2.png",
 	},
 	"sounds": {
 		"cat-walk1":		"audio/cat_walk1.wav",
@@ -118,6 +120,7 @@ var manifest = {
 
 var apt213 = new Splat.Game(canvas, manifest);
 
+var title;
 var scene1;
 var scene2;
 var scene3;
@@ -129,8 +132,7 @@ var loading = new Splat.Scene(canvas, function(elapsedMillis) {
 	if (apt213.isLoaded()) {
 		assetsLoaded();
 		loading.stop();
-		setupScene1();
-		scene1.start();
+		title.start();
 	}
 },
 function(context) {
@@ -202,6 +204,32 @@ function assetsLoaded() {
 	sinkAnimation = new Splat.makeAnimation(apt213.images.get("sink"), 2, 200);
 	sinkDirtyAnimation = new Splat.makeAnimation(apt213.images.get("sink-dirty"), 2, 200);
 }
+
+var title = new Splat.Scene(canvas, function(elapsedMillis) {
+	if (apt213.keyboard.consumePressed("up") ||
+		apt213.keyboard.consumePressed("down") ||
+		apt213.keyboard.consumePressed("left") ||
+		apt213.keyboard.consumePressed("right"))
+	{
+		title.startTimer("starting");
+		apt213.sounds.play("door-open1");
+	}
+	if (title.timer("starting") > 1000) {
+		title.stop();
+		setupScene1();
+		scene1.start();
+	}
+},
+function(context) {
+	if (title.timer("starting") > 0) {
+		context.drawImage(apt213.images.get("title-2"), 0, 0);
+	} else {
+		context.drawImage(apt213.images.get("title-1"), 0, 0);
+		context.fillStyle = "#ffffff";
+		context.font = "24px sans-serif";
+		context.fillText("Press arrows to start", 250, 400);
+	}
+});
 
 // characters
 var mouse;
