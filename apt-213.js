@@ -33,6 +33,7 @@ var manifest = {
 		"table-top-flipped": "images/flipped/table-top1f599x183.png",
 		"cheese-flipped": "images/flipped/cheese-1f36x29.png",
 		"owl-walk-flipped": "images/flipped/owl-walk-24f.png",
+		"landlord-walk-flipped": "images/flipped/landlord-lv4-anim.png",
 		"landlord-flipped": "images/flipped/landlord-1f-159x304.png",
 		"bowl-empty-flipped": "images/flipped/cat-bowl-empty.png",
 		"bowl-full-flipped": "images/flipped/cat-bowl-full.png",
@@ -120,6 +121,7 @@ function assetsLoaded() {
 	owlWalk = new Splat.makeAnimation(apt213.images.get("owl-walk"), 24, 100);
 	owlWalkFlipped = new Splat.makeAnimation(apt213.images.get("owl-walk-flipped"), 24, 100);
 	landlordWalk = new Splat.makeAnimation(apt213.images.get("landlord-walk"), 25, 25);
+	landlordWalkFlipped = new Splat.makeAnimation(apt213.images.get("landlord-walk-flipped"), 25, 25);
 }
 
 var player;
@@ -691,6 +693,22 @@ scene4 = new Splat.Scene(canvas, function(elapsedMillis) {
 	handleMovement(elapsedMillis);
 	if (!player.moved()) {
 		landlordWalk.reset();
+	}
+	
+	var playerFlipped = false;
+	
+	if(player.vx < 0){
+		playerFlipped = true;
+	}
+	else if(player.vx > 0){
+		playerFlipped = false;
+	}
+	
+	if(playerFlipped){
+		player.sprite = landlordWalkFlipped;
+	}
+	else{
+		player.sprite = landlordWalk;
 	}
 
 	if (player.collides(scene4.goal)) {
