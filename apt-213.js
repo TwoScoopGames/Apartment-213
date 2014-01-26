@@ -730,7 +730,7 @@ function setupScene3() {
 	landlord.frictionX = 0.5;
 	landlord.frictionY = 0.75;
 	scene3.camera = new Splat.EntityBoxCamera(owl, 400, canvas.height, canvas.width/2, canvas.height/2);
-	scene3.goal = new Splat.Entity(669, 493, 20, 70);
+	scene3.goal = new Splat.Entity(650, 493, 50, 75);
 	scene3.knock = Splat.makeAnimation(apt213.images.get("knock"), 2, 100);
 	scene3.startTimer("knock");
 	scene3.knockCount = 0;
@@ -907,6 +907,12 @@ function(context) {
 		context.fillRect(0, 0, canvas.width, canvas.height);
 		context.fillStyle = "#ffffff";
 		context.font = "46px mono";
-		context.fillText("credits", canvas.width / 2, canvas.height / 2);
+		context.fillText("Apartment 213 was created by Team Heat,", canvas.width / 2, canvas.height / 2);
+		context.fillText("Alex Bezuska @alexbezuska", canvas.width / 2, (canvas.height / 2)-50);
+		context.fillText("Mike Revel @mjrevel", canvas.width / 2, (canvas.height / 2)-100);
+		context.fillText("Eric Lathrop @ericlathrop", canvas.width / 2, (canvas.height / 2)-150);
+		context.fillText("Mattie Richards @mintchipleaf", canvas.width / 2, (canvas.height / 2)-200);
+		context.fillText("Thank You For Playing!", canvas.width / 2, (canvas.height / 2)-250);		
+		context.fillText("(Be sure to let us know what you thought!)", canvas.width / 2, (canvas.height / 2)-300);	
 	});
 });
