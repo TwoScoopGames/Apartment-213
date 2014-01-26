@@ -545,6 +545,8 @@ scene2 = new Splat.Scene(canvas, function(elapsedMillis) {
 			else if(owlWalkSoundRandom == 1)
 				apt213.sounds.play("owl-walk3");
 		});
+	} else {
+		owlWalk.reset();
 	}
 },
 function(context) {
