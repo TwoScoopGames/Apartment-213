@@ -118,12 +118,12 @@ function setupScene1() {
 	furniture = [
 		new Splat.Entity(1109, 586, 209, 34), // tv
 		new Splat.AnimatedEntity(911, 488, 256, 25, apt213.images.get("tv-chair"), -28, -128), // side table
-		new Splat.Entity(2113, 473, 198, 32), // hutch 1
-		new Splat.Entity(2290, 581, 23, 13), // table leg front left
-		new Splat.Entity(2314, 512, 18, 11), // table leg back left
-		new Splat.Entity(2868, 579, 21, 9), // table leg front right
-		new Splat.Entity(2848, 515, 18, 9), //table left back right
-		new Splat.Entity(2860, 472, 198, 38), // hutch 2
+		new Splat.Entity(1786, 473, 198, 32), // hutch 1
+		new Splat.Entity(2140, 581, 23, 13), // table leg front left
+		new Splat.Entity(2164, 512, 18, 11), // table leg back left
+		new Splat.Entity(2718, 579, 21, 9), // table leg front right
+		new Splat.Entity(2698, 515, 18, 9), //table left back right
+		new Splat.Entity(2884, 472, 198, 38), // hutch 2
 		new Splat.Entity(3464, 473, 151, 64), // counter
 		new Splat.Entity(4057, 474, 178, 83), // fridge
 		new Splat.Entity(4331, 471, 208, 98), // stove
@@ -231,8 +231,8 @@ function(context) {
 	player.draw(context);
 
 	context.drawImage(apt213.images.get("tv"), 1108, 345);
-	context.drawImage(apt213.images.get("table-legs"), 2313, 472);
-	context.drawImage(apt213.images.get("table-top"), 2290, 410);
+	context.drawImage(apt213.images.get("table-legs"), 2163, 472);
+	context.drawImage(apt213.images.get("table-top"), 2140, 410);
 });
 
 //**************** SCENE 2 ***********************
@@ -305,8 +305,8 @@ function(context) {
 	player.draw(context);
 
 	context.drawImage(apt213.images.get("tv"), 1108, 345);
-	context.drawImage(apt213.images.get("table-legs"), 2313, 472);
-	context.drawImage(apt213.images.get("table-top"), 2290, 410);
+	context.drawImage(apt213.images.get("table-legs"), 2163, 472);
+	context.drawImage(apt213.images.get("table-top"), 2140, 410);
 });
 
 //**************** SCENE 3 ***********************
@@ -359,13 +359,13 @@ function(context) {
 
 
 	context.drawImage(apt213.images.get("tv"), 1108, 345);
-	context.drawImage(apt213.images.get("table-legs"), 2313, 472);
-	context.drawImage(apt213.images.get("table-top"), 2290, 410);
+	context.drawImage(apt213.images.get("table-legs"), 2163, 472);
+	context.drawImage(apt213.images.get("table-top"), 2140, 410);
 });
 
 //**************** SCENE 4 ***********************
 function setupScene4() {
-	player = new Splat.AnimatedEntity(300, 300, 80, 30, apt213.images.get("landlord"), -40, -280);
+	player = new Splat.AnimatedEntity(290, 300, 80, 20, apt213.images.get("landlord"), -40, -283);
 	scene4.camera = new Splat.EntityBoxCamera(player, 400, canvas.height, canvas.width/2, canvas.height/2);
 	scene4.goal = new Splat.Entity(3750, 476, 160, 30);
 }
@@ -411,10 +411,10 @@ function(context) {
 	owl.draw(context);
 	player.draw(context);
 
-	context.drawImage(apt213.images.get("tv-chair"), 883, 360);
+	//context.drawImage(apt213.images.get("tv-chair"), 883, 360);
 	context.drawImage(apt213.images.get("tv"), 1108, 345);
-	context.drawImage(apt213.images.get("table-legs"), 2313, 472);
-	context.drawImage(apt213.images.get("table-top"), 2290, 410);
+	context.drawImage(apt213.images.get("table-legs"), 2163, 472);
+	context.drawImage(apt213.images.get("table-top"), 2140, 410);
 });
 
 //**************** CREDITS ***********************
