@@ -3,14 +3,17 @@ var canvas = document.getElementById("game");
 var manifest = {
 	"images": {
 		"bg": "images/bg-1f5115x640.png",
-		"mouse": "images/mouse-1f61x28.png",
+		"mouse-walk": "images/mouse-anim-2f.png",
+		"mouse-cheese": "images/mousecheese-2f.png",
 		"cat": "images/cat-1f143x86.png",
+		"cat-walk": "images/cat-lv1-walk-5f.png",
 		"tv": "images/tv1f209x268.png",
 		"tv-chair": "images/table-chair-1f288x161.png",
 		"table-legs": "images/table-legs1f553x51.png",
 		"table-top": "images/table-top1f599x183.png",
 		"cheese": "images/cheese-1f36x29.png",
-		"owl": "images/owl-1f132x240.png"
+		"owl": "images/owl-1f132x240.png",
+		"landlord": "images/landlord-1f-159x304.png"
 	},
 	"sounds": {
 		"cat-walk1": 		"audio/cat_walk1.wav",
@@ -36,11 +39,16 @@ var apt213 = new Splat.Game(canvas, manifest);
 
 var scene1;
 var scene2;
+var scene3;
+var scene4;
+var credits;
+
 
 var loading = new Splat.Scene(canvas, function(elapsedMillis) {
 	if (apt213.isLoaded()) {
 		assetsLoaded();
 		loading.stop();
+		setupScene1();
 		scene1.start();
 	}
 },
@@ -54,14 +62,20 @@ function(context) {
 });
 loading.start();
 
-var owl;
-var cat;
-var player;
-var furniture = [];
+var mouseWalk;
+var mouseWalkCheese;
+var catWalk;
 
 function assetsLoaded() {
-	setupScene1();
+	mouseWalk = new Splat.makeAnimation(apt213.images.get("mouse-walk"), 2, 100);
+	mouseWalkCheese = new Splat.makeAnimation(apt213.images.get("mouse-cheese"), 2, 100);
+	catWalk = new Splat.makeAnimation(apt213.images.get("cat-walk"), 5, 100);
 }
+
+var player;
+var owl;
+var cat;
+var furniture = [];
 
 var lmx = 0;
 var lmy = 0;
@@ -115,11 +129,11 @@ function constrainPlayerToFloor(entity) {
 
 //**************** SCENE 1 ***********************
 function setupScene1() {
-	player = new Splat.AnimatedEntity(673, 476, 40, 8, apt213.images.get("mouse"), -15, -20);
+	player = new Splat.AnimatedEntity(673, 476, 40, 8, mouseWalk, -15, -20);
 	scene1.camera = new Splat.EntityBoxCamera(player, 400, canvas.height, canvas.width/2, canvas.height/2);
 	furniture = [
 		new Splat.Entity(1109, 586, 209, 34), // tv
-		new Splat.Entity(911, 488, 256, 25), // side table
+		new Splat.AnimatedEntity(911, 488, 256, 25, apt213.images.get("tv-chair"), -28, -128), // side table
 		new Splat.Entity(2113, 473, 198, 32), // hutch 1
 		new Splat.Entity(2290, 581, 23, 13), // table leg front left
 		new Splat.Entity(2314, 512, 18, 11), // table leg back left
@@ -136,7 +150,7 @@ function setupScene1() {
 	scene1.cheese = new Splat.AnimatedEntity(2751, 552, cheeseImg.width, cheeseImg.height, cheeseImg, 0, 0);
 
 	scene1.hasCheese = false;
-	cat = new Splat.AnimatedEntity(3242, -21, 80, 15, apt213.images.get("cat"), -40, -73);
+	cat = new Splat.AnimatedEntity(3242, -21, 80, 15, catWalk, -40, -73);
 	owl = new Splat.AnimatedEntity(1046, 523, 100, 20, apt213.images.get("owl"), -20, -220);
 }
 
@@ -172,6 +186,21 @@ scene1 = new Splat.Scene(canvas, function(elapsedMillis) {
 		scene1.startTimer("mouse-squeak-timer");
 	}
 
+	// only the animation attached to player gets run automatically,
+	// run the other one manually
+	if (scene1.hasCheese) {
+		mouseWalk.move(elapsedMillis);
+	} else {
+		mouseWalkCheese.move(elapsedMillis);
+	}
+	if (!player.moved()) {
+		mouseWalk.reset();
+		mouseWalkCheese.reset();
+	}
+	if (!cat.moved()) {
+		catWalk.reset();
+	}
+
 	var chaseRange = 300;
 	if (distanceFromCenters(player, cat) < chaseRange * chaseRange) {
 		var isMoving = false;
@@ -205,6 +234,7 @@ scene1 = new Splat.Scene(canvas, function(elapsedMillis) {
 
 	if (player.collides(scene1.cheese)) {
 		scene1.hasCheese = true;
+		player.sprite = mouseWalkCheese;
 	}
 
 	if (player.collides(cat)) {
@@ -220,6 +250,7 @@ scene1 = new Splat.Scene(canvas, function(elapsedMillis) {
 		player.vx = -20.0;
 		if (scene1.hasCheese) {
 			scene1.hasCheese = false;
+			player.sprite = mouseWalk;
 			scene1.cheese.x = player.x;
 			scene1.cheese.y = player.y;
 		}
@@ -228,6 +259,7 @@ scene1 = new Splat.Scene(canvas, function(elapsedMillis) {
 		scene1.stop();
 		setupScene2();
 		scene2.start();
+		return;
 	}
 
 	player.vx *= 0.5;
@@ -266,7 +298,6 @@ function(context) {
 	owl.draw(context);
 	player.draw(context);
 
-	context.drawImage(apt213.images.get("tv-chair"), 883, 360);
 	context.drawImage(apt213.images.get("tv"), 1108, 345);
 	context.drawImage(apt213.images.get("table-legs"), 2313, 472);
 	context.drawImage(apt213.images.get("table-top"), 2290, 410);
@@ -282,15 +313,37 @@ function setupScene2() {
 scene2 = new Splat.Scene(canvas, function(elapsedMillis) {
 	logMouseClick(scene2);
 	handleMovement(elapsedMillis);
+	owl.move(elapsedMillis);
+	collideWithFurniture(owl);
+
+	var chaseRange = 300;
+	if (distanceFromCenters(player, owl) < chaseRange * chaseRange) {
+		console.log("in range");
+		if (player.x < owl.x) {
+			owl.vx = -0.7;
+		}
+		if (player.x > owl.x) {
+			owl.vx = 0.7;
+		}
+		if (player.y < owl.y) {
+			owl.vy = -0.2;
+		}
+		if (player.y > owl.y) {
+			owl.vy = 0.2;
+		}
+	}
 
 	if (player.collides(scene2.goal)) {
 		scene2.stop();
 		setupScene3();
 		scene3.start();
+		return;
 	}
 
 	player.vx *= 0.5;
 	player.vy *= 0.75;
+	owl.vx *= 0.5;
+	owl.vy *= 0.75;
 	if (apt213.keyboard.isPressed("left")) {
 		player.vx = -0.7;
 	}
@@ -319,7 +372,6 @@ function(context) {
 	owl.draw(context);
 	player.draw(context);
 
-	context.drawImage(apt213.images.get("tv-chair"), 883, 360);
 	context.drawImage(apt213.images.get("tv"), 1108, 345);
 	context.drawImage(apt213.images.get("table-legs"), 2313, 472);
 	context.drawImage(apt213.images.get("table-top"), 2290, 410);
@@ -340,6 +392,7 @@ scene3 = new Splat.Scene(canvas, function(elapsedMillis) {
 		scene3.stop();
 		setupScene4();
 		scene4.start();
+		return;
 	}
 
 	player.vx *= 0.5;
@@ -372,8 +425,75 @@ function(context) {
 	cat.draw(context);
 	owl.draw(context);
 
+
+	context.drawImage(apt213.images.get("tv"), 1108, 345);
+	context.drawImage(apt213.images.get("table-legs"), 2313, 472);
+	context.drawImage(apt213.images.get("table-top"), 2290, 410);
+});
+
+//**************** SCENE 4 ***********************
+function setupScene4() {
+	player = new Splat.AnimatedEntity(300, 300, 80, 30, apt213.images.get("landlord"), -40, -280);
+	scene4.camera = new Splat.EntityBoxCamera(player, 400, canvas.height, canvas.width/2, canvas.height/2);
+	scene4.goal = new Splat.Entity(3750, 476, 160, 30);
+}
+
+scene4 = new Splat.Scene(canvas, function(elapsedMillis) {
+	logMouseClick(scene4);
+	handleMovement(elapsedMillis);
+
+	if (player.collides(scene4.goal)) {
+		scene4.stop();
+		credits.start();
+		return;
+	}
+
+	player.vx *= 0.5;
+	player.vy *= 0.75;
+	if (apt213.keyboard.isPressed("left")) {
+		player.vx = -0.7;
+	}
+	if (apt213.keyboard.isPressed("right")) {
+		player.vx = 0.7;
+	}
+	if (apt213.keyboard.isPressed("up")) {
+		player.vy = -0.2;
+	}
+	if (apt213.keyboard.isPressed("down")) {
+		player.vy = 0.2;
+	}
+},
+function(context) {
+	scene4.camera.drawAbsolute(context, function() {
+		context.fillStyle = "#cccccc";
+		context.fillRect(0, 0, canvas.width, canvas.height);
+	});
+	context.drawImage(apt213.images.get("bg"), 0, 0);
+
+	for (var i in furniture) {
+		furniture[i].draw(context);
+	}
+	scene4.goal.draw(context);
+
+	cat.draw(context);
+	owl.draw(context);
+	player.draw(context);
+
 	context.drawImage(apt213.images.get("tv-chair"), 883, 360);
 	context.drawImage(apt213.images.get("tv"), 1108, 345);
 	context.drawImage(apt213.images.get("table-legs"), 2313, 472);
 	context.drawImage(apt213.images.get("table-top"), 2290, 410);
+});
+
+//**************** CREDITS ***********************
+credits = new Splat.Scene(canvas, function(elapsedMillis) {
+},
+function(context) {
+	credits.camera.drawAbsolute(context, function() {
+		context.fillStyle = "#000000";
+		context.fillRect(0, 0, canvas.width, canvas.height);
+		context.fillStyle = "#ffffff";
+		context.font = "46px mono";
+		context.fillText("credits", canvas.width / 2, canvas.height / 2);
+	});
 });
