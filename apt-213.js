@@ -697,6 +697,7 @@ scene4 = new Splat.Scene(canvas, function(elapsedMillis) {
 	handleMovement(elapsedMillis);
 	if (!player.moved()) {
 		landlordWalk.reset();
+		landlordWalkFlipped.reset();
 	}
 	
 	var playerFlipped = false;
