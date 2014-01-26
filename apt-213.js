@@ -6,6 +6,7 @@ var manifest = {
 		"mouse-walk": "images/mouse-anim-2f.png",
 		"mouse-cheese": "images/mousecheese-2f.png",
 		"cat": "images/cat-1f143x86.png",
+		"cat-walk": "images/cat-lv1-walk-5f.png",
 		"tv": "images/tv1f209x268.png",
 		"tv-chair": "images/table-chair-1f288x161.png",
 		"table-legs": "images/table-legs1f553x51.png",
@@ -61,10 +62,12 @@ loading.start();
 
 var mouseWalk;
 var mouseWalkCheese;
+var catWalk;
 
 function assetsLoaded() {
 	mouseWalk = new Splat.makeAnimation(apt213.images.get("mouse-walk"), 2, 100);
 	mouseWalkCheese = new Splat.makeAnimation(apt213.images.get("mouse-cheese"), 2, 100);
+	catWalk = new Splat.makeAnimation(apt213.images.get("cat-walk"), 5, 100);
 }
 
 var player;
@@ -145,7 +148,7 @@ function setupScene1() {
 	scene1.cheese = new Splat.AnimatedEntity(2751, 552, cheeseImg.width, cheeseImg.height, cheeseImg, 0, 0);
 
 	scene1.hasCheese = false;
-	cat = new Splat.AnimatedEntity(3242, -21, 80, 15, apt213.images.get("cat"), -40, -73);
+	cat = new Splat.AnimatedEntity(3242, -21, 80, 15, catWalk, -40, -73);
 	owl = new Splat.AnimatedEntity(1046, 523, 100, 20, apt213.images.get("owl"), -20, -220);
 }
 
@@ -176,9 +179,12 @@ scene1 = new Splat.Scene(canvas, function(elapsedMillis) {
 	} else {
 		mouseWalkCheese.move(elapsedMillis);
 	}
-	if (Math.abs(player.vx) < 0.01 && Math.abs(player.vy) < 0.01) {
+	if (!player.moved()) {
 		mouseWalk.reset();
 		mouseWalkCheese.reset();
+	}
+	if (!cat.moved()) {
+		catWalk.reset();
 	}
 
 	var chaseRange = 300;
