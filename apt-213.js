@@ -3,7 +3,8 @@ var canvas = document.getElementById("game");
 var manifest = {
 	"images": {
 		"bg": "images/bg-1f5115x640.png",
-		"mouse": "images/mouse-1f61x28.png",
+		"mouse-walk": "images/mouse-anim-2f.png",
+		"mouse-cheese": "images/mousecheese-2f.png",
 		"cat": "images/cat-1f143x86.png",
 		"tv": "images/tv1f209x268.png",
 		"tv-chair": "images/table-chair-1f288x161.png",
@@ -39,8 +40,10 @@ var scene3;
 var scene4;
 var credits;
 
+
 var loading = new Splat.Scene(canvas, function(elapsedMillis) {
 	if (apt213.isLoaded()) {
+		assetsLoaded();
 		loading.stop();
 		setupScene1();
 		scene1.start();
@@ -55,6 +58,14 @@ function(context) {
 	context.fillText("loading", 200, 200);
 });
 loading.start();
+
+var mouseWalk;
+var mouseWalkCheese;
+
+function assetsLoaded() {
+	mouseWalk = new Splat.makeAnimation(apt213.images.get("mouse-walk"), 2, 100);
+	mouseWalkCheese = new Splat.makeAnimation(apt213.images.get("mouse-cheese"), 2, 100);
+}
 
 var player;
 var owl;
@@ -113,7 +124,7 @@ function constrainPlayerToFloor(entity) {
 
 //**************** SCENE 1 ***********************
 function setupScene1() {
-	player = new Splat.AnimatedEntity(673, 476, 40, 8, apt213.images.get("mouse"), -15, -20);
+	player = new Splat.AnimatedEntity(673, 476, 40, 8, mouseWalk, -15, -20);
 	scene1.camera = new Splat.EntityBoxCamera(player, 400, canvas.height, canvas.width/2, canvas.height/2);
 	furniture = [
 		new Splat.Entity(1109, 586, 209, 34), // tv
@@ -158,6 +169,18 @@ scene1 = new Splat.Scene(canvas, function(elapsedMillis) {
 	cat.move(elapsedMillis);
 	collideWithFurniture(cat);
 
+	// only the animation attached to player gets run automatically,
+	// run the other one manually
+	if (scene1.hasCheese) {
+		mouseWalk.move(elapsedMillis);
+	} else {
+		mouseWalkCheese.move(elapsedMillis);
+	}
+	if (Math.abs(player.vx) < 0.01 && Math.abs(player.vy) < 0.01) {
+		mouseWalk.reset();
+		mouseWalkCheese.reset();
+	}
+
 	var chaseRange = 300;
 	if (distanceFromCenters(player, cat) < chaseRange * chaseRange) {
 		if (player.x < cat.x) {
@@ -176,6 +199,7 @@ scene1 = new Splat.Scene(canvas, function(elapsedMillis) {
 
 	if (player.collides(scene1.cheese)) {
 		scene1.hasCheese = true;
+		player.sprite = mouseWalkCheese;
 	}
 
 	if (player.collides(cat)) {
@@ -183,6 +207,7 @@ scene1 = new Splat.Scene(canvas, function(elapsedMillis) {
 		player.vx = -20.0;
 		if (scene1.hasCheese) {
 			scene1.hasCheese = false;
+			player.sprite = mouseWalk;
 			scene1.cheese.x = player.x;
 			scene1.cheese.y = player.y;
 		}
