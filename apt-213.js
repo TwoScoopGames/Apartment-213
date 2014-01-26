@@ -22,6 +22,7 @@ var manifest = {
 		"can": "images/cat-food-can.png",
 		"sink": "images/brokensink-2f.png",
 		"sink-dirty": "images/dirtyasssink-2f.png",
+		"sink-clean": "images/sink-clean.png",
 		"knock": "images/knock-2f.png",
 		"door-frame-back": "images/doorframe-back.png",
 		"door-frame-front": "images/doorframe-front.png",
@@ -78,6 +79,21 @@ var manifest = {
 		"owl-sleep-18": "images/owl-sleep/owl-sleep0018.png",
 		"owl-sleep-19": "images/owl-sleep/owl-sleep0019.png",
 		"owl-sleep-20": "images/owl-sleep/owl-sleep0020.png",
+		"landlord-plunger-01": "images/landlord-plunger/landlord-plunger0001.png",
+		"landlord-plunger-02": "images/landlord-plunger/landlord-plunger0002.png",
+		"landlord-plunger-03": "images/landlord-plunger/landlord-plunger0003.png",
+		"landlord-plunger-04": "images/landlord-plunger/landlord-plunger0004.png",
+		"landlord-plunger-05": "images/landlord-plunger/landlord-plunger0005.png",
+		"landlord-plunger-06": "images/landlord-plunger/landlord-plunger0006.png",
+		"landlord-plunger-07": "images/landlord-plunger/landlord-plunger0007.png",
+		"landlord-plunger-08": "images/landlord-plunger/landlord-plunger0008.png",
+		"landlord-plunger-09": "images/landlord-plunger/landlord-plunger0009.png",
+		"landlord-plunger-10": "images/landlord-plunger/landlord-plunger0010.png",
+		"landlord-plunger-11": "images/landlord-plunger/landlord-plunger0011.png",
+		"landlord-plunger-12": "images/landlord-plunger/landlord-plunger0012.png",
+		"landlord-plunger-13": "images/landlord-plunger/landlord-plunger0013.png",
+		"landlord-plunger-14": "images/landlord-plunger/landlord-plunger0014.png",
+		"landlord-plunger-15": "images/landlord-plunger/landlord-plunger0015.png",
 		"cat-attack1-flipped": "images/flipped/cat-lv1-attack-2f.png",
 		"mouse-walk-flipped": "images/flipped/mouse-anim-2f.png",
 		"mouse-cheese-flipped": "images/flipped/mousecheese-2f.png",
@@ -87,6 +103,7 @@ var manifest = {
 		"landlord-flipped": "images/flipped/landlord-1f-159x304.png",
 		"sky": "images/parallax-sky.png",
 		"bathroom": "images/bathroom.png",
+		"bedroom": "images/bedroom.png",
 		"title-1": "images/title-1.png",
 		"title-2": "images/title-2.png",
 	},
@@ -98,7 +115,7 @@ var manifest = {
 		"cat-meow1":		"audio/cat_meow1.wav",
 		"cat-meow2":		"audio/cat_meow2.wav",
 		"door-open1":		"audio/door_open1.wav",
-		"opossum-walk1":	"audio/opossum_walk1.wav",
+		"plunger":			"audio/plunger.wav",
 		"owl-walk1":		"audio/owl_walk1.wav",
 		"owl-walk2":		"audio/owl_walk2.wav",
 		"owl-walk3":		"audio/owl_walk3.wav",
@@ -158,6 +175,7 @@ var owlWalkFlipped;
 var landlordKnock;
 var landlordWalk;
 var landlordWalkFlipped;
+var landlordPlunger;
 var catAttack;
 var catAttackFlipped;
 var catCollapse;
@@ -193,6 +211,23 @@ function assetsLoaded() {
 	owlSleep.add(apt213.images.get("owl-sleep-18"), 50);
 	owlSleep.add(apt213.images.get("owl-sleep-19"), 50);
 	owlSleep.add(apt213.images.get("owl-sleep-20"), 50);
+
+	landlordPlunger = new Splat.Animation();
+	landlordPlunger.add(apt213.images.get("landlord-plunger-01"), 50);
+	landlordPlunger.add(apt213.images.get("landlord-plunger-02"), 50);
+	landlordPlunger.add(apt213.images.get("landlord-plunger-03"), 50);
+	landlordPlunger.add(apt213.images.get("landlord-plunger-04"), 50);
+	landlordPlunger.add(apt213.images.get("landlord-plunger-05"), 50);
+	landlordPlunger.add(apt213.images.get("landlord-plunger-06"), 50);
+	landlordPlunger.add(apt213.images.get("landlord-plunger-07"), 50);
+	landlordPlunger.add(apt213.images.get("landlord-plunger-08"), 50);
+	landlordPlunger.add(apt213.images.get("landlord-plunger-09"), 50);
+	landlordPlunger.add(apt213.images.get("landlord-plunger-10"), 50);
+	landlordPlunger.add(apt213.images.get("landlord-plunger-11"), 50);
+	landlordPlunger.add(apt213.images.get("landlord-plunger-12"), 50);
+	landlordPlunger.add(apt213.images.get("landlord-plunger-13"), 50);
+	landlordPlunger.add(apt213.images.get("landlord-plunger-14"), 50);
+	landlordPlunger.add(apt213.images.get("landlord-plunger-15"), 50);
 
 	owlWalk = new Splat.makeAnimation(apt213.images.get("owl-walk"), 24, 100);
 	owlWalkFlipped = new Splat.makeAnimation(apt213.images.get("owl-walk-flipped"), 24, 100);
@@ -435,6 +470,7 @@ function drawBackground(scene, context) {
 
 	drawParallaxImage(scene, context, apt213.images.get("sky"), 203, 0, 465);
 	drawParallaxImage(scene, context, apt213.images.get("sky"), 4372, 0, 341);
+	drawParallaxImage(scene, context, apt213.images.get("bedroom"), 1388, 139, 180);
 	drawParallaxImage(scene, context, apt213.images.get("bathroom"), 3196, 138, 181);
 	if (scene === scene4) {
 		context.drawImage(apt213.images.get("bg-lv4"), 0, 0);
@@ -828,7 +864,8 @@ function(context) {
 function setupScene4() {
 	landlord.sprite = landlordWalk;
 	scene4.camera = new Splat.EntityBoxCamera(landlord, 400, canvas.height, canvas.width/2, canvas.height/2);
-	scene4.goal = new Splat.Entity(3750, 476, 160, 30);
+	scene4.sink = new Splat.Entity(3850, 476, 80, 10);
+	scene4.goal = new Splat.Entity(317, 473, 226, 154);
 	cat.sprite = catCollapse;
 	furniture.splice(furniture.indexOf(door), 1);
 	door = new Splat.AnimatedEntity(650, 473, 130, 27, apt213.images.get("door-open"), 0, -243);
@@ -873,7 +910,30 @@ scene4 = new Splat.Scene(canvas, function(elapsedMillis) {
 		scene4.catIsCollapsed = true;
 	}
 
-	if (landlord.collides(scene4.goal)) {
+	if (scene4.timer("plunging") === undefined && !scene4.plunged && landlord.collides(scene4.sink)) {
+		scene4.startTimer("plunging");
+	}
+	if (scene4.timer("plunging") > 0) {
+		landlord.sprite = landlordPlunger;
+		landlord.x = landlord.lastX;
+		landlord.y = landlord.lastY;
+		landlord.vx = 0;
+		landlord.vy = 0;
+		onlyRepeatEvery(scene4, "plunging-noise", 750, function() {
+			apt213.sounds.play("plunger");
+		});
+	}
+	if (scene4.timer("plunging") > 4000) {
+		landlord.sprite = landlordWalkFlipped;
+		landlord.vx = -0.001;
+		landlordFlipped = true;
+		scene4.plunged = true;
+		scene4.stopTimer("plunging");
+		sink.sprite = apt213.images.get("sink-clean");
+		sink.y -= 36;
+	}
+
+	if (landlord.collides(scene4.goal) && scene4.plunged) {
 		scene4.stop();
 		setupCredits();
 		credits.start();
@@ -887,6 +947,7 @@ function(context) {
 	toDraw.push(owl);
 	toDraw.push(cat);
 	toDraw.push(landlord);
+	toDraw.push(scene4.sink);
 	toDraw.push(scene4.goal);
 	drawEntities(context, toDraw);
 });
