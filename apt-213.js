@@ -317,6 +317,8 @@ scene1 = new Splat.Scene(canvas, function(elapsedMillis) {
 	if (!player.moved()) {
 		mouseWalk.reset();
 		mouseWalkCheese.reset();
+		mouseWalkFlipped.reset();
+		mouseWalkCheeseFlipped.reset();
 	}
 
 	cat.move(elapsedMillis);
