@@ -25,6 +25,35 @@ var manifest = {
 		"door-closed": "images/door-closed.png",
 		"cat-attack1": "images/cat-lv1-attack-2f.png",
 		"cat-collapse": "images/catlv4-10f.png",
+		"cat-collapse-01": "images/cat-lv4/catlv4-0001.png",
+		"cat-collapse-02": "images/cat-lv4/catlv4-0002.png",
+		"cat-collapse-03": "images/cat-lv4/catlv4-0003.png",
+		"cat-collapse-04": "images/cat-lv4/catlv4-0004.png",
+		"cat-collapse-05": "images/cat-lv4/catlv4-0005.png",
+		"cat-collapse-06": "images/cat-lv4/catlv4-0006.png",
+		"cat-collapse-07": "images/cat-lv4/catlv4-0007.png",
+		"cat-collapse-08": "images/cat-lv4/catlv4-0008.png",
+		"cat-collapse-09": "images/cat-lv4/catlv4-0009.png",
+		"cat-collapse-10": "images/cat-lv4/catlv4-0010.png",
+		"landlord-door-01": "images/landlord-lv3/landlord0001.png",
+		"landlord-door-02": "images/landlord-lv3/landlord0002.png",
+		"landlord-door-03": "images/landlord-lv3/landlord0003.png",
+		"landlord-door-04": "images/landlord-lv3/landlord0004.png",
+		"landlord-door-05": "images/landlord-lv3/landlord0005.png",
+		"landlord-door-06": "images/landlord-lv3/landlord0006.png",
+		"landlord-door-07": "images/landlord-lv3/landlord0007.png",
+		"landlord-door-08": "images/landlord-lv3/landlord0008.png",
+		"landlord-door-09": "images/landlord-lv3/landlord0009.png",
+		"landlord-door-10": "images/landlord-lv3/landlord0010.png",
+		"landlord-door-11": "images/landlord-lv3/landlord0011.png",
+		"landlord-door-12": "images/landlord-lv3/landlord0012.png",
+		"landlord-door-13": "images/landlord-lv3/landlord0013.png",
+		"landlord-door-14": "images/landlord-lv3/landlord0014.png",
+		"landlord-door-15": "images/landlord-lv3/landlord0015.png",
+		"landlord-door-16": "images/landlord-lv3/landlord0016.png",
+		"landlord-door-17": "images/landlord-lv3/landlord0017.png",
+		"landlord-door-18": "images/landlord-lv3/landlord0018.png",
+		"landlord-door-19": "images/landlord-lv3/landlord0019.png",
 		"cat-attack1-flipped": "images/flipped/cat-lv1-attack-2f.png",
 		"bg-flipped": "images/flipped/bg-1f5115x640.png",
 		"mouse-walk-flipped": "images/flipped/mouse-anim-2f.png",
@@ -680,13 +709,16 @@ function(context) {
 //**************** SCENE 4 *****************************************
 //**************** SCENE 4 *****************************************
 //**************** SCENE 4 *****************************************
+
 function setupScene4() {
 	landlord.sprite = landlordWalk;
 	scene4.camera = new Splat.EntityBoxCamera(landlord, 400, canvas.height, canvas.width/2, canvas.height/2);
 	scene4.goal = new Splat.Entity(3750, 476, 160, 30);
+	cat.sprite = catCollapse;
 	furniture.splice(furniture.indexOf(door), 1);
 	door = new Splat.AnimatedEntity(650, 473, 130, 27, apt213.images.get("door-open"), 0, -243);
 	furniture.push(door);
+	scene4.catIsCollapsed = false;
 }
 
 scene4 = new Splat.Scene(canvas, function(elapsedMillis) {
@@ -697,6 +729,9 @@ scene4 = new Splat.Scene(canvas, function(elapsedMillis) {
 		landlordWalk.reset();
 		landlordWalkFlipped.reset();
 	}
+	
+	if(scene4.catIsCollapsed == false)
+		catCollapse.reset();
 	
 	var landlordFlipped = false;
 	
@@ -712,6 +747,12 @@ scene4 = new Splat.Scene(canvas, function(elapsedMillis) {
 	}
 	else{
 		landlord.sprite = landlordWalk;
+	}
+	
+	var r2 = 250*250;
+	
+	if (distanceFromCenters(landlord, cat) < r2) {
+		scene4.catIsCollapsed = true;
 	}
 
 	if (landlord.collides(scene4.goal)) {
