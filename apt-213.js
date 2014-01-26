@@ -36,6 +36,7 @@ var manifest = {
 		"table-top-flipped": "images/flipped/table-top1f599x183.png",
 		"cheese-flipped": "images/flipped/cheese-1f36x29.png",
 		"owl-walk-flipped": "images/flipped/owl-walk-24f.png",
+		"landlord-knock": "images/landlord-lv3.png",
 		"landlord-walk-flipped": "images/flipped/landlord-lv4-anim.png",
 		"landlord-flipped": "images/flipped/landlord-1f-159x304.png",
 		"bowl-empty-flipped": "images/flipped/cat-bowl-empty.png",
@@ -111,6 +112,7 @@ var catWalk;
 var catWalkFlipped;
 var owlWalk;
 var owlWalkFlipped;
+var landlordKnock;
 var landlordWalk;
 var landlordWalkFlipped;
 var catAttack;
@@ -126,6 +128,7 @@ function assetsLoaded() {
 	catWalkFlipped = new Splat.makeAnimation(apt213.images.get("cat-walk-flipped"), 5, 100);
 	owlWalk = new Splat.makeAnimation(apt213.images.get("owl-walk"), 24, 100);
 	owlWalkFlipped = new Splat.makeAnimation(apt213.images.get("owl-walk-flipped"), 24, 100);
+	landlordKnock = new Splat.makeAnimation(apt213.images.get("landlord-walk"), 19, 25);
 	landlordWalk = new Splat.makeAnimation(apt213.images.get("landlord-walk"), 25, 25);
 	landlordWalkFlipped = new Splat.makeAnimation(apt213.images.get("landlord-walk-flipped"), 25, 25);
 	catAttack = new Splat.makeAnimation(apt213.images.get("cat-attack1"), 2, 500);
@@ -133,14 +136,18 @@ function assetsLoaded() {
 	catCollapse = new Splat.makeAnimation(apt213.images.get("cat-collapse"), 10, 200);
 }
 
-var player;
-var playerAnimation;
-var playerAnimationFlipped;
+// characters
+var mouse;
 var owl;
 var cat;
+var landlord;
+
+// items
 var bowl;
 var can;
 var door;
+
+// environment
 var furniture = [];
 
 var lmx = 0;
@@ -159,7 +166,7 @@ function logMouseClick(scene) {
 	}
 }
 
-function handleMovement(elapsedMillis) {
+function handleMovement(elapsedMillis, player) {
 	for (var i in furniture) {
 		furniture[i].move(elapsedMillis);
 	}
@@ -224,9 +231,9 @@ function addCommonFurniture() {
 	furniture.push(door);
 }
 function setupScene1() {
-	player = new Splat.AnimatedEntity(673, 476, 40, 8, mouseWalk, -15, -20);
-	player.frictionX = 0.5;
-	player.frictionY = 0.75;
+	mouse = new Splat.AnimatedEntity(673, 476, 40, 8, mouseWalk, -15, -20);
+	mouse.frictionX = 0.5;
+	mouse.frictionY = 0.75;
 
 	addCommonFurniture();
 
@@ -247,7 +254,7 @@ function setupScene1() {
 	// furniture.push(owl);
 
 	scene1.goal = new Splat.Entity(4269, 472, 31, 9);
-	scene1.camera = new Splat.EntityBoxCamera(player, 400, canvas.height, canvas.width/2, canvas.height/2);
+	scene1.camera = new Splat.EntityBoxCamera(mouse, 400, canvas.height, canvas.width/2, canvas.height/2);
 
 	var cheeseImg = apt213.images.get("cheese");
 	scene1.cheese = new Splat.AnimatedEntity(2567, 556, cheeseImg.width, cheeseImg.height, cheeseImg, 0, 0);
@@ -318,12 +325,12 @@ function onlyRepeatEvery(scene, name, minIntervalMillis, fun) {
 scene1 = new Splat.Scene(canvas, function(elapsedMillis) {
 	logMouseClick(scene1);
 
-	moveEntityViaKeyboard(player);
-	chase(cat, player, 300);
+	moveEntityViaKeyboard(mouse);
+	chase(cat, mouse, 300);
 
-	handleMovement(elapsedMillis);
+	handleMovement(elapsedMillis, mouse);
 
-	if (!player.moved()) {
+	if (!mouse.moved()) {
 		mouseWalk.reset();
 		mouseWalkCheese.reset();
 		mouseWalkFlipped.reset();
@@ -340,57 +347,25 @@ scene1 = new Splat.Scene(canvas, function(elapsedMillis) {
 	}
 	collideWithFurniture(cat);
 
-	var chaseRange = 300;
-	if (distanceFromCenters(player, cat) < chaseRange * chaseRange) {
-		var isMoving = false;
-		
-		if (player.x < cat.x) {
-			cat.vx = -0.7;
-			isMoving = true;
-		}
-		if (player.x > cat.x) {
-			cat.vx = 0.7;
-			isMoving = true;
-		}
-		if (player.y < cat.y) {
-			cat.vy = -0.2;
-			isMoving = true;
-		}
-		if (player.y > cat.y) {
-			cat.vy = 0.2;
-			isMoving = true;
-		}
-		
-		if(isMoving){
-			var t1 = scene1.timer("cat-walk-timer");
-			
-			if(t1 === undefined || t1 > 400){
-				apt213.sounds.play("cat-walk1");
-				scene1.startTimer("cat-walk-timer");
-			}
-		}
+	var mouseFlipped = false;
+	if(mouse.vx < 0){
+		mouseFlipped = true;
+	}
+	else if(mouse.vx > 0){
+		mouseFlipped = false;
 	}
 	
-	var playerFlipped = false;
-	
-	if(player.vx < 0){
-		playerFlipped = true;
-	}
-	else if(player.vx > 0){
-		playerFlipped = false;
-	}
-	
-	if(playerFlipped){
+	if(mouseFlipped){
 		if(scene1.hasCheese)
-			player.sprite = mouseWalkCheeseFlipped;
+			mouse.sprite = mouseWalkCheeseFlipped;
 		else
-			player.sprite = mouseWalkFlipped;
+			mouse.sprite = mouseWalkFlipped;
 	}
 	else{
 		if(scene1.hasCheese)
-			player.sprite = mouseWalkCheese;
+			mouse.sprite = mouseWalkCheese;
 		else
-			player.sprite = mouseWalk;
+			mouse.sprite = mouseWalk;
 	}
 	
 	var catFlipped = false;
@@ -409,7 +384,7 @@ scene1 = new Splat.Scene(canvas, function(elapsedMillis) {
 		cat.sprite = catWalk;
 	}
 
-	if (player.collides(scene1.cheese)) {
+	if (mouse.collides(scene1.cheese)) {
 		scene1.hasCheese = true;
 	
 		onlyRepeatEvery(scene1, "mouse-squeak-timer", 2000, function() {
@@ -421,7 +396,7 @@ scene1 = new Splat.Scene(canvas, function(elapsedMillis) {
 		});
 	}
 
-	if (player.collides(cat)) {
+	if (mouse.collides(cat)) {
 		if (cat.moved()){
 			var t1 = scene1.timer("mouse-damage-timer");
 			if(t1 === undefined || t1 > 400){
@@ -435,15 +410,15 @@ scene1 = new Splat.Scene(canvas, function(elapsedMillis) {
 		else
 			cat.sprite = catAttack;
 		
-		player.vx = -10.0;
+		mouse.vx = -10.0;
+		
 		if (scene1.hasCheese) {
 			scene1.hasCheese = false;
-			//player.sprite = mouseWalk;
-			scene1.cheese.x = player.x;
-			scene1.cheese.y = player.y;
+			scene1.cheese.x = mouse.x;
+			scene1.cheese.y = mouse.y;
 		}
 	}
-	if (player.collides(scene1.goal) && scene1.hasCheese) {
+	if (mouse.collides(scene1.goal) && scene1.hasCheese) {
 		scene1.stop();
 		apt213.sounds.play("level-end-win1");
 		setupScene2();
@@ -465,7 +440,7 @@ function(context) {
 	}
 	toDraw.push(cat);
 	toDraw.push(owl);
-	toDraw.push(player);
+	toDraw.push(mouse);
 	toDraw.push(scene1.goal);
 	drawEntities(context, toDraw);
 });
@@ -476,8 +451,7 @@ function(context) {
 //**************** SCENE 2 *****************************************
 
 function setupScene2() {
-	player = cat;
-	scene2.camera = new Splat.EntityBoxCamera(player, 400, canvas.height, canvas.width/2, canvas.height/2);
+	scene2.camera = new Splat.EntityBoxCamera(cat, 400, canvas.height, canvas.width/2, canvas.height/2);
 	scene2.owlhasFood = false;
 	scene2.bowlhasFood = false;
 	scene2.canPickup = new Splat.Entity(3625, 476, 103, 17);
@@ -486,19 +460,19 @@ function setupScene2() {
 scene2 = new Splat.Scene(canvas, function(elapsedMillis) {
 	logMouseClick(scene2);
 
-	moveEntityViaKeyboard(player);
-	chase(owl, player, 300);
+	moveEntityViaKeyboard(cat);
+	chase(owl, cat, 300);
 
 	for (var i in furniture) {
 		furniture[i].move(elapsedMillis);
 	}
 
-	player.move(elapsedMillis);
-	if (!player.moved()) {
+	cat.move(elapsedMillis);
+	if (!cat.moved()) {
 		catWalk.reset();
 		catWalkFlipped.reset();
 	}
-	if (scene2.bowlHasFood && player.collides(bowl)) {
+	if (scene2.bowlHasFood && cat.collides(bowl)) {
 		scene2.stop();
 		setupScene3();
 		apt213.sounds.play("level-end-win1");
@@ -506,20 +480,20 @@ scene2 = new Splat.Scene(canvas, function(elapsedMillis) {
 		return;
 	}
 	
-	var playerFlipped = false;
+	var catFlipped = false;
 	
-	if(player.vx < 0){
-		playerFlipped = true;
+	if(cat.vx < 0){
+		catFlipped = true;
 	}
-	else if(player.vx > 0){
-		playerFlipped = false;
+	else if(cat.vx > 0){
+		catFlipped = false;
 	}
 	
-	if(playerFlipped){
-		player.sprite = catWalkFlipped;
+	if(catFlipped){
+		cat.sprite = catWalkFlipped;
 	}
 	else{
-		player.sprite = catWalk;
+		cat.sprite = catWalk;
 	}
 	
 	var owlFlipped = false;
@@ -538,7 +512,7 @@ scene2 = new Splat.Scene(canvas, function(elapsedMillis) {
 		owl.sprite = owlWalk;
 	}
 	
-	collideWithFurniture(player);
+	collideWithFurniture(cat);
 
 	owl.move(elapsedMillis);
 	if (!scene2.owlHasFood && owl.collides(scene2.canPickup)) {
@@ -585,7 +559,7 @@ function(context) {
 
 	var toDraw = furniture.slice();
 	toDraw.push(owl);
-	toDraw.push(player);
+	toDraw.push(cat);
 	drawEntities(context, toDraw);
 });
 
@@ -594,8 +568,7 @@ function(context) {
 //**************** SCENE 3 *****************************************
 //**************** SCENE 3 *****************************************
 function setupScene3() {
-	player = owl;
-	scene3.camera = new Splat.EntityBoxCamera(player, 400, canvas.height, canvas.width/2, canvas.height/2);
+	scene3.camera = new Splat.EntityBoxCamera(owl, 400, canvas.height, canvas.width/2, canvas.height/2);
 	scene3.goal = new Splat.Entity(669, 493, 20, 70);
 	scene3.knock = Splat.makeAnimation(apt213.images.get("knock"), 2, 100);
 	scene3.startTimer("knock");
@@ -605,9 +578,10 @@ function setupScene3() {
 
 scene3 = new Splat.Scene(canvas, function(elapsedMillis) {
 	logMouseClick(scene3);
-	handleMovement(elapsedMillis);
+	moveEntityViaKeyboard(owl);
+	handleMovement(elapsedMillis, owl);
 
-	if (player.collides(scene3.goal)) {
+	if (owl.collides(scene3.goal)) {
 		scene3.stop();
 		setupScene4();
 		apt213.sounds.play("door-open1");
@@ -615,25 +589,21 @@ scene3 = new Splat.Scene(canvas, function(elapsedMillis) {
 		return;
 	}
 	
-	var playerFlipped = false;
+	var owlFlipped = false;
 	
-	if(player.vx < 0){
-		playerFlipped = true;
+	if(owl.vx < 0){
+		owlFlipped = true;
 	}
-	else if(player.vx > 0){
-		playerFlipped = false;
+	else if(owl.vx > 0){
+		owlFlipped = false;
 	}
 	
-	if(playerFlipped){
-		player.sprite = owlWalkFlipped;
+	if(owlFlipped){
+		owl.sprite = owlWalkFlipped;
 	}
 	else{
-		player.sprite = owlWalk;
+		owl.sprite = owlWalk;
 	}
-
-	
-	player.vx *= 0.5;
-	player.vy *= 0.75;
 
 	if (owl.moved()) {
 		onlyRepeatEvery(scene3, "owl-walk-timer", 500, function() {
@@ -647,8 +617,6 @@ scene3 = new Splat.Scene(canvas, function(elapsedMillis) {
 		owlWalk.reset();
 		owlWalkFlipped.reset();
 	}
-	
-	moveEntityViaKeyboard(player);
 
 	scene3.knock.move(elapsedMillis);
 },
@@ -698,8 +666,10 @@ function(context) {
 //**************** SCENE 4 *****************************************
 //**************** SCENE 4 *****************************************
 function setupScene4() {
-	player = new Splat.AnimatedEntity(446, 528, 80, 20, landlordWalk, -40, -283);
-	scene4.camera = new Splat.EntityBoxCamera(player, 400, canvas.height, canvas.width/2, canvas.height/2);
+	landlord = new Splat.AnimatedEntity(446, 528, 80, 20, landlordWalk, -40, -283);
+	landlord.frictionX = 0.5;
+	landlord.frictionY = 0.75;
+	scene4.camera = new Splat.EntityBoxCamera(landlord, 400, canvas.height, canvas.width/2, canvas.height/2);
 	scene4.goal = new Splat.Entity(3750, 476, 160, 30);
 	furniture.splice(furniture.indexOf(door), 1);
 	door = new Splat.AnimatedEntity(650, 473, 130, 27, apt213.images.get("door-open"), 0, -243);
@@ -708,37 +678,35 @@ function setupScene4() {
 
 scene4 = new Splat.Scene(canvas, function(elapsedMillis) {
 	logMouseClick(scene4);
-	handleMovement(elapsedMillis);
-	if (!player.moved()) {
+	moveEntityViaKeyboard(landlord);
+	handleMovement(elapsedMillis, landlord);
+	if (!landlord.moved()) {
 		landlordWalk.reset();
+		landlordWalkFlipped.reset();
 	}
 	
-	var playerFlipped = false;
+	var landlordFlipped = false;
 	
-	if(player.vx < 0){
-		playerFlipped = true;
+	if(landlord.vx < 0){
+		landlordFlipped = true;
 	}
-	else if(player.vx > 0){
-		playerFlipped = false;
+	else if(landlord.vx > 0){
+		landlordFlipped = false;
 	}
 	
-	if(playerFlipped){
-		player.sprite = landlordWalkFlipped;
+	if(landlordFlipped){
+		landlord.sprite = landlordWalkFlipped;
 	}
 	else{
-		player.sprite = landlordWalk;
+		landlord.sprite = landlordWalk;
 	}
 
-	if (player.collides(scene4.goal)) {
+	if (landlord.collides(scene4.goal)) {
 		scene4.stop();
 		setupCredits();
 		credits.start();
 		return;
 	}
-
-	player.vx *= 0.5;
-	player.vy *= 0.75;
-	moveEntityViaKeyboard(player);
 },
 function(context) {
 	scene4.camera.drawAbsolute(context, function() {
@@ -750,7 +718,7 @@ function(context) {
 	var toDraw = furniture.slice();
 	toDraw.push(owl);
 	toDraw.push(cat);
-	toDraw.push(player);
+	toDraw.push(landlord);
 	toDraw.push(scene4.goal);
 	drawEntities(context, toDraw);
 });
