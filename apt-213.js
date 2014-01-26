@@ -16,7 +16,8 @@ var manifest = {
 		"landlord": "images/landlord-1f-159x304.png",
 		"bowl-empty": "images/cat-bowl-empty.png",
 		"bowl-full": "images/cat-bowl-full.png",
-		"can": "images/cat-food-can.png"
+		"can": "images/cat-food-can.png",
+		"knock": "images/knock-2f.png"
 	},
 	"sounds": {
 		"cat-walk1": 		"audio/cat_walk1.wav",
@@ -407,6 +408,7 @@ function setupScene3() {
 	player = owl;
 	scene3.camera = new Splat.EntityBoxCamera(player, 400, canvas.height, canvas.width/2, canvas.height/2);
 	scene3.goal = new Splat.Entity(569, 493, 20, 70);
+	scene3.knock = Splat.makeAnimation(apt213.images.get("knock"), 2, 300);
 }
 
 scene3 = new Splat.Scene(canvas, function(elapsedMillis) {
@@ -434,6 +436,8 @@ scene3 = new Splat.Scene(canvas, function(elapsedMillis) {
 	if (apt213.keyboard.isPressed("down")) {
 		player.vy = 0.2;
 	}
+
+	scene3.knock.move(elapsedMillis);
 },
 function(context) {
 	scene3.camera.drawAbsolute(context, function() {
@@ -450,10 +454,17 @@ function(context) {
 	cat.draw(context);
 	owl.draw(context);
 
-
 	context.drawImage(apt213.images.get("tv"), 1108, 345);
 	context.drawImage(apt213.images.get("table-legs"), 2313, 472);
 	context.drawImage(apt213.images.get("table-top"), 2290, 410);
+
+	if (scene3.camera.x < 581) {
+		scene3.knock.draw(context, 581, canvas.height/2 - scene3.knock.height/2);
+	} else {
+		scene3.camera.drawAbsolute(context, function() {
+			scene3.knock.draw(context, 50, canvas.height/2 - scene3.knock.height/2);
+		});
+	}
 });
 
 //**************** SCENE 4 ***********************
