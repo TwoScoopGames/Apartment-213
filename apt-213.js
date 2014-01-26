@@ -510,7 +510,7 @@ scene1 = new Splat.Scene(canvas, function(elapsedMillis) {
 	}
 
 	if(scene1.hasCheese) {
-		moveSpeedX = .8;
+		moveSpeedX = .7;
 		moveSpeedY = .8;
 	}
 	
@@ -606,6 +606,9 @@ scene2 = new Splat.Scene(canvas, function(elapsedMillis) {
 		scene3.start();
 		return;
 	}
+	if (scene2.owlHasFood && owl.x < 3363) {
+		chase(owl,bowl,1000);
+	}
 	if(owl.collides(cat)) {
 		owl.vx = 0;
 		owl.vy = 0;
@@ -672,6 +675,8 @@ scene2 = new Splat.Scene(canvas, function(elapsedMillis) {
 			else if(purSoundRandom == 1)
 				apt213.sounds.play("cat-meow2");
 		});
+	}
+	if (owl.moved()) {
 		onlyRepeatEvery(scene2, "owl-walk-timer", 500, function() {
 			var owlWalkSoundRandom = Math.floor(Math.random()*2);
 			if(owlWalkSoundRandom == 0)
