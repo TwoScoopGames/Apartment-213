@@ -513,6 +513,7 @@ scene1 = new Splat.Scene(canvas, function(elapsedMillis) {
 		});
 	} else {
 		catWalk.reset();
+		catWalkFlipped.reset();
 	}
 	collideWithFurniture(cat);
 
