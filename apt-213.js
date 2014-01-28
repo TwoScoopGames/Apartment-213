@@ -245,7 +245,11 @@ var title = new Splat.Scene(canvas, function(elapsedMillis) {
 	if (apt213.keyboard.consumePressed("up") ||
 		apt213.keyboard.consumePressed("down") ||
 		apt213.keyboard.consumePressed("left") ||
-		apt213.keyboard.consumePressed("right"))
+		apt213.keyboard.consumePressed("right") ||
+		apt213.keyboard.consumePressed("w") ||
+		apt213.keyboard.consumePressed("a") ||
+		apt213.keyboard.consumePressed("s") ||
+		apt213.keyboard.consumePressed("d"))
 	{
 		title.startTimer("starting");
 		apt213.sounds.play("door-open1");
@@ -417,16 +421,16 @@ function distanceFromCenters(entity1, entity2) {
 var moveSpeedX = 1;
 var moveSpeedY = 1;
 function moveEntityViaKeyboard(entity) {
-	if (apt213.keyboard.isPressed("left")) {
+	if (apt213.keyboard.isPressed("left") || apt213.keyboard.isPressed("a")) {
 		entity.vx = -0.7*moveSpeedX;
 	}
-	if (apt213.keyboard.isPressed("right")) {
+	if (apt213.keyboard.isPressed("right") || apt213.keyboard.isPressed("d")) {
 		entity.vx = 0.7*moveSpeedX;
 	}
-	if (apt213.keyboard.isPressed("up")) {
+	if (apt213.keyboard.isPressed("up") || apt213.keyboard.isPressed("w")) {
 		entity.vy = -0.2*moveSpeedY;
 	}
-	if (apt213.keyboard.isPressed("down")) {
+	if (apt213.keyboard.isPressed("down") || apt213.keyboard.isPressed("s")) {
 		entity.vy = 0.2*moveSpeedY;
 	}
 }
