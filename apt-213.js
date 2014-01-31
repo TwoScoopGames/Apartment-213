@@ -138,6 +138,25 @@ var manifest = {
 
 var apt213 = new Splat.Game(canvas, manifest);
 
+function setCanvasSize() {
+	var ow = 1136;
+	var oh = 640;
+
+	var w = Math.min(window.innerWidth, ow);
+	var h = Math.min(window.innerHeight, oh);
+	canvas.style.width = w + "px";
+	canvas.style.height = h + "px";
+
+	if (w != ow || h != oh) {
+		canvas.width = oh / window.innerHeight * window.innerWidth;
+		canvas.height = oh;
+	}
+
+	// console.log(window.innerWidth + "x" + window.innerHeight + " - " + canvas.style.width + "x" + canvas.style.height + " - " + canvas.width + "x" + canvas.height);
+}
+window.addEventListener("resize", setCanvasSize);
+setCanvasSize();
+
 var title;
 var scene1;
 var scene2;
@@ -249,8 +268,10 @@ var title = new Splat.Scene(canvas, function(elapsedMillis) {
 		apt213.keyboard.consumePressed("w") ||
 		apt213.keyboard.consumePressed("a") ||
 		apt213.keyboard.consumePressed("s") ||
-		apt213.keyboard.consumePressed("d"))
+		apt213.keyboard.consumePressed("d") ||
+		apt213.mouse.buttons[0])
 	{
+		apt213.mouse.buttons[0] = false;
 		title.startTimer("starting");
 		apt213.sounds.play("door-open1");
 	}
@@ -267,7 +288,11 @@ function(context) {
 		context.drawImage(apt213.images.get("title-1"), 0, 0);
 		context.fillStyle = "#ffffff";
 		context.font = "24px sans-serif";
-		context.fillText("Press arrows to start", 250, 400);
+		if (apt213.mouse.supportsTouch()) {
+			context.fillText("Tap to start", 250, 400);
+		} else {
+			context.fillText("Press arrows to start", 250, 400);
+		}
 	}
 });
 
@@ -289,6 +314,7 @@ var furniture = [];
 var lmx = 0;
 var lmy = 0;
 function logMouseClick(scene) {
+	return;
 	if (apt213.mouse.buttons[0]) {
 		var mx = scene.camera.x + apt213.mouse.x;
 		var my = scene.camera.y + apt213.mouse.y;
@@ -298,7 +324,6 @@ function logMouseClick(scene) {
 		lmy = my;
 		console.log("box w="+w+", h="+h);
 		console.log("click at " + mx + ", " + my);
-		apt213.mouse.buttons[0] = false;
 	}
 }
 
@@ -307,6 +332,9 @@ function handleMovement(elapsedMillis, player) {
 		furniture[i].move(elapsedMillis);
 	}
 	player.move(elapsedMillis);
+	if ((player.destX || player.destY) && player.destX >= player.x && player.destX <= player.x + player.width && player.destY >= player.y && player.destY <= player.y + player.height) {
+		clearDest(player);
+	}
 
 	collideWithFurniture(player);
 }
@@ -321,18 +349,23 @@ function collideWithFurniture(entity) {
 	constrainPlayerToFloor(entity);
 }
 
+var floorLeft = 368;
+var floorRight = 4543;
+var floorTop = 475;
+var floorBottom = 618;
+
 function constrainPlayerToFloor(entity) {
-	if (entity.x < 368) {
-		entity.x = 368;
+	if (entity.x < floorLeft) {
+		entity.x = floorLeft;
 	}
-	if (entity.x + entity.width > 4543) {
-		entity.x = 4543 - entity.width;
+	if (entity.x + entity.width > floorRight) {
+		entity.x = floorRight - entity.width;
 	}
-	if (entity.y < 475) {
-		entity.y = 475;
+	if (entity.y < floorTop) {
+		entity.y = floorTop;
 	}
-	if (entity.y + entity.height > 618) {
-		entity.y = 618 - entity.height;
+	if (entity.y + entity.height > floorBottom) {
+		entity.y = floorBottom - entity.height;
 	}
 }
 
@@ -420,39 +453,70 @@ function distanceFromCenters(entity1, entity2) {
 
 var moveSpeedX = 1;
 var moveSpeedY = 1;
-function moveEntityViaKeyboard(entity) {
+function moveEntityViaKeyboard(scene, entity) {
+	if (apt213.mouse.buttons[0]) {
+		apt213.mouse.buttons[0] = false;
+
+		entity.destX = scene.camera.x + apt213.mouse.x;
+		entity.destX = Math.max(entity.destX, floorLeft);
+		entity.destX = Math.min(entity.destX, floorRight);
+
+		entity.destY = scene.camera.y + apt213.mouse.y;
+		entity.destY = Math.max(entity.destY, floorTop);
+		entity.destY = Math.min(entity.destY, floorBottom);
+	}
 	if (apt213.keyboard.isPressed("left") || apt213.keyboard.isPressed("a")) {
 		entity.vx = -0.7*moveSpeedX;
+		clearDest(entity);
 	}
 	if (apt213.keyboard.isPressed("right") || apt213.keyboard.isPressed("d")) {
 		entity.vx = 0.7*moveSpeedX;
+		clearDest(entity);
 	}
 	if (apt213.keyboard.isPressed("up") || apt213.keyboard.isPressed("w")) {
 		entity.vy = -0.2*moveSpeedY;
+		clearDest(entity);
 	}
 	if (apt213.keyboard.isPressed("down") || apt213.keyboard.isPressed("s")) {
 		entity.vy = 0.2*moveSpeedY;
+		clearDest(entity);
+	}
+	if (entity.destX || entity.destY) {
+		moveTowards(entity, entity.destX, entity.destY, 0.7 * moveSpeedX, 0.2 * moveSpeedY);
 	}
 }
+function clearDest(entity) {
+	delete entity.destX;
+	delete entity.destY;
+}
 
+function moveTowards(entity, x, y, vx, vy) {
+	var cx = entity.x + (entity.width / 2);
+	var cy = entity.y + (entity.height / 2);
+	if (x < cx) {
+		entity.vx = -vx;
+	}
+	if (x > cx) {
+		entity.vx = vx;
+	}
+	if (y < cy) {
+		entity.vy = -vy;
+	}
+	if (y > cy) {
+		entity.vy = vy;
+	}
+}
 
 var chaseSpeedX = 1;
 var chaseSpeedY = 1;
 function chase(entity, target, range) {
 	var r2 = range * range;
 	if (distanceFromCenters(entity, target) < r2) {
-		if (target.x < entity.x) {
-			entity.vx = -0.7*chaseSpeedX;
-		}
-		if (target.x > entity.x) {
-			entity.vx = 0.7*chaseSpeedX;
-		}
-		if (target.y < entity.y) {
-			entity.vy = -0.2*chaseSpeedY;
-		}
-		if (target.y > entity.y) {
-			entity.vy = 0.2*chaseSpeedY;
-		}
+		var vx = 0.7 * chaseSpeedX;
+		var vy = 0.2 * chaseSpeedY;
+		var tx = target.x + (target.width / 2);
+		var ty = target.y + (target.height / 2);
+		moveTowards(entity, tx, ty, vx, vy);
 		entity.vx *= entity.frictionX;
 		entity.vy *= entity.frictionY;
 	}
@@ -460,7 +524,7 @@ function chase(entity, target, range) {
 
 function onlyRepeatEvery(scene, name, minIntervalMillis, fun) {
 	var t = scene.timer(name);
-	if (t === undefined || t > minIntervalMillis){
+	if (t === undefined || t > minIntervalMillis) {
 		fun();
 		scene.startTimer(name);
 	}
@@ -498,7 +562,7 @@ function drawParallaxImage(scene, context, image, x, y, width) {
 scene1 = new Splat.Scene(canvas, function(elapsedMillis) {
 	logMouseClick(scene1);
 
-	moveEntityViaKeyboard(mouse);
+	moveEntityViaKeyboard(scene1, mouse);
 	chase(cat, mouse, 300);
 
 	handleMovement(elapsedMillis, mouse);
@@ -643,7 +707,7 @@ function setupScene2() {
 scene2 = new Splat.Scene(canvas, function(elapsedMillis) {
 	logMouseClick(scene2);
 
-	moveEntityViaKeyboard(cat);
+	moveEntityViaKeyboard(scene2, cat);
 	var chaseDist = 300;
 	var withinChaseDistance = distanceFromCenters(owl, cat) < chaseDist * chaseDist;
 	var owlWakeUpTimer = scene2.timer("owl-wake-up");
@@ -710,6 +774,9 @@ scene2 = new Splat.Scene(canvas, function(elapsedMillis) {
 		}
 	}
 	
+	if ((cat.destX || cat.destY) && cat.destX >= cat.x && cat.destX <= cat.x + cat.width && cat.destY >= cat.y && cat.destY <= cat.y + cat.height) {
+		clearDest(cat);
+	}
 	collideWithFurniture(cat);
 	
 	owl.move(elapsedMillis);
@@ -775,7 +842,7 @@ function setupScene3() {
 
 scene3 = new Splat.Scene(canvas, function(elapsedMillis) {
 	logMouseClick(scene3);
-	moveEntityViaKeyboard(owl);
+	moveEntityViaKeyboard(scene3, owl);
 	handleMovement(elapsedMillis, owl);
 
 	if (owl.collides(scene3.goal)) {
@@ -878,7 +945,7 @@ function setupScene4() {
 
 scene4 = new Splat.Scene(canvas, function(elapsedMillis) {
 	logMouseClick(scene4);
-	moveEntityViaKeyboard(landlord);
+	moveEntityViaKeyboard(scene4, landlord);
 	handleMovement(elapsedMillis, landlord);
 	if (!landlord.moved()) {
 		landlordWalk.reset();
