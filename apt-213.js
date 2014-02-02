@@ -173,7 +173,7 @@ var apt213 = new Splat.Game(canvas, manifest);
 apt213.scenes.add("title", new Splat.Scene(canvas, function() {
 },
 function(elapsedMillis) {
-	if (apt213.keyboard.consumePressed("up") ||
+	if ((apt213.keyboard.consumePressed("up") ||
 		apt213.keyboard.consumePressed("down") ||
 		apt213.keyboard.consumePressed("left") ||
 		apt213.keyboard.consumePressed("right") ||
@@ -181,7 +181,9 @@ function(elapsedMillis) {
 		apt213.keyboard.consumePressed("a") ||
 		apt213.keyboard.consumePressed("s") ||
 		apt213.keyboard.consumePressed("d") ||
-		apt213.mouse.buttons[0])
+		apt213.mouse.buttons[0]) &&
+		this.timer("starting") === undefined
+	   )
 	{
 		apt213.mouse.buttons[0] = false;
 		this.startTimer("starting");
