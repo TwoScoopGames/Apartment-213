@@ -57,7 +57,8 @@ var manifest = {
 			"msPerFrame": 100
 		},
 		"mouse-walk-flipped": {
-			"strip": "images/flipped/mouse-anim-2f.png",
+			"strip": "images/mouse-anim-2f.png",
+			"flip": "horizontal",
 			"frames": 2,
 			"msPerFrame": 100
 		},
@@ -67,7 +68,8 @@ var manifest = {
 			"msPerFrame": 100
 		},
 		"mouse-walk-cheese-flipped": {
-			"strip": "images/flipped/mousecheese-2f.png",
+			"strip": "images/mousecheese-2f.png",
+			"flip": "horizontal",
 			"frames": 2,
 			"msPerFrame": 100
 		},
@@ -77,7 +79,8 @@ var manifest = {
 			"msPerFrame": 100
 		},
 		"cat-walk-flipped-lv1": {
-			"strip": "images/flipped/cat-lv1-walk-5f.png",
+			"strip": "images/cat-lv1-walk-5f.png",
+			"flip": "horizontal",
 			"frames": 5,
 			"msPerFrame": 100
 		},
@@ -87,7 +90,8 @@ var manifest = {
 			"msPerFrame": 500
 		},
 		"cat-attack-flipped": {
-			"strip": "images/flipped/cat-lv1-attack-2f.png",
+			"strip": "images/cat-lv1-attack-2f.png",
+			"flip": "horizontal",
 			"frames": 2,
 			"msPerFrame": 500
 		},
@@ -97,7 +101,8 @@ var manifest = {
 			"msPerFrame": 100
 		},
 		"cat-walk-flipped-lv2": {
-			"strip": "images/flipped/cat-lv2-walk-5f.png",
+			"strip": "images/cat-lv2-walk-5f.png",
+			"flip": "horizontal",
 			"frames": 5,
 			"msPerFrame": 100
 		},
@@ -122,7 +127,8 @@ var manifest = {
 			"msPerFrame": 100
 		},
 		"owl-walk-flipped": {
-			"strip": "images/flipped/owl-walk-24f.png",
+			"strip": "images/owl-walk-24f.png",
+			"flip": "horizontal",
 			"frames": 24,
 			"msPerFrame": 100
 		},
@@ -139,7 +145,8 @@ var manifest = {
 			"msPerFrame": 25
 		},
 		"landlord-walk-flipped": {
-			"strip": "images/flipped/landlord-lv4-anim.png",
+			"strip": "images/landlord-lv4-anim.png",
+			"flip": "horizontal",
 			"frames": 25,
 			"msPerFrame": 25
 		},
