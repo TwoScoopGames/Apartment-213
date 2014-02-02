@@ -4,32 +4,19 @@ var manifest = {
 	"images": {
 		"bg": "images/bg-1f5115x640.png",
 		"bg-lv4": "images/background-landlord.png",
-		"mouse-walk": "images/mouse-anim-2f.png",
-		"mouse-cheese": "images/mousecheese-2f.png",
-		"cat-walk-lv1": "images/cat-lv1-walk-5f.png",
-		"cat-walk-flipped-lv1": "images/flipped/cat-lv1-walk-5f.png",
-		"cat-walk-lv2": "images/cat-lv2-walk-5f.png",
-		"cat-walk-flipped-lv2": "images/flipped/cat-lv2-walk-5f.png",
 		"tv": "images/tv1f209x268.png",
 		"tv-chair": "images/table-chair-1f288x161.png",
 		"table-legs": "images/table-legs1f553x51.png",
 		"table-top": "images/table-top1f599x183.png",
 		"cheese": "images/cheese-1f36x29.png",
-		"owl-walk": "images/owl-walk-24f.png",
-		"landlord-walk": "images/landlord-lv4-anim.png",
 		"bowl-empty": "images/cat-bowl-empty.png",
 		"bowl-full": "images/cat-bowl-full.png",
 		"can": "images/cat-food-can.png",
-		"sink": "images/brokensink-2f.png",
-		"sink-dirty": "images/dirtyasssink-2f.png",
 		"sink-clean": "images/sink-clean.png",
-		"knock": "images/knock-2f.png",
 		"door-frame-back": "images/doorframe-back.png",
 		"door-frame-front": "images/doorframe-front.png",
 		"door-open": "images/door-open.png",
 		"door-closed": "images/door-closed.png",
-		"cat-attack1": "images/cat-lv1-attack-2f.png",
-		"cat-collapse": "images/catlv4-10f.png",
 		"cat-collapse-01": "images/cat-lv4/catlv4-0001.png",
 		"cat-collapse-02": "images/cat-lv4/catlv4-0002.png",
 		"cat-collapse-03": "images/cat-lv4/catlv4-0003.png",
@@ -59,48 +46,6 @@ var manifest = {
 		"landlord-door-17": "images/landlord-lv3/landlord0017.png",
 		"landlord-door-18": "images/landlord-lv3/landlord0018.png",
 		"landlord-door-19": "images/landlord-lv3/landlord0019.png",
-		"owl-sleep-01": "images/owl-sleep/owl-sleep0001.png",
-		"owl-sleep-02": "images/owl-sleep/owl-sleep0002.png",
-		"owl-sleep-03": "images/owl-sleep/owl-sleep0003.png",
-		"owl-sleep-04": "images/owl-sleep/owl-sleep0004.png",
-		"owl-sleep-05": "images/owl-sleep/owl-sleep0005.png",
-		"owl-sleep-06": "images/owl-sleep/owl-sleep0006.png",
-		"owl-sleep-07": "images/owl-sleep/owl-sleep0007.png",
-		"owl-sleep-08": "images/owl-sleep/owl-sleep0008.png",
-		"owl-sleep-09": "images/owl-sleep/owl-sleep0009.png",
-		"owl-sleep-10": "images/owl-sleep/owl-sleep0010.png",
-		"owl-sleep-11": "images/owl-sleep/owl-sleep0011.png",
-		"owl-sleep-12": "images/owl-sleep/owl-sleep0012.png",
-		"owl-sleep-13": "images/owl-sleep/owl-sleep0013.png",
-		"owl-sleep-14": "images/owl-sleep/owl-sleep0014.png",
-		"owl-sleep-15": "images/owl-sleep/owl-sleep0015.png",
-		"owl-sleep-16": "images/owl-sleep/owl-sleep0016.png",
-		"owl-sleep-17": "images/owl-sleep/owl-sleep0017.png",
-		"owl-sleep-18": "images/owl-sleep/owl-sleep0018.png",
-		"owl-sleep-19": "images/owl-sleep/owl-sleep0019.png",
-		"owl-sleep-20": "images/owl-sleep/owl-sleep0020.png",
-		"landlord-plunger-01": "images/landlord-plunger/landlord-plunger0001.png",
-		"landlord-plunger-02": "images/landlord-plunger/landlord-plunger0002.png",
-		"landlord-plunger-03": "images/landlord-plunger/landlord-plunger0003.png",
-		"landlord-plunger-04": "images/landlord-plunger/landlord-plunger0004.png",
-		"landlord-plunger-05": "images/landlord-plunger/landlord-plunger0005.png",
-		"landlord-plunger-06": "images/landlord-plunger/landlord-plunger0006.png",
-		"landlord-plunger-07": "images/landlord-plunger/landlord-plunger0007.png",
-		"landlord-plunger-08": "images/landlord-plunger/landlord-plunger0008.png",
-		"landlord-plunger-09": "images/landlord-plunger/landlord-plunger0009.png",
-		"landlord-plunger-10": "images/landlord-plunger/landlord-plunger0010.png",
-		"landlord-plunger-11": "images/landlord-plunger/landlord-plunger0011.png",
-		"landlord-plunger-12": "images/landlord-plunger/landlord-plunger0012.png",
-		"landlord-plunger-13": "images/landlord-plunger/landlord-plunger0013.png",
-		"landlord-plunger-14": "images/landlord-plunger/landlord-plunger0014.png",
-		"landlord-plunger-15": "images/landlord-plunger/landlord-plunger0015.png",
-		"cat-attack1-flipped": "images/flipped/cat-lv1-attack-2f.png",
-		"mouse-walk-flipped": "images/flipped/mouse-anim-2f.png",
-		"mouse-cheese-flipped": "images/flipped/mousecheese-2f.png",
-		"owl-walk-flipped": "images/flipped/owl-walk-24f.png",
-		"landlord-knock": "images/landlord-lv3.png",
-		"landlord-walk-flipped": "images/flipped/landlord-lv4-anim.png",
-		"landlord-flipped": "images/flipped/landlord-1f-159x304.png",
 		"sky": "images/parallax-sky.png",
 		"bathroom": "images/bathroom.png",
 		"bedroom": "images/bedroom.png",
@@ -133,134 +78,125 @@ var manifest = {
 		"credits-clap1":	"audio/credits_clap1.wav"
 	},
 	"fonts": [
-	]
+	],
+	"animations": {
+		"mouse-walk": {
+			"strip": "images/mouse-anim-2f.png",
+			"frames": 2,
+			"msPerFrame": 100
+		},
+		"mouse-walk-flipped": {
+			"strip": "images/flipped/mouse-anim-2f.png",
+			"frames": 2,
+			"msPerFrame": 100
+		},
+		"mouse-walk-cheese": {
+			"strip": "images/mousecheese-2f.png",
+			"frames": 2,
+			"msPerFrame": 100
+		},
+		"mouse-walk-cheese-flipped": {
+			"strip": "images/flipped/mousecheese-2f.png",
+			"frames": 2,
+			"msPerFrame": 100
+		},
+		"cat-walk-lv1": {
+			"strip": "images/cat-lv1-walk-5f.png",
+			"frames": 5,
+			"msPerFrame": 100
+		},
+		"cat-walk-flipped-lv1": {
+			"strip": "images/flipped/cat-lv1-walk-5f.png",
+			"frames": 5,
+			"msPerFrame": 100
+		},
+		"cat-walk-lv2": {
+			"strip": "images/cat-lv2-walk-5f.png",
+			"frames": 5,
+			"msPerFrame": 100
+		},
+		"cat-walk-flipped-lv2": {
+			"strip": "images/flipped/cat-lv2-walk-5f.png",
+			"frames": 5,
+			"msPerFrame": 100
+		},
+		"owl-walk": {
+			"strip": "images/owl-walk-24f.png",
+			"frames": 24,
+			"msPerFrame": 100
+		},
+		"owl-walk-flipped": {
+			"strip": "images/flipped/owl-walk-24f.png",
+			"frames": 24,
+			"msPerFrame": 100
+		},
+		"landlord-knock": {
+			"strip": "images/landlord-lv3.png",
+			"frames": 19,
+			"msPerFrame": 25
+		},
+		"landlord-walk": {
+			"strip": "images/landlord-lv4-anim.png",
+			"frames": 25,
+			"msPerFrame": 25
+		},
+		"landlord-walk-flipped": {
+			"strip": "images/flipped/landlord-lv4-anim.png",
+			"frames": 25,
+			"msPerFrame": 25
+		},
+		"cat-attack": {
+			"strip": "images/cat-lv1-attack-2f.png",
+			"frames": 2,
+			"msPerFrame": 500
+		},
+		"cat-attack-flipped": {
+			"strip": "images/flipped/cat-lv1-attack-2f.png",
+			"frames": 2,
+			"msPerFrame": 500
+		},
+		"cat-collapse": {
+			"strip": "images/catlv4-10f.png",
+			"frames": 10,
+			"msPerFrame": 200
+		},
+		"sink": {
+			"strip": "images/brokensink-2f.png",
+			"frames": 2,
+			"msPerFrame": 200
+		},
+		"sink-dirty": {
+			"strip": "images/dirtyasssink-2f.png",
+			"frames": 2,
+			"msPerFrame": 200
+		},
+		"knock": {
+			"strip": "images/knock-2f.png",
+			"frames": 2,
+			"msPerFrame": 100
+		},
+		"owl-sleep": {
+			"prefix": "images/owl-sleep/owl-sleep",
+			"suffix": ".png",
+			"padNumberTo": 4,
+			"frames": 20,
+			"msPerFrame": 50
+		},
+		"landlord-plunger": {
+			"prefix": "images/landlord-plunger/landlord-plunger",
+			"suffix": ".png",
+			"padNumberTo": 4,
+			"frames": 15,
+			"msPerFrame": 50
+		},
+	}
 };
 
 var apt213 = new Splat.Game(canvas, manifest);
 
-function setCanvasSize() {
-	var ow = 1136;
-	var oh = 640;
-
-	var w = Math.min(window.innerWidth, ow);
-	var h = Math.min(window.innerHeight, oh);
-	canvas.style.width = w + "px";
-	canvas.style.height = h + "px";
-
-	if (w != ow || h != oh) {
-		canvas.width = oh / window.innerHeight * window.innerWidth;
-		canvas.height = oh;
-	}
-
-	// console.log(window.innerWidth + "x" + window.innerHeight + " - " + canvas.style.width + "x" + canvas.style.height + " - " + canvas.width + "x" + canvas.height);
-}
-window.addEventListener("resize", setCanvasSize);
-setCanvasSize();
-
-var title;
-var scene1;
-var scene2;
-var scene3;
-var scene4;
-var credits;
-
-
-var loading = new Splat.Scene(canvas, function(elapsedMillis) {
-	if (apt213.isLoaded()) {
-		assetsLoaded();
-		loading.stop();
-		title.start();
-	}
+apt213.scenes.add("title", new Splat.Scene(canvas, function() {
 },
-function(context) {
-	context.fillStyle = "#ffffff";
-	context.fillRect(0, 0, canvas.width, canvas.height);
-
-	context.font = "36px mono";
-	context.fillStyle = "#000000";
-	context.fillText("loading", 200, 200);
-});
-loading.start();
-
-var mouseWalk;
-var mouseWalkFlipped;
-var mouseWalkCheese;
-var mouseWalkCheeseFlipped;
-var catWalk;
-var catWalkFlipped;
-var owlSleep;
-var owlWalk;
-var owlWalkFlipped;
-var landlordKnock;
-var landlordWalk;
-var landlordWalkFlipped;
-var landlordPlunger;
-var catAttack;
-var catAttackFlipped;
-var catCollapse;
-var sinkAnimation;
-var sinkDirtyAnimation;
-
-function assetsLoaded() {
-	mouseWalk = new Splat.makeAnimation(apt213.images.get("mouse-walk"), 2, 100);
-	mouseWalkFlipped = new Splat.makeAnimation(apt213.images.get("mouse-walk-flipped"), 2, 100);
-	mouseWalkCheese = new Splat.makeAnimation(apt213.images.get("mouse-cheese"), 2, 100);
-	mouseWalkCheeseFlipped = new Splat.makeAnimation(apt213.images.get("mouse-cheese-flipped"), 2, 100);
-	catWalk = new Splat.makeAnimation(apt213.images.get("cat-walk-lv1"), 5, 100);
-	catWalkFlipped = new Splat.makeAnimation(apt213.images.get("cat-walk-flipped-lv1"), 5, 100);
-
-	owlSleep = new Splat.Animation();
-	owlSleep.add(apt213.images.get("owl-sleep-01"), 50);
-	owlSleep.add(apt213.images.get("owl-sleep-02"), 50);
-	owlSleep.add(apt213.images.get("owl-sleep-03"), 50);
-	owlSleep.add(apt213.images.get("owl-sleep-04"), 50);
-	owlSleep.add(apt213.images.get("owl-sleep-05"), 50);
-	owlSleep.add(apt213.images.get("owl-sleep-06"), 50);
-	owlSleep.add(apt213.images.get("owl-sleep-07"), 50);
-	owlSleep.add(apt213.images.get("owl-sleep-08"), 50);
-	owlSleep.add(apt213.images.get("owl-sleep-09"), 50);
-	owlSleep.add(apt213.images.get("owl-sleep-10"), 50);
-	owlSleep.add(apt213.images.get("owl-sleep-11"), 50);
-	owlSleep.add(apt213.images.get("owl-sleep-12"), 50);
-	owlSleep.add(apt213.images.get("owl-sleep-13"), 50);
-	owlSleep.add(apt213.images.get("owl-sleep-14"), 50);
-	owlSleep.add(apt213.images.get("owl-sleep-15"), 50);
-	owlSleep.add(apt213.images.get("owl-sleep-16"), 50);
-	owlSleep.add(apt213.images.get("owl-sleep-17"), 50);
-	owlSleep.add(apt213.images.get("owl-sleep-18"), 50);
-	owlSleep.add(apt213.images.get("owl-sleep-19"), 50);
-	owlSleep.add(apt213.images.get("owl-sleep-20"), 50);
-
-	landlordPlunger = new Splat.Animation();
-	landlordPlunger.add(apt213.images.get("landlord-plunger-01"), 50);
-	landlordPlunger.add(apt213.images.get("landlord-plunger-02"), 50);
-	landlordPlunger.add(apt213.images.get("landlord-plunger-03"), 50);
-	landlordPlunger.add(apt213.images.get("landlord-plunger-04"), 50);
-	landlordPlunger.add(apt213.images.get("landlord-plunger-05"), 50);
-	landlordPlunger.add(apt213.images.get("landlord-plunger-06"), 50);
-	landlordPlunger.add(apt213.images.get("landlord-plunger-07"), 50);
-	landlordPlunger.add(apt213.images.get("landlord-plunger-08"), 50);
-	landlordPlunger.add(apt213.images.get("landlord-plunger-09"), 50);
-	landlordPlunger.add(apt213.images.get("landlord-plunger-10"), 50);
-	landlordPlunger.add(apt213.images.get("landlord-plunger-11"), 50);
-	landlordPlunger.add(apt213.images.get("landlord-plunger-12"), 50);
-	landlordPlunger.add(apt213.images.get("landlord-plunger-13"), 50);
-	landlordPlunger.add(apt213.images.get("landlord-plunger-14"), 50);
-	landlordPlunger.add(apt213.images.get("landlord-plunger-15"), 50);
-
-	owlWalk = new Splat.makeAnimation(apt213.images.get("owl-walk"), 24, 100);
-	owlWalkFlipped = new Splat.makeAnimation(apt213.images.get("owl-walk-flipped"), 24, 100);
-	landlordKnock = new Splat.makeAnimation(apt213.images.get("landlord-knock"), 19, 25);
-	landlordWalk = new Splat.makeAnimation(apt213.images.get("landlord-walk"), 25, 25);
-	landlordWalkFlipped = new Splat.makeAnimation(apt213.images.get("landlord-walk-flipped"), 25, 25);
-	catAttack = new Splat.makeAnimation(apt213.images.get("cat-attack1"), 2, 500);
-	catAttackFlipped = new Splat.makeAnimation(apt213.images.get("cat-attack1-flipped"), 2, 500);
-	catCollapse = new Splat.makeAnimation(apt213.images.get("cat-collapse"), 10, 200);
-	sinkAnimation = new Splat.makeAnimation(apt213.images.get("sink"), 2, 200);
-	sinkDirtyAnimation = new Splat.makeAnimation(apt213.images.get("sink-dirty"), 2, 200);
-}
-
-var title = new Splat.Scene(canvas, function(elapsedMillis) {
+function(elapsedMillis) {
 	if (apt213.keyboard.consumePressed("up") ||
 		apt213.keyboard.consumePressed("down") ||
 		apt213.keyboard.consumePressed("left") ||
@@ -272,17 +208,15 @@ var title = new Splat.Scene(canvas, function(elapsedMillis) {
 		apt213.mouse.buttons[0])
 	{
 		apt213.mouse.buttons[0] = false;
-		title.startTimer("starting");
+		this.startTimer("starting");
 		apt213.sounds.play("door-open1");
 	}
-	if (title.timer("starting") > 1000) {
-		title.stop();
-		setupScene1();
-		scene1.start();
+	if (this.timer("starting") > 1000) {
+		apt213.scenes.switchTo("level-1");
 	}
 },
 function(context) {
-	if (title.timer("starting") > 0) {
+	if (this.timer("starting") > 0) {
 		context.drawImage(apt213.images.get("title-2"), 0, 0);
 	} else {
 		context.drawImage(apt213.images.get("title-1"), 0, 0);
@@ -294,7 +228,7 @@ function(context) {
 			context.fillText("Press arrows to start", 250, 400);
 		}
 	}
-});
+}));
 
 // characters
 var mouse;
@@ -398,40 +332,8 @@ function addCommonFurniture() {
 	furniture.push(new Splat.AnimatedEntity(552, 559, 56, 65, apt213.images.get("door-frame-front"), -16, -539));
 	door = new Splat.AnimatedEntity(604, 500, 56, 65, apt213.images.get("door-closed"), -8, -272);
 	furniture.push(door);
-	var sinkAnim = new Splat.makeAnimation(apt213.images.get("sink"), 2, 300);
-	sink = new Splat.AnimatedEntity(3739, 187, 50, 50, sinkAnim, 0, 0);
+	sink = new Splat.AnimatedEntity(3739, 187, 50, 50, apt213.animations.get("sink"), 0, 0);
 	furniture.push(sink);
-}
-function setupScene1() {
-	mouse = new Splat.AnimatedEntity(673, 476, 40, 8, mouseWalk, -15, -20);
-	mouse.vy = 1;
-	mouse.frictionX = 0.5;
-	mouse.frictionY = 0.75;
-
-	addCommonFurniture();
-	
-	bowl = new Splat.AnimatedEntity(3385, 444, 78, 53, apt213.images.get("bowl-empty"), 0, 0);
-	furniture.push(bowl);
-
-	can = new Splat.AnimatedEntity(3659, 260, 43, 42, apt213.images.get("can"), 0, 0);
-	furniture.push(can);
-
-	cat = new Splat.AnimatedEntity(3242, -21, 80, 15, catWalk, -40, -73);
-	cat.frictionX = 0.5;
-	cat.frictionY = 0.75;
-	chaseSpeedY = .9;
-
-	owl = new Splat.AnimatedEntity(1056, 503, 100, 20, owlSleep, -60, -335);
-	owl.frictionX = 0.5;
-	owl.frictionY = 0.75;
-
-	scene1.goal = new Splat.Entity(4269, 472, 31, 9);
-	scene1.camera = new Splat.EntityBoxCamera(mouse, 400, canvas.height, canvas.width/2, canvas.height/2);
-
-	var cheeseImg = apt213.images.get("cheese");
-	scene1.cheese = new Splat.AnimatedEntity(2567, 556, cheeseImg.width, cheeseImg.height, cheeseImg, 0, 0);
-
-	scene1.hasCheese = false;
 }
 
 function distanceSquared(x1, y1, x2, y2) {
@@ -540,7 +442,7 @@ function drawBackground(scene, context) {
 	drawParallaxImage(scene, context, apt213.images.get("sky"), 4372, 0, 341);
 	drawParallaxImage(scene, context, apt213.images.get("bedroom"), 1388, 139, 180);
 	drawParallaxImage(scene, context, apt213.images.get("bathroom"), 3196, 138, 181);
-	if (scene === scene4) {
+	if (scene === apt213.scenes.get("level-4")) {
 		context.drawImage(apt213.images.get("bg-lv4"), 0, 0);
 	} else {
 		context.drawImage(apt213.images.get("bg"), 0, 0);
@@ -559,29 +461,60 @@ function drawParallaxImage(scene, context, image, x, y, width) {
 	context.drawImage(image, bx, y);
 }
 
-scene1 = new Splat.Scene(canvas, function(elapsedMillis) {
-	logMouseClick(scene1);
+apt213.scenes.add("level-1", new Splat.Scene(canvas, function() {
+	mouse = new Splat.AnimatedEntity(673, 476, 40, 8, apt213.animations.get("mouse-walk"), -15, -20);
+	mouse.vy = 1;
+	mouse.frictionX = 0.5;
+	mouse.frictionY = 0.75;
 
-	moveEntityViaKeyboard(scene1, mouse);
+	addCommonFurniture();
+
+	bowl = new Splat.AnimatedEntity(3385, 444, 78, 53, apt213.images.get("bowl-empty"), 0, 0);
+	furniture.push(bowl);
+
+	can = new Splat.AnimatedEntity(3659, 260, 43, 42, apt213.images.get("can"), 0, 0);
+	furniture.push(can);
+
+	cat = new Splat.AnimatedEntity(3242, -21, 80, 15, apt213.animations.get("cat-walk-lv1"), -40, -73);
+	cat.frictionX = 0.5;
+	cat.frictionY = 0.75;
+	chaseSpeedY = .9;
+
+	owl = new Splat.AnimatedEntity(1056, 503, 100, 20, apt213.animations.get("owl-sleep"), -60, -335);
+	owl.frictionX = 0.5;
+	owl.frictionY = 0.75;
+
+	this.goal = new Splat.Entity(4269, 472, 31, 9);
+	this.camera = new Splat.EntityBoxCamera(mouse, 400, canvas.height, canvas.width/2, canvas.height/2);
+
+	var cheeseImg = apt213.images.get("cheese");
+	this.cheese = new Splat.AnimatedEntity(2567, 556, cheeseImg.width, cheeseImg.height, cheeseImg, 0, 0);
+
+	this.hasCheese = false;
+},
+function(elapsedMillis) {
+	logMouseClick(this);
+
+	moveEntityViaKeyboard(this, mouse);
 	chase(cat, mouse, 300);
 
 	handleMovement(elapsedMillis, mouse);
 
 	if (!mouse.moved()) {
-		mouseWalk.reset();
-		mouseWalkCheese.reset();
-		mouseWalkFlipped.reset();
-		mouseWalkCheeseFlipped.reset();
+		apt213.animations.get("mouse-walk").reset();
+		apt213.animations.get("mouse-walk-flipped").reset();
+		apt213.animations.get("mouse-walk-cheese").reset();
+		apt213.animations.get("mouse-walk-cheese-flipped").reset();
 	}
 
 	cat.move(elapsedMillis);
 	if (cat.moved()) {
-		onlyRepeatEvery(scene1, "cat-walk-timer", 400, function() {
+		onlyRepeatEvery(this, "cat-walk-timer", 400, function() {
 			apt213.sounds.play("cat-walk1");
 		});
 	} else {
-		catWalk.reset();
-		catWalkFlipped.reset();
+		apt213.animations.get("cat-walk-lv1").reset();
+		apt213.animations.get("cat-walk-flipped-lv1").reset();
 	}
 	collideWithFurniture(cat);
 
@@ -592,40 +525,39 @@ scene1 = new Splat.Scene(canvas, function(elapsedMillis) {
 	else if(mouse.vx > 0){
 		mouseFlipped = false;
 	}
-	
+
 	if(mouseFlipped){
-		if(scene1.hasCheese)
-			mouse.sprite = mouseWalkCheeseFlipped;
+		if(this.hasCheese)
+			mouse.sprite = apt213.animations.get("mouse-walk-cheese-flipped");
 		else
-			mouse.sprite = mouseWalkFlipped;
+			mouse.sprite = apt213.animations.get("mouse-walk-flipped");
 	}
 	else{
-		if(scene1.hasCheese)
-			mouse.sprite = mouseWalkCheese;
+		if(this.hasCheese)
+			mouse.sprite = apt213.animations.get("mouse-walk-cheese");
 		else
-			mouse.sprite = mouseWalk;
+			mouse.sprite = apt213.animations.get("mouse-walk");
 	}
-	
+
 	var catFlipped = false;
-	
+
 	if(cat.vx < 0){
 		catFlipped = true;
 	}
 	else if(cat.vx > 0){
 		catFlipped = false;
 	}
-	
+
 	if(catFlipped){
-		cat.sprite = catWalkFlipped;
-	}
-	else{
-		cat.sprite = catWalk;
+		cat.sprite = apt213.animations.get("cat-walk-flipped-lv1");
+	} else {
+		cat.sprite = apt213.animations.get("cat-walk-lv1");
 	}
 
-	if (mouse.collides(scene1.cheese)) {
-		scene1.hasCheese = true;
-	
-		onlyRepeatEvery(scene1, "mouse-squeak-timer", 2000, function() {
+	if (mouse.collides(this.cheese)) {
+		this.hasCheese = true;
+
+		onlyRepeatEvery(this, "mouse-squeak-timer", 2000, function() {
 			var squeakSoundRandom = Math.random()*2|0;
 			if (squeakSoundRandom == 0)
 				apt213.sounds.play("mouse-squeak1");
@@ -634,87 +566,81 @@ scene1 = new Splat.Scene(canvas, function(elapsedMillis) {
 		});
 	}
 
-	if(scene1.hasCheese) {
+	if (this.hasCheese) {
 		moveSpeedX = .7;
 		moveSpeedY = .8;
 	}
-	
+
 	if (mouse.collides(cat)) {
 		if (cat.moved()){
-			var t1 = scene1.timer("mouse-damage-timer");
-			if(t1 === undefined || t1 > 400){
+			var t1 = this.timer("mouse-damage-timer");
+			if (t1 === undefined || t1 > 400){
 				apt213.sounds.play("mouse-damage2");
-				scene1.startTimer("mouse-damage-timer");
+				this.startTimer("mouse-damage-timer");
 			}
 		}
-		
+
 		if(catFlipped)
-			cat.sprite = catAttackFlipped;
+			cat.sprite = apt213.animations.get("cat-attack-flipped");
 		else
-			cat.sprite = catAttack;
-		
+			cat.sprite = apt213.animations.get("cat-attack");
+
 		mouse.vx = -10.0;
-		
-		if (scene1.hasCheese) {
-			scene1.hasCheese = false;
-			scene1.cheese.x = mouse.x;
-			scene1.cheese.y = mouse.y;
+
+		if (this.hasCheese) {
+			this.hasCheese = false;
+			this.cheese.x = mouse.x;
+			this.cheese.y = mouse.y;
 			moveSpeedX = 1;
 			moveSpeedY = 1;
 		}
 	}
-	if (mouse.collides(scene1.goal) && scene1.hasCheese) {
-		scene1.stop();
+	if (mouse.collides(this.goal) && this.hasCheese) {
 		apt213.sounds.play("level-end-win1");
 		speed = 1;
-		setupScene2();
-		scene2.start();
+		apt213.scenes.switchTo("level-2");
 		return;
 	}
 
 	owl.move(elapsedMillis);
 },
 function(context) {
-	drawBackground(scene1, context);
+	drawBackground(this, context);
 
 	var toDraw = furniture.slice();
-	if (!scene1.hasCheese) {
-		toDraw.push(scene1.cheese);
+	if (!this.hasCheese) {
+		toDraw.push(this.cheese);
 	}
 	toDraw.push(cat);
 	toDraw.push(owl);
 	toDraw.push(mouse);
-	toDraw.push(scene1.goal);
+	toDraw.push(this.goal);
 	drawEntities(context, toDraw);
-});
+}));
 
 //**************** SCENE 2 *****************************************
 //**************** SCENE 2 *****************************************
 //**************** SCENE 2 *****************************************
 //**************** SCENE 2 *****************************************
+apt213.scenes.add("level-2", new Splat.Scene(canvas, function() {
+	cat.sprite = apt213.animations.get("cat-walk-lv2");
 
-function setupScene2() {
-	catWalk = new Splat.makeAnimation(apt213.images.get("cat-walk-lv2"), 5, 100);
-	catWalkFlipped = new Splat.makeAnimation(apt213.images.get("cat-walk-flipped-lv2"), 5, 100);
-	cat.sprite = catWalk;
+	this.camera = new Splat.EntityBoxCamera(cat, 400, canvas.height, canvas.width/2, canvas.height/2);
+	this.owlhasFood = false;
+	this.bowlHasFood = false;
+	this.canPickup = new Splat.Entity(3625, 476, 103, 17);
+},
+function(elapsedMillis) {
+	logMouseClick(this);
 
-	scene2.camera = new Splat.EntityBoxCamera(cat, 400, canvas.height, canvas.width/2, canvas.height/2);
-	scene2.owlhasFood = false;
-	scene2.bowlHasFood = false;
-	scene2.canPickup = new Splat.Entity(3625, 476, 103, 17);
-}
-
-scene2 = new Splat.Scene(canvas, function(elapsedMillis) {
-	logMouseClick(scene2);
-
-	moveEntityViaKeyboard(scene2, cat);
+	moveEntityViaKeyboard(this, cat);
 	var chaseDist = 300;
 	var withinChaseDistance = distanceFromCenters(owl, cat) < chaseDist * chaseDist;
-	var owlWakeUpTimer = scene2.timer("owl-wake-up");
+	var owlWakeUpTimer = this.timer("owl-wake-up");
 	var owlIsAwake = owlWakeUpTimer > 2000;
 	if (owlWakeUpTimer === undefined && withinChaseDistance) {
-		scene2.startTimer("owl-wake-up");
-	} else if (owlIsAwake && !scene2.bowlHasFood) {
+		this.startTimer("owl-wake-up");
+	} else if (owlIsAwake && !this.bowlHasFood) {
 		chase(owl, cat, chaseDist);
 		owl.spriteOffsetY = -230;
 	}
@@ -725,64 +651,62 @@ scene2 = new Splat.Scene(canvas, function(elapsedMillis) {
 
 	cat.move(elapsedMillis);
 	if (!cat.moved()) {
-		catWalk.reset();
-		catWalkFlipped.reset();
+		apt213.animations.get("cat-walk-lv2").reset();
+		apt213.animations.get("cat-walk-flipped-lv2").reset();
 	}
-	if (scene2.bowlHasFood && cat.collides(bowl)) {
-		scene2.stop();
-		setupScene3();
+	if (this.bowlHasFood && cat.collides(bowl)) {
 		apt213.sounds.play("level-end-win1");
-		scene3.start();
+		apt213.scenes.switchTo("level-3");
 		return;
 	}
 	if(owl.collides(cat)) {
 		owl.vx = 0;
 		owl.vy = 0;
 	}
-	
+
 	var catFlipped = false;
-	
+
 	if(cat.vx < 0){
 		catFlipped = true;
 	}
 	else if(cat.vx > 0){
 		catFlipped = false;
 	}
-	
+
 	if(catFlipped){
-		cat.sprite = catWalkFlipped;
+		cat.sprite = apt213.animations.get("cat-walk-flipped-lv2");
 	}
 	else{
-		cat.sprite = catWalk;
+		cat.sprite = apt213.animations.get("cat-walk-lv2");
 	}
-	
+
 	var owlFlipped = false;
-	
+
 	if(owl.vx < 0){
 		owlFlipped = true;
 	}
 	else if(owl.vx > 0){
 		owlFlipped = false;
 	}
-	
+
 	if (owlIsAwake) {
 		if(owlFlipped){
-			owl.sprite = owlWalkFlipped;
+			owl.sprite = apt213.animations.get("owl-walk-flipped");
 		}
 		else{
-			owl.sprite = owlWalk;
+			owl.sprite = apt213.animations.get("owl-walk");
 		}
 	}
-	
+
 	if ((cat.destX || cat.destY) && cat.destX >= cat.x && cat.destX <= cat.x + cat.width && cat.destY >= cat.y && cat.destY <= cat.y + cat.height) {
 		clearDest(cat);
 	}
 	collideWithFurniture(cat);
-	
+
 	owl.move(elapsedMillis);
-	if (!scene2.owlHasFood && owl.collides(scene2.canPickup)) {
-		scene2.owlHasFood = true;
-		scene2.bowlHasFood = true;
+	if (!this.owlHasFood && owl.collides(this.canPickup)) {
+		this.owlHasFood = true;
+		this.bowlHasFood = true;
 		bowl.sprite = apt213.images.get("bowl-full");
 		furniture.splice(furniture.indexOf(can), 1);
 	}
@@ -795,242 +719,237 @@ scene2 = new Splat.Scene(canvas, function(elapsedMillis) {
 	}
 
 	if (withinChaseDistance) {
-		onlyRepeatEvery(scene2, "cat-pur-timer", 2000, function() {
+		onlyRepeatEvery(this, "cat-pur-timer", 2000, function() {
 			var purSoundRandom = Math.floor(Math.random()*2);
-			if(purSoundRandom == 0)
+			if (purSoundRandom == 0) {
 				apt213.sounds.play("cat-meow1");
-			else if(purSoundRandom == 1)
+			} else if (purSoundRandom == 1) {
 				apt213.sounds.play("cat-meow2");
+			}
 		});
 	}
 	if (owl.moved()) {
-		onlyRepeatEvery(scene2, "owl-walk-timer", 500, function() {
+		onlyRepeatEvery(this, "owl-walk-timer", 500, function() {
 			var owlWalkSoundRandom = Math.floor(Math.random()*2);
-			if(owlWalkSoundRandom == 0)
+			if (owlWalkSoundRandom == 0) {
 				apt213.sounds.play("owl-walk2");
-			else if(owlWalkSoundRandom == 1)
+			} else if (owlWalkSoundRandom == 1) {
 				apt213.sounds.play("owl-walk3");
+			}
 		});
 	} else {
-		owlWalk.reset();
+		apt213.animations.get("owl-walk").reset();
+		apt213.animations.get("owl-walk-flipped").reset();
 	}
 },
 function(context) {
-	drawBackground(scene2, context);
+	drawBackground(this, context);
 
 	var toDraw = furniture.slice();
 	toDraw.push(owl);
 	toDraw.push(cat);
 	drawEntities(context, toDraw);
-});
+}));
 
 //**************** SCENE 3 *****************************************
 //**************** SCENE 3 *****************************************
 //**************** SCENE 3 *****************************************
 //**************** SCENE 3 *****************************************
-function setupScene3() {
-	landlord = new Splat.AnimatedEntity(446, 528, 80, 20, landlordKnock, -40, -283);
+apt213.scenes.add("level-3", new Splat.Scene(canvas, function() {
+	landlord = new Splat.AnimatedEntity(446, 528, 80, 20, apt213.animations.get("landlord-knock"), -40, -283);
 	landlord.frictionX = 0.5;
 	landlord.frictionY = 0.75;
-	scene3.camera = new Splat.EntityBoxCamera(owl, 400, canvas.height, canvas.width/2, canvas.height/2);
-	scene3.goal = new Splat.Entity(650, 493, 50, 75);
-	scene3.knock = Splat.makeAnimation(apt213.images.get("knock"), 2, 100);
-	scene3.startTimer("knock");
-	scene3.knockCount = 0;
+	this.camera = new Splat.EntityBoxCamera(owl, 400, canvas.height, canvas.width/2, canvas.height/2);
+	this.goal = new Splat.Entity(650, 493, 50, 75);
+	this.startTimer("knock");
+	this.knockCount = 0;
 	furniture.push(new Splat.Entity(2140, 514, 599, 78));
-}
-
-scene3 = new Splat.Scene(canvas, function(elapsedMillis) {
-	logMouseClick(scene3);
-	moveEntityViaKeyboard(scene3, owl);
+},
+function(elapsedMillis) {
+	logMouseClick(this);
+	moveEntityViaKeyboard(this, owl);
 	handleMovement(elapsedMillis, owl);
 
-	if (owl.collides(scene3.goal)) {
-		scene3.stop();
-		setupScene4();
+	if (owl.collides(this.goal)) {
 		apt213.sounds.play("door-open1");
-		scene4.start();
+		apt213.scenes.switchTo("level-4");
 		return;
 	}
-	
+
 	var owlFlipped = false;
-	
+
 	if(owl.vx < 0){
 		owlFlipped = true;
 	}
 	else if(owl.vx > 0){
 		owlFlipped = false;
 	}
-	
+
 	if(owlFlipped){
-		owl.sprite = owlWalkFlipped;
+		owl.sprite = apt213.animations.get("owl-walk-flipped");
 	}
 	else{
-		owl.sprite = owlWalk;
+		owl.sprite = apt213.animations.get("owl-walk");
 	}
 
 	if (owl.moved()) {
-		onlyRepeatEvery(scene3, "owl-walk-timer", 500, function() {
+		onlyRepeatEvery(this, "owl-walk-timer", 500, function() {
 			var owlWalkSoundRandom = Math.floor(Math.random()*2);
-			if(owlWalkSoundRandom == 0)
+			if (owlWalkSoundRandom == 0) {
 				apt213.sounds.play("owl-walk2");
-			else if(owlWalkSoundRandom == 1)
+			} else if(owlWalkSoundRandom == 1) {
 				apt213.sounds.play("owl-walk3");
+			}
 		});
 	} else {
-		owlWalk.reset();
-		owlWalkFlipped.reset();
+		apt213.animations.get("owl-walk").reset();
+		apt213.animations.get("owl-walk-flipped").reset();
 	}
 
 	landlord.move(elapsedMillis);
-	scene3.knock.move(elapsedMillis);
+	apt213.animations.get("knock").move(elapsedMillis);
 },
 function(context) {
-	drawBackground(scene3, context);
+	drawBackground(this, context);
 
 	var toDraw = furniture.slice();
 	toDraw.push(owl);
 	toDraw.push(cat);
 	toDraw.push(landlord);
-	toDraw.push(scene3.goal);
+	toDraw.push(this.goal);
 	drawEntities(context, toDraw);
 
 	var knockGap = 100;
-	if (scene3.knockCount === 0) {
+	if (this.knockCount === 0) {
 		knockGap = 3000;
 	}
-	if (scene3.timer("knock") > knockGap) {
-		scene3.stopTimer("knock");
-		scene3.startTimer("knock-duration");
+	if (this.timer("knock") > knockGap) {
+		this.stopTimer("knock");
+		this.startTimer("knock-duration");
 		apt213.sounds.play("landlord-knock");
-		scene3.knockCount++;
-		if (scene3.knockCount === 3) {
-			scene3.knockCount = 0;
+		this.knockCount++;
+		if (this.knockCount === 3) {
+			this.knockCount = 0;
 		}
 	}
-	if (scene3.timer("knock-duration") >= 0) {
-		if (scene3.camera.x < 581) {
-			scene3.knock.draw(context, 581, canvas.height/2 - scene3.knock.height/2);
+	if (this.timer("knock-duration") >= 0) {
+		var knock = apt213.animations.get("knock");
+		if (this.camera.x < 581) {
+			knock.draw(context, 581, canvas.height/2 - knock.height/2);
 		} else {
-			scene3.camera.drawAbsolute(context, function() {
-				scene3.knock.draw(context, 50, canvas.height/2 - scene3.knock.height/2);
+			this.camera.drawAbsolute(context, function() {
+				knock.draw(context, 50, canvas.height/2 - knock.height/2);
 			});
 		}
-		if (scene3.timer("knock-duration") > 200) {
-			scene3.stopTimer("knock-duration");
-			scene3.startTimer("knock");
+		if (this.timer("knock-duration") > 200) {
+			this.stopTimer("knock-duration");
+			this.startTimer("knock");
 		}
 	}
-});
+}));
 
 //**************** SCENE 4 *****************************************
 //**************** SCENE 4 *****************************************
 //**************** SCENE 4 *****************************************
 //**************** SCENE 4 *****************************************
-
-function setupScene4() {
-	landlord.sprite = landlordWalk;
-	scene4.camera = new Splat.EntityBoxCamera(landlord, 400, canvas.height, canvas.width/2, canvas.height/2);
-	scene4.sink = new Splat.Entity(3850, 476, 80, 10);
-	scene4.goal = new Splat.Entity(317, 473, 226, 154);
-	cat.sprite = catCollapse;
+apt213.scenes.add("level-4", new Splat.Scene(canvas, function() {
+	landlord.sprite = apt213.animations.get("landlord-walk");
+	this.camera = new Splat.EntityBoxCamera(landlord, 400, canvas.height, canvas.width/2, canvas.height/2);
+	this.sink = new Splat.Entity(3850, 476, 80, 10);
+	this.goal = new Splat.Entity(317, 473, 226, 154);
+	cat.sprite = apt213.animations.get("cat-collapse");
 	furniture.splice(furniture.indexOf(door), 1);
 	door = new Splat.AnimatedEntity(650, 473, 130, 27, apt213.images.get("door-open"), 0, -243);
 	furniture.push(door);
-	scene4.catIsCollapsed = false;
-	sink.sprite = sinkDirtyAnimation;
+	this.catIsCollapsed = false;
+	sink.sprite = apt213.animations.get("sink-dirty");
 	sink.x = 3737;
 	sink.y = 228;
-}
-
-scene4 = new Splat.Scene(canvas, function(elapsedMillis) {
-	logMouseClick(scene4);
-	moveEntityViaKeyboard(scene4, landlord);
+},
+function(elapsedMillis) {
+	logMouseClick(this);
+	moveEntityViaKeyboard(this, landlord);
 	handleMovement(elapsedMillis, landlord);
 	if (!landlord.moved()) {
-		landlordWalk.reset();
-		landlordWalkFlipped.reset();
-	}
-	
-	if(scene4.catIsCollapsed == false)
-		catCollapse.reset();
-	
-	var landlordFlipped = false;
-	
-	if(landlord.vx < 0){
-		landlordFlipped = true;
-	}
-	else if(landlord.vx > 0){
-		landlordFlipped = false;
-	}
-	
-	if(landlordFlipped){
-		landlord.sprite = landlordWalkFlipped;
-	}
-	else{
-		landlord.sprite = landlordWalk;
-	}
-	
-	var r2 = 250*250;
-	
-	if (distanceFromCenters(landlord, cat) < r2) {
-		scene4.catIsCollapsed = true;
+		apt213.animations.get("landlord-walk").reset();
+		apt213.animations.get("landlord-walk-flipped").reset();
 	}
 
-	if (scene4.timer("plunging") === undefined && !scene4.plunged && landlord.collides(scene4.sink)) {
-		scene4.startTimer("plunging");
+	if (this.catIsCollapsed == false) {
+		apt213.animations.get("cat-collapse").reset();
 	}
-	if (scene4.timer("plunging") > 0) {
-		landlord.sprite = landlordPlunger;
+
+	var landlordFlipped = false;
+
+	if (landlord.vx < 0) {
+		landlordFlipped = true;
+	} else if(landlord.vx > 0) {
+		landlordFlipped = false;
+	}
+
+	if (landlordFlipped) {
+		landlord.sprite = apt213.animations.get("landlord-walk-flipped");
+	} else {
+		landlord.sprite = apt213.animations.get("landlord-walk");
+	}
+
+	var r2 = 250*250;
+
+	if (distanceFromCenters(landlord, cat) < r2) {
+		this.catIsCollapsed = true;
+	}
+
+	if (this.timer("plunging") === undefined && !this.plunged && landlord.collides(this.sink)) {
+		this.startTimer("plunging");
+	}
+	if (this.timer("plunging") > 0) {
+		landlord.sprite = apt213.animations.get("landlord-plunger");
 		landlord.x = landlord.lastX;
 		landlord.y = landlord.lastY;
 		landlord.vx = 0;
 		landlord.vy = 0;
-		onlyRepeatEvery(scene4, "plunging-noise", 750, function() {
+		onlyRepeatEvery(this, "plunging-noise", 750, function() {
 			apt213.sounds.play("plunger");
 		});
 	}
-	if (scene4.timer("plunging") > 4000) {
-		landlord.sprite = landlordWalkFlipped;
+	if (this.timer("plunging") > 4000) {
+		landlord.sprite = apt213.animations.get("landlord-walk-flipped");
 		landlord.vx = -0.001;
 		landlordFlipped = true;
-		scene4.plunged = true;
-		scene4.stopTimer("plunging");
+		this.plunged = true;
+		this.stopTimer("plunging");
 		sink.sprite = apt213.images.get("sink-clean");
 		sink.y -= 36;
 	}
 
-	if (landlord.collides(scene4.goal) && scene4.plunged) {
-		scene4.stop();
-		setupCredits();
-		credits.start();
+	if (landlord.collides(this.goal) && this.plunged) {
+		apt213.scenes.switchTo("credits");
 		return;
 	}
 },
 function(context) {
-	drawBackground(scene4, context);
+	drawBackground(this, context);
 
 	var toDraw = furniture.slice();
 	toDraw.push(owl);
 	toDraw.push(cat);
 	toDraw.push(landlord);
-	toDraw.push(scene4.sink);
-	toDraw.push(scene4.goal);
+	toDraw.push(this.sink);
+	toDraw.push(this.goal);
 	drawEntities(context, toDraw);
-});
+}));
 
 //**************** CREDITS *****************************************
 //**************** CREDITS *****************************************
 //**************** CREDITS *****************************************
 //**************** CREDITS *****************************************
-function setupCredits() {
+apt213.scenes.add("credits", new Splat.Scene(canvas, function() {
 	apt213.sounds.play("screen-music", true);
-}
-
-credits = new Splat.Scene(canvas, function(elapsedMillis) {
+},
+function(elapsedMillis) {
 },
 function(context) {
-	credits.camera.drawAbsolute(context, function() {
+	this.camera.drawAbsolute(context, function() {
 		context.fillStyle = "#000000";
 		context.fillRect(0, 0, canvas.width, canvas.height);
 		context.fillStyle = "#ffffff";
@@ -1045,7 +964,9 @@ function(context) {
 		context.fillText("Mattie Richards", 0, 350);
 		context.fillText("@mintchipleaf", 500, 350);
 		context.fillText("Music- Devin Magruder", 0, 400);
-		context.fillText("Thank You For Playing!", 0, 500);		
-		context.fillText("Be sure to let us know what you thought!", 0, 550);	
+		context.fillText("Thank You For Playing!", 0, 500);
+		context.fillText("Be sure to let us know what you thought!", 0, 550);
 	});
-});
+}));
+
+apt213.scenes.switchTo("loading");

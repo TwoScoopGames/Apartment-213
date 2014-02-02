@@ -49,8 +49,79 @@ var Splat = (function(splat, window, document) {
 		return a;
 	}
 
+	function loadImagesFromManifest(imageLoader, manifest) {
+		for (var key in manifest) {
+			if (manifest.hasOwnProperty(key)) {
+				var info = manifest[key];
+				if (info.strip !== undefined) {
+					imageLoader.load(key, info.strip);
+				} else if (info.prefix !== undefined) {
+					for (var i = 1; i <= info.frames; i++) {
+						var number = "" + i;
+						if (info.padNumberTo > 1) {
+							while (number.length < info.padNumberTo) {
+								number = "0" + number;
+							}
+						}
+						var name = info.prefix + number + info.suffix;
+						imageLoader.load(key + i, name);
+					}
+				}
+			}
+		}
+	}
+	function AnimationLoader(imageLoader, manifest) {
+		this.imageLoader = imageLoader;
+		this.manifest = manifest;
+		loadImagesFromManifest(imageLoader, manifest);
+	}
+	function makeAnimationFromManifest(images, key, manifestEntry) {
+		var animation;
+		if (manifestEntry.strip !== undefined) {
+			var strip = images.get(key);
+			animation = makeAnimation(strip, manifestEntry.frames, manifestEntry.msPerFrame);
+		} else if (manifestEntry.prefix !== undefined) {
+			animation = new Animation();
+			for (var i = 1; i <= manifestEntry.frames; i++) {
+				var frame = images.get(key + i);
+				animation.add(frame, manifestEntry.msPerFrame);
+			}
+		}
+		if (manifestEntry.repeatAt !== undefined) {
+			animation.repeatAt = manifestEntry.repeatAt;
+		}
+		return animation;
+	}
+	function generateAnimationsFromManifest(images, manifest) {
+		var animations = {};
+		for (var key in manifest) {
+			if (manifest.hasOwnProperty(key)) {
+				var info = manifest[key];
+				animations[key] = makeAnimationFromManifest(images, key, info);
+			}
+		}
+		return animations;
+	}
+	AnimationLoader.prototype.allLoaded = function() {
+		if (this.animations !== undefined) {
+			return true;
+		}
+		var loaded = this.imageLoader.allLoaded();
+		if (loaded) {
+			this.animations = generateAnimationsFromManifest(this.imageLoader, this.manifest);
+		}
+		return loaded;
+	};
+	AnimationLoader.prototype.get = function(name) {
+		var anim = this.animations[name];
+		if (anim === undefined) {
+			console.log("Unknown animation: " +  name);
+		}
+		return anim;
+	};
+
 	splat.Animation = Animation;
-	splat.makeAnimation = makeAnimation;
+	splat.AnimationLoader = AnimationLoader;
 	return splat;
 
 }(Splat || {}, window, document));

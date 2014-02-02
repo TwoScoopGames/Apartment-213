@@ -1,12 +1,13 @@
 var Splat = (function(splat, window) {
 
+	window.AudioContext = window.AudioContext || window.webkitAudioContext;
+
 	function SoundLoader() {
 		this.sounds = {};
 		this.totalSounds = 0;
 		this.loadedSounds = 0;
 		this.muted = false;
 
-		window.AudioContext = window.AudioContext || window.webkitAudioContext;
 		this.context = new AudioContext();
 	}
 	SoundLoader.prototype.load = function(name, path) {
@@ -32,7 +33,6 @@ var Splat = (function(splat, window) {
 				}
 
 			};
-			
 			window.addEventListener("click", firstTouchHandler);
 			window.addEventListener("keydown", firstTouchHandler);
 			window.addEventListener("touchstart", firstTouchHandler);
@@ -43,25 +43,28 @@ var Splat = (function(splat, window) {
 		var request = new XMLHttpRequest();
 		request.open("GET", path, true);
 		request.responseType = "arraybuffer";
-		request.onload = function() {
+		request.addEventListener("readystatechange", function() {
+			if (request.readyState != 4) {
+				return;
+			}
+			if (request.status !== 200 && request.status !== 0) {
+				console.log("Error loading sound " + path);
+				return;
+			}
 			that.context.decodeAudioData(request.response, function(buffer) {
 				that.sounds[name] = buffer;
 				that.loadedSounds++;
 			});
-		};
-		request.addEventListener("error", function(){
-			console.log("failed to load sound: "+path);
+		});
+		request.addEventListener("error", function() {
+			console.log("Error loading sound " + path);
 		});
 		request.send();
 	};
 	SoundLoader.prototype.allLoaded = function() {
 		return this.totalSounds == this.loadedSounds;
 	};
-	SoundLoader.prototype.play = function(name, loop) {
-		if(arguments.length < 2){
-			loop = false;
-		}
-		
+	SoundLoader.prototype.play = function(name) {
 		if (!this.firstPlay) {
 			// let the iOS user input workaround handle it
 			this.firstPlay = name;
@@ -70,15 +73,22 @@ var Splat = (function(splat, window) {
 		if (this.muted) {
 			return;
 		}
-		
 		var source = this.context.createBufferSource();
 		source.buffer = this.sounds[name];
-		source.loop = loop;
 		source.connect(this.context.destination);
 		source.start(0);
 	};
 
-	splat.SoundLoader = SoundLoader;
+	if (window.AudioContext) {
+		splat.SoundLoader = SoundLoader;
+	} else {
+		console.log("This browser doesn't support the Web Audio API");
+		splat.SoundLoader = function() { };
+		splat.SoundLoader.prototype.load = function() { };
+		splat.SoundLoader.prototype.allLoaded = function() { return true; };
+		splat.SoundLoader.prototype.play = function() { };
+	}
+
 	return splat;
 
 }(Splat || {}, window));

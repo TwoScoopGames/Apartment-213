@@ -9,7 +9,7 @@ var Splat = (function(splat, window, document) {
 		return stop - start;
 	}
 
-	function Scene(canvas, simulationFunc, drawFunc) {
+	function Scene(canvas, initFunc, simulationFunc, drawFunc) {
 		var context = canvas.getContext("2d");
 		var lastTimestamp = -1;
 		var running = false;
@@ -53,12 +53,12 @@ var Splat = (function(splat, window, document) {
 			lastTimestamp = timestamp;
 
 			incrementTimers(elapsedMillis);
-			simulationFunc(elapsedMillis);
+			simulationFunc.call(that, elapsedMillis);
 			that.camera.move(elapsedMillis);
 
 			context.save();
 			that.camera.draw(context);
-			drawFunc(context);
+			drawFunc.call(that, context);
 
 			if (that.showFrameRate) {
 				drawFrameRate(elapsedMillis);
@@ -73,11 +73,16 @@ var Splat = (function(splat, window, document) {
 
 		this.start = function() {
 			running = true;
+			initFunc.call(that);
 			window.requestAnimationFrame(mainLoop);
 		};
 
 		this.stop = function() {
 			running = false;
+		};
+
+		this.reset = function() {
+			initFunc.call(that);
 		};
 
 		this.startTimer = function(name) {
@@ -91,7 +96,7 @@ var Splat = (function(splat, window, document) {
 		};
 		this.timer = function(name) {
 			return timers[name];
-		}
+		};
 	}
 
 	splat.time = time;
