@@ -27,25 +27,6 @@ var manifest = {
 		"cat-collapse-08": "images/cat-lv4/catlv4-0008.png",
 		"cat-collapse-09": "images/cat-lv4/catlv4-0009.png",
 		"cat-collapse-10": "images/cat-lv4/catlv4-0010.png",
-		"landlord-door-01": "images/landlord-lv3/landlord0001.png",
-		"landlord-door-02": "images/landlord-lv3/landlord0002.png",
-		"landlord-door-03": "images/landlord-lv3/landlord0003.png",
-		"landlord-door-04": "images/landlord-lv3/landlord0004.png",
-		"landlord-door-05": "images/landlord-lv3/landlord0005.png",
-		"landlord-door-06": "images/landlord-lv3/landlord0006.png",
-		"landlord-door-07": "images/landlord-lv3/landlord0007.png",
-		"landlord-door-08": "images/landlord-lv3/landlord0008.png",
-		"landlord-door-09": "images/landlord-lv3/landlord0009.png",
-		"landlord-door-10": "images/landlord-lv3/landlord0010.png",
-		"landlord-door-11": "images/landlord-lv3/landlord0011.png",
-		"landlord-door-12": "images/landlord-lv3/landlord0012.png",
-		"landlord-door-13": "images/landlord-lv3/landlord0013.png",
-		"landlord-door-14": "images/landlord-lv3/landlord0014.png",
-		"landlord-door-15": "images/landlord-lv3/landlord0015.png",
-		"landlord-door-16": "images/landlord-lv3/landlord0016.png",
-		"landlord-door-17": "images/landlord-lv3/landlord0017.png",
-		"landlord-door-18": "images/landlord-lv3/landlord0018.png",
-		"landlord-door-19": "images/landlord-lv3/landlord0019.png",
 		"sky": "images/parallax-sky.png",
 		"bathroom": "images/bathroom.png",
 		"bedroom": "images/bedroom.png",
@@ -110,6 +91,16 @@ var manifest = {
 			"frames": 5,
 			"msPerFrame": 100
 		},
+		"cat-attack": {
+			"strip": "images/cat-lv1-attack-2f.png",
+			"frames": 2,
+			"msPerFrame": 500
+		},
+		"cat-attack-flipped": {
+			"strip": "images/flipped/cat-lv1-attack-2f.png",
+			"frames": 2,
+			"msPerFrame": 500
+		},
 		"cat-walk-lv2": {
 			"strip": "images/cat-lv2-walk-5f.png",
 			"frames": 5,
@@ -119,6 +110,18 @@ var manifest = {
 			"strip": "images/flipped/cat-lv2-walk-5f.png",
 			"frames": 5,
 			"msPerFrame": 100
+		},
+		"cat-collapse": {
+			"strip": "images/catlv4-10f.png",
+			"frames": 10,
+			"msPerFrame": 200
+		},
+		"owl-sleep": {
+			"prefix": "images/owl-sleep/owl-sleep",
+			"suffix": ".png",
+			"padNumberTo": 4,
+			"frames": 20,
+			"msPerFrame": 50
 		},
 		"owl-walk": {
 			"strip": "images/owl-walk-24f.png",
@@ -131,9 +134,11 @@ var manifest = {
 			"msPerFrame": 100
 		},
 		"landlord-knock": {
-			"strip": "images/landlord-lv3.png",
+			"prefix": "images/landlord-lv3/landlord",
+			"suffix": ".png",
+			"padNumberTo": 4,
 			"frames": 19,
-			"msPerFrame": 25
+			"msPerFrame": 50
 		},
 		"landlord-walk": {
 			"strip": "images/landlord-lv4-anim.png",
@@ -145,20 +150,12 @@ var manifest = {
 			"frames": 25,
 			"msPerFrame": 25
 		},
-		"cat-attack": {
-			"strip": "images/cat-lv1-attack-2f.png",
-			"frames": 2,
-			"msPerFrame": 500
-		},
-		"cat-attack-flipped": {
-			"strip": "images/flipped/cat-lv1-attack-2f.png",
-			"frames": 2,
-			"msPerFrame": 500
-		},
-		"cat-collapse": {
-			"strip": "images/catlv4-10f.png",
-			"frames": 10,
-			"msPerFrame": 200
+		"landlord-plunger": {
+			"prefix": "images/landlord-plunger/landlord-plunger",
+			"suffix": ".png",
+			"padNumberTo": 4,
+			"frames": 15,
+			"msPerFrame": 50
 		},
 		"sink": {
 			"strip": "images/brokensink-2f.png",
@@ -174,20 +171,6 @@ var manifest = {
 			"strip": "images/knock-2f.png",
 			"frames": 2,
 			"msPerFrame": 100
-		},
-		"owl-sleep": {
-			"prefix": "images/owl-sleep/owl-sleep",
-			"suffix": ".png",
-			"padNumberTo": 4,
-			"frames": 20,
-			"msPerFrame": 50
-		},
-		"landlord-plunger": {
-			"prefix": "images/landlord-plunger/landlord-plunger",
-			"suffix": ".png",
-			"padNumberTo": 4,
-			"frames": 15,
-			"msPerFrame": 50
 		},
 	}
 };
@@ -756,7 +739,7 @@ function(context) {
 //**************** SCENE 3 *****************************************
 //**************** SCENE 3 *****************************************
 apt213.scenes.add("level-3", new Splat.Scene(canvas, function() {
-	landlord = new Splat.AnimatedEntity(446, 528, 80, 20, apt213.animations.get("landlord-knock"), -40, -283);
+	landlord = new Splat.AnimatedEntity(350, 500, 80, 20, apt213.animations.get("landlord-knock"), -40, -283);
 	landlord.frictionX = 0.5;
 	landlord.frictionY = 0.75;
 	this.camera = new Splat.EntityBoxCamera(owl, 400, canvas.height, canvas.width/2, canvas.height/2);
