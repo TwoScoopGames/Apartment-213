@@ -17,16 +17,6 @@ var manifest = {
 		"door-frame-front": "images/doorframe-front.png",
 		"door-open": "images/door-open.png",
 		"door-closed": "images/door-closed.png",
-		"cat-collapse-01": "images/cat-lv4/catlv4-0001.png",
-		"cat-collapse-02": "images/cat-lv4/catlv4-0002.png",
-		"cat-collapse-03": "images/cat-lv4/catlv4-0003.png",
-		"cat-collapse-04": "images/cat-lv4/catlv4-0004.png",
-		"cat-collapse-05": "images/cat-lv4/catlv4-0005.png",
-		"cat-collapse-06": "images/cat-lv4/catlv4-0006.png",
-		"cat-collapse-07": "images/cat-lv4/catlv4-0007.png",
-		"cat-collapse-08": "images/cat-lv4/catlv4-0008.png",
-		"cat-collapse-09": "images/cat-lv4/catlv4-0009.png",
-		"cat-collapse-10": "images/cat-lv4/catlv4-0010.png",
 		"sky": "images/parallax-sky.png",
 		"bathroom": "images/bathroom.png",
 		"bedroom": "images/bedroom.png",
@@ -112,9 +102,12 @@ var manifest = {
 			"msPerFrame": 100
 		},
 		"cat-collapse": {
-			"strip": "images/catlv4-10f.png",
+			"prefix": "images/cat-lv4/catlv4-",
+			"suffix": ".png",
+			"padNumberTo": 4,
 			"frames": 10,
-			"msPerFrame": 200
+			"msPerFrame": 50,
+			"repeatAt": 9
 		},
 		"owl-sleep": {
 			"prefix": "images/owl-sleep/owl-sleep",
@@ -841,10 +834,13 @@ apt213.scenes.add("level-4", new Splat.Scene(canvas, function() {
 	this.sink = new Splat.Entity(3850, 476, 80, 10);
 	this.goal = new Splat.Entity(317, 473, 226, 154);
 	cat.sprite = apt213.animations.get("cat-collapse");
+	cat.vx = 0;
+	cat.vy = 0;
+	cat.x = 3320;
+	cat.y = 505;
 	furniture.splice(furniture.indexOf(door), 1);
 	door = new Splat.AnimatedEntity(650, 473, 130, 27, apt213.images.get("door-open"), 0, -243);
 	furniture.push(door);
-	this.catIsCollapsed = false;
 	sink.sprite = apt213.animations.get("sink-dirty");
 	sink.x = 3737;
 	sink.y = 228;
@@ -856,10 +852,6 @@ function(elapsedMillis) {
 	if (!landlord.moved()) {
 		apt213.animations.get("landlord-walk").reset();
 		apt213.animations.get("landlord-walk-flipped").reset();
-	}
-
-	if (this.catIsCollapsed == false) {
-		apt213.animations.get("cat-collapse").reset();
 	}
 
 	var landlordFlipped = false;
@@ -876,10 +868,13 @@ function(elapsedMillis) {
 		landlord.sprite = apt213.animations.get("landlord-walk");
 	}
 
-	var r2 = 250*250;
-
+	cat.move(elapsedMillis);
+	var r2 = 250 * 250;
 	if (distanceFromCenters(landlord, cat) < r2) {
 		this.catIsCollapsed = true;
+	}
+	if (!this.catIsCollapsed) {
+		apt213.animations.get("cat-collapse").reset();
 	}
 
 	if (this.timer("plunging") === undefined && !this.plunged && landlord.collides(this.sink)) {
